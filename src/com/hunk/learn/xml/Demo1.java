@@ -1,4 +1,4 @@
-package com.hun.learn.xml;
+package com.hunk.learn.xml;
 
 import org.dom4j.Document;
 import org.dom4j.Element;
@@ -14,6 +14,7 @@ import java.util.Iterator;
  * Created by dell on 2015/7/29.
  */
 public class Demo1 {
+    private static final String path = "./src/com/hunk/learn/xml/contact.xml";
     /**
      * 得到文档信息
      * @throws Exception
@@ -21,7 +22,7 @@ public class Demo1 {
     @Test
     public void Test1() throws Exception{
         SAXReader read = new SAXReader() ;
-        Document doc = read.read(new File("./src/contact.xml"));
+        Document doc = read.read(new File(path));
         System.out.println(doc);
     }
 
@@ -32,7 +33,7 @@ public class Demo1 {
     @Test
     public void Test2() throws Exception{
         SAXReader read = new SAXReader() ;
-        Document doc = read.read(new File("./src/contact.xml"));
+        Document doc = read.read(new File(path));
 //        System.out.println(doc);
         Iterator<Node> it = doc.nodeIterator();
         while (it.hasNext()){
@@ -57,7 +58,7 @@ public class Demo1 {
     @Test
     public void Test3() throws Exception{
         SAXReader read = new SAXReader() ;
-        Document doc = read.read(new File("./src/contact.xml"));
+        Document doc = read.read(new File(path));
         Element rootElem = doc.getRootElement();
         getChindNotes(rootElem);
     }

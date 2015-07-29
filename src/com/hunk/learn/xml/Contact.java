@@ -1,4 +1,4 @@
-package com.hun.learn.xml;
+package com.hunk.learn.xml;
 
 /**
  * Created by dell on 2015/7/29.
