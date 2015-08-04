@@ -35,6 +35,13 @@ public class ListContactServlet extends HttpServlet {
         List<Contact> list = dao.findAll();
 
         // 2.显示到浏览器
+        // 把结果保存到域对象中
+        request.setAttribute("contacts",list);
+
+        // 3.跳转到jsp页面
+        request.getRequestDispatcher("/jsp/listContact.jsp").forward(request, response);
+
+        /*
         PrintWriter writer = response.getWriter();
         writer.println("<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>");
         writer.println("<html xmlns='http://www.w3.org/1999/xhtml'>");
@@ -43,11 +50,11 @@ public class ListContactServlet extends HttpServlet {
         writer.println("<title>查询所有联系人</title>");
         writer.println("<style type='text/css'>");
         writer.println("	table td{");
-        writer.println("		/*文字居中*/");
+        writer.println("		*//*文字居中*//*");
         writer.println("		text-align:center;");
         writer.println("	}");
         writer.println("	");
-        writer.println("	/*合并表格的边框*/");
+        writer.println("	*//*合并表格的边框*//*");
         writer.println("	table{");
         writer.println("		border-collapse:collapse;");
         writer.println("	}");
@@ -103,7 +110,7 @@ public class ListContactServlet extends HttpServlet {
         writer.println("</body>");
         writer.println("</html>");
 
-
+*/
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
