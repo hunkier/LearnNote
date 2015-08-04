@@ -68,6 +68,11 @@ public class ContactDaoImpl implements ContactDao {
          *  2）修改contact标签的内容
          */
         try {
+
+            deleteContact(contact.getId());
+            addContact(contact);
+
+            /*
             // 1.读取xml文件
             Document doc = XMLUtil.getDocument();
             // 2.查询需要删除id的contact
@@ -76,6 +81,7 @@ public class ContactDaoImpl implements ContactDao {
             enCode(contact,contactEle);
 
             XMLUtil.write(doc);
+            */
         }catch (Exception e){
             e.printStackTrace();
             throw new RuntimeException(e);
@@ -173,8 +179,9 @@ public class ContactDaoImpl implements ContactDao {
              * 由系统自动生成随机且唯一的ID值，赋值给联系人
              */
             String uuid = UUID.randomUUID().toString().replace("-","");
-            e.addAttribute("id",uuid);
+            c.setId(uuid);
         }
+        e.addAttribute("id",c.getId());
         e.addElement("name").setText(c.getName());
         e.addElement("gender").setText(c.getGender());
         e.addElement("age").setText(c.getAge() + "");

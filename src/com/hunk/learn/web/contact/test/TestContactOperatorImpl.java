@@ -27,7 +27,7 @@ public class TestContactOperatorImpl {
     public void testAddContact(){
         Contact contact = new Contact();
         contact.setName("zhangsan");
-        contact.setGender("man");
+        contact.setGender("男");
         contact.setAge(20);
         contact.setPhone("13888888888");
         contact.setEmail("hunk@qq.com");
@@ -52,15 +52,17 @@ public class TestContactOperatorImpl {
     @Test
     public void testUpdate(){
         Contact c = operator.findById("6b92e6ecd11e4169b98e5465abdb4afe");
-       c.setQq("325256234");
+//       c.setQq("325256234");
+        c.setGender("男");
         operator.updateContact(c);
         testFindById();
 
     }
 
+    @Test
     public void testDeleteContact(){
         testFindAll();
-        operator.deleteContact("6b92e6ecd11e4169b98e5465abdb4afe");
+        operator.deleteContact("dafdc7721e1c497d9950ff8d87dea3a6");
 
     }
 }
