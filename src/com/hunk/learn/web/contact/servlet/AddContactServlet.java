@@ -58,6 +58,7 @@ public class AddContactServlet extends HttpServlet {
         }catch (NameRepeatException e){
             // 处理自定义业务异常
             request.setAttribute("msg",e.getMessage());
+            request.setAttribute("contact", contact);
             request.getRequestDispatcher("/jsp/addContact.jsp").forward(request, response);
             return;
         }

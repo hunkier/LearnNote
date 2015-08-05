@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" import="java.util.*" pageEncoding="UTF-8" %>
 <%@ page import="com.hunk.learn.web.contact.entity.Contact" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
@@ -27,15 +28,18 @@
 <body>
 <center><h3>修改联系人</h3></center>
 <form action="UpdateContactServlet" method="post">
-    <input type="hidden" name="id" value="<%=contact.getId()%>"/>
+    <input type="hidden" name="id" value="${contact.id}"/>
     <table align="center" border="1" width="300px">
         <tr>
             <th>姓名</th>
-            <td><input type="text" name="name" value="<%=contact.getName()%>"/></td>
+            <td><input type="text" name="name" value="${contact.name}"/></td>
         </tr>
         <tr>
             <th>性别</th>
             <td>
+                <input type="radio" name="gender" value="男" <c:if test="${contact.gender == '男'}" > checked="checked" </c:if>/>男
+                <input type="radio" name="gender" value="女" <c:if test="${contact.gender == '女'}" > checked="checked" </c:if> />女
+            <%--
                 <%
                     if ("男".equals(contact.getGender())){
                 %>
@@ -51,23 +55,24 @@
                 <%
                     }
                 %>
+                --%>
             </td>
         </tr>
         <tr>
             <th>年龄</th>
-            <td><input type="text" name="age" value="<%=contact.getAge()%>"/></td>
+            <td><input type="text" name="age" value="${contact.age}"/></td>
         </tr>
         <tr>
             <th>电话</th>
-            <td><input type="text" name="phone" value="<%=contact.getPhone()%>"/></td>
+            <td><input type="text" name="phone" value="${contact.phone}"/></td>
         </tr>
         <tr>
             <th>邮箱</th>
-            <td><input type="text" name="email" value="<%=contact.getEmail()%>"/></td>
+            <td><input type="text" name="email" value="${contact.email}"/></td>
         </tr>
         <tr>
             <th>QQ</th>
-            <td><input type="text" name="qq" value="<%=contact.getQq()%>"/></td>
+            <td><input type="text" name="qq" value="${contact.qq}"/></td>
         </tr>
         <tr>
             <td colspan="2" align="center">

@@ -1,34 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5ddd4158-b73e-4932-91a6-9180cb341a36" name="Default" comment="jsp&amp;EL表达式">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/lib/javax.servlet.jsp.jstl.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/lib/jstl-impl-1.2.2.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/hunk/learn/web/contact/service/ContactService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/hunk/learn/web/contact/service/impl/ContactServiceImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/hunk/learn/web/contact/exception/NameRepeatException.java" />
-      <change type="DELETED" beforePath="D:\ide\idea\javaWeb\JavaEE\.idea\.name" afterPath="" />
-      <change type="DELETED" beforePath="D:\ide\idea\javaWeb\JavaEE\.idea\artifacts\JavaEE_war_exploded.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\ide\idea\javaWeb\JavaEE\.idea\compiler.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\ide\idea\javaWeb\JavaEE\.idea\copyright\profiles_settings.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\ide\idea\javaWeb\JavaEE\.idea\encodings.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\ide\idea\javaWeb\JavaEE\.idea\misc.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\ide\idea\javaWeb\JavaEE\.idea\modules.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\ide\idea\javaWeb\JavaEE\.idea\uiDesigner.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\ide\idea\javaWeb\JavaEE\.idea\vcs.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\ide\idea\javaWeb\JavaEE\.idea\workspace.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.classpath" afterPath="$PROJECT_DIR$/.classpath" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+    <list default="true" id="5ddd4158-b73e-4932-91a6-9180cb341a36" name="Default" comment="add jstl jar">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/tag/01.hellotag.jsp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/tag/02.demotag.jsp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/tag/03.login.jsp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/tag/04.if.jsp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/tag/05.choose.jsp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/tag/06.foreach.jsp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/tag/07.javabean.jsp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/hunk/learn/tag/ChooseTag.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/hunk/learn/tag/DemoTag.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/hunk/learn/tag/ForEachTag.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/hunk/learn/tag/IfTag.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/hunk/learn/tag/LoginTag.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/hunk/learn/tag/OtherwiseTag.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/hunk/learn/tag/ShowIpTag.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/hunk/learn/tag/Student.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/hunk/learn/tag/WhenTag.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/hunk.tld" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hunk/learn/web/contact/servlet/AddContactServlet.java" afterPath="$PROJECT_DIR$/src/com/hunk/learn/web/contact/servlet/AddContactServlet.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hunk/learn/web/contact/dao/ContactDao.java" afterPath="$PROJECT_DIR$/src/com/hunk/learn/web/contact/dao/ContactDao.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hunk/learn/web/contact/dao/Impl/ContactDaoImpl.java" afterPath="$PROJECT_DIR$/src/com/hunk/learn/web/contact/dao/Impl/ContactDaoImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hunk/learn/web/contact/servlet/DeleteContactServlet.java" afterPath="$PROJECT_DIR$/src/com/hunk/learn/web/contact/servlet/DeleteContactServlet.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hunk/learn/web/contact/servlet/ListContactServlet.java" afterPath="$PROJECT_DIR$/src/com/hunk/learn/web/contact/servlet/ListContactServlet.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hunk/learn/web/contact/servlet/QueryContactServlet.java" afterPath="$PROJECT_DIR$/src/com/hunk/learn/web/contact/servlet/QueryContactServlet.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hunk/learn/web/contact/servlet/UpdateContactServlet.java" afterPath="$PROJECT_DIR$/src/com/hunk/learn/web/contact/servlet/UpdateContactServlet.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hunk/learn/web/contact/util/XMLUtil.java" afterPath="$PROJECT_DIR$/src/com/hunk/learn/web/contact/util/XMLUtil.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/jsp/addContact.jsp" afterPath="$PROJECT_DIR$/web/jsp/addContact.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/jsp/listContact.jsp" afterPath="$PROJECT_DIR$/web/jsp/listContact.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/jsp/modifContact.jsp" afterPath="$PROJECT_DIR$/web/jsp/modifContact.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="JavaEE.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -50,85 +44,14 @@
     <favorites_list name="JavaEE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="addContact.jsp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/jsp/addContact.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.806452">
-              <caret line="14" column="31" selection-start-line="14" selection-start-column="4" selection-end-line="14" selection-end-column="31" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="XMLUtil.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/hunk/learn/web/contact/util/XMLUtil.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="20" column="14" selection-start-line="20" selection-start-column="14" selection-end-line="20" selection-end-column="14" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.05945946">
-              <caret line="1" column="8" selection-start-line="1" selection-start-column="8" selection-end-line="1" selection-end-column="8" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TestContactOperatorImpl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/hunk/learn/web/contact/test/TestContactOperatorImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="22" column="31" selection-start-line="22" selection-start-column="31" selection-end-line="22" selection-end-column="31" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ContactDaoImpl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/hunk/learn/web/contact/dao/Impl/ContactDaoImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="36" column="19" selection-start-line="36" selection-start-column="16" selection-end-line="37" selection-end-column="57" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="listContact.jsp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/jsp/listContact.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.2580647">
-              <caret line="6" column="4" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="4" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ListContactServlet.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/hunk/learn/web/contact/servlet/ListContactServlet.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="26" column="13" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Jsp File" />
         <option value="Interface" />
         <option value="Class" />
+        <option value="Jsp File" />
       </list>
     </option>
   </component>
@@ -151,23 +74,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/com/hunk/learn/session/HttpServlet.java" />
-        <option value="$PROJECT_DIR$/web/text.jsp" />
-        <option value="$PROJECT_DIR$/src/com/hunk/learn/session/HistServlet.java" />
-        <option value="$PROJECT_DIR$/web/my.jsp" />
-        <option value="$PROJECT_DIR$/src/com/hunk/learn/session/SessionDemo1.java" />
-        <option value="$PROJECT_DIR$/src/com/hunk/learn/session/SessionDemo2.java" />
-        <option value="$PROJECT_DIR$/src/com/hunk/learn/session/DeleteSession.java" />
-        <option value="$PROJECT_DIR$/src/com/hunk/learn/session/history/entity/Product.java" />
-        <option value="$PROJECT_DIR$/src/com/hunk/learn/session/history/Dao/ProductDao.java" />
-        <option value="$PROJECT_DIR$/src/com/hunk/learn/session/history/servlet/ListServlet.java" />
-        <option value="$PROJECT_DIR$/src/com/hunk/learn/servlet/ResourseceDemo.java" />
-        <option value="$PROJECT_DIR$/src/com/hunk/learn/session/history/servlet/DetailServlet.java" />
-        <option value="$PROJECT_DIR$/web/jsp/第一个jsp页面.jsp" />
-        <option value="$PROJECT_DIR$/web/jsp/02.script.jsp" />
-        <option value="$PROJECT_DIR$/web/jsp/common/hearder.jsp" />
-        <option value="$PROJECT_DIR$/web/jsp/index.jsp" />
-        <option value="$PROJECT_DIR$/web/jsp/03.index.jsp" />
         <option value="$PROJECT_DIR$/web/jsp/04.page.jsp" />
         <option value="$PROJECT_DIR$/web/session/login.jsp" />
         <option value="$PROJECT_DIR$/src/com/hunk/learn/session/login/IndexServlet.java" />
@@ -178,7 +84,6 @@
         <option value="$PROJECT_DIR$/src/com/hunk/learn/web/contact/entity/ContactDao.java" />
         <option value="$PROJECT_DIR$/web/WEB-INF/web.xml" />
         <option value="$PROJECT_DIR$/web/jsp/common/modifContact.jsp" />
-        <option value="$PROJECT_DIR$/web/jsp/modifContact.jsp" />
         <option value="$PROJECT_DIR$/src/com/hunk/learn/web/contact/test/TestContactOperatorImpl.java" />
         <option value="$PROJECT_DIR$/out/artifacts/JavaEE_war_exploded/WEB-INF/classes/com/hunk/learn/web/contact/contact.xml" />
         <option value="$PROJECT_DIR$/web/el/01.page.jsp" />
@@ -192,16 +97,34 @@
         <option value="$PROJECT_DIR$/src/com/hunk/learn/web/contact/dao/ContactDao.java" />
         <option value="$PROJECT_DIR$/src/com/hunk/learn/web/contact/service/ContactService.java" />
         <option value="$PROJECT_DIR$/src/com/hunk/learn/web/contact/service/impl/ContactServiceImpl.java" />
-        <option value="$PROJECT_DIR$/src/com/hunk/learn/web/contact/servlet/AddContactServlet.java" />
         <option value="$PROJECT_DIR$/src/com/hunk/learn/web/contact/servlet/ListContactServlet.java" />
         <option value="$PROJECT_DIR$/src/com/hunk/learn/web/contact/servlet/DeleteContactServlet.java" />
         <option value="$PROJECT_DIR$/src/com/hunk/learn/web/contact/servlet/QueryContactServlet.java" />
         <option value="$PROJECT_DIR$/src/com/hunk/learn/web/contact/servlet/UpdateContactServlet.java" />
-        <option value="$PROJECT_DIR$/web/jsp/addContact.jsp" />
         <option value="$PROJECT_DIR$/web/jsp/listContact.jsp" />
         <option value="$PROJECT_DIR$/src/com/hunk/learn/web/contact/dao/Impl/ContactDaoImpl.java" />
         <option value="$PROJECT_DIR$/src/com/hunk/learn/web/contact/util/XMLUtil.java" />
         <option value="$PROJECT_DIR$/web/WEB-INF/classes/contact.xml" />
+        <option value="$PROJECT_DIR$/web/jsp/modifContact.jsp" />
+        <option value="$PROJECT_DIR$/src/com/hunk/learn/web/contact/servlet/AddContactServlet.java" />
+        <option value="$PROJECT_DIR$/web/jsp/addContact.jsp" />
+        <option value="$PROJECT_DIR$/web/tag/02.demotag.jsp" />
+        <option value="$PROJECT_DIR$/src/com/hunk/learn/tag/DemoTag.java" />
+        <option value="$PROJECT_DIR$/src/com/hunk/learn/tag/ShowIpTag.java" />
+        <option value="$PROJECT_DIR$/web/tag/01.hellotag.jsp" />
+        <option value="$PROJECT_DIR$/web/tag/03.login.jsp" />
+        <option value="$PROJECT_DIR$/src/com/hunk/learn/tag/LoginTag.java" />
+        <option value="$PROJECT_DIR$/src/com/hunk/learn/tag/IfTag.java" />
+        <option value="$PROJECT_DIR$/web/tag/04.if.jsp" />
+        <option value="$PROJECT_DIR$/src/com/hunk/learn/tag/ChooseTag.java" />
+        <option value="$PROJECT_DIR$/src/com/hunk/learn/tag/WhenTag.java" />
+        <option value="$PROJECT_DIR$/src/com/hunk/learn/tag/OtherwiseTag.java" />
+        <option value="$PROJECT_DIR$/web/tag/05.choose.jsp" />
+        <option value="$PROJECT_DIR$/src/com/hunk/learn/tag/Student.java" />
+        <option value="$PROJECT_DIR$/web/WEB-INF/hunk.tld" />
+        <option value="$PROJECT_DIR$/src/com/hunk/learn/tag/ForEachTag.java" />
+        <option value="$PROJECT_DIR$/web/tag/06.foreach.jsp" />
+        <option value="$PROJECT_DIR$/web/tag/07.javabean.jsp" />
       </list>
     </option>
   </component>
@@ -227,8 +150,8 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="764" />
-    <option name="y" value="56" />
+    <option name="x" value="816" />
+    <option name="y" value="156" />
     <option name="width" value="1116" />
     <option name="height" value="821" />
   </component>
@@ -382,7 +305,61 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="WEB-INF" />
+              <option name="myItemId" value="tag" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="JavaEE" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="JavaEE" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="JavaEE" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="JavaEE" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="learn" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="JavaEE" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="JavaEE" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="learn" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tag" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -425,6 +402,9 @@
     </key>
   </component>
   <component name="RunManager" selected="Tomcat Server.Tomcat 8">
+    <configuration default="false" name="02.demotag.jsp" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:8080/JavaEE/tag/02.demotag.jsp">
+      <method />
+    </configuration>
     <configuration default="true" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" ALTERNATIVE_JRE_ENABLED="false">
       <deployment />
       <server-settings />
@@ -761,9 +741,15 @@
         </option>
       </method>
     </configuration>
-    <list size="1">
+    <list size="2">
       <item index="0" class="java.lang.String" itemvalue="Tomcat Server.Tomcat 8" />
+      <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.02.demotag.jsp" />
     </list>
+    <recent_temporary>
+      <list size="1">
+        <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.02.demotag.jsp" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
   <component name="SshConsoleOptionsProvider">
@@ -790,7 +776,7 @@
       <workItem from="1438570290359" duration="646000" />
       <workItem from="1438573029144" duration="18651000" />
       <workItem from="1438650885129" duration="20651000" />
-      <workItem from="1438736886242" duration="10257000" />
+      <workItem from="1438736886242" duration="22199000" />
     </task>
     <task id="LOCAL-00001" summary="learn xml day01.">
       <created>1438165541008</created>
@@ -846,11 +832,17 @@
       <option name="project" value="LOCAL" />
       <updated>1438684519937</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="add jstl jar">
+      <created>1438754552312</created>
+      <option name="number" value="00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1438754552312</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="93359000" />
+    <option name="totallyTimeSpent" value="105301000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -862,8 +854,8 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="764" y="56" width="1116" height="821" extended-state="0" />
-    <editor active="true" />
+    <frame x="816" y="156" width="1116" height="821" extended-state="0" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -873,7 +865,7 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3289855" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.42173913" sideWeight="0.49378532" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.42173913" sideWeight="0.49378532" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3289855" sideWeight="0.5073446" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.51076925" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32608697" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -913,7 +905,8 @@
     <MESSAGE value="learn xml day01." />
     <MESSAGE value="Cookie &amp; Session" />
     <MESSAGE value="jsp&amp;EL表达式" />
-    <option name="LAST_COMMIT_MESSAGE" value="jsp&amp;EL表达式" />
+    <MESSAGE value="add jstl jar" />
+    <option name="LAST_COMMIT_MESSAGE" value="add jstl jar" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -924,130 +917,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$PROJECT_DIR$/../../../web/apache-tomcat-8.0.24/lib/servlet-api.jar!/javax/servlet/annotation/WebServlet.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.785714">
-          <caret line="20" column="32" selection-start-line="20" selection-start-column="32" selection-end-line="20" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/hunk/learn/session/CookieDemo1.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="46" column="47" selection-start-line="46" selection-start-column="47" selection-end-line="46" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/hunk/learn/session/HistServlet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="16" column="31" selection-start-line="16" selection-start-column="20" selection-end-line="16" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/hunk/learn/servlet/HelloServlet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="22" column="1" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/hunk/learn/servlet/PathDemo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="15" column="7" selection-start-line="15" selection-start-column="7" selection-end-line="15" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/index.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6576087">
-          <caret line="11" column="52" selection-start-line="11" selection-start-column="52" selection-end-line="11" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/hunk/learn/session/SessionDemo1.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="35" column="44" selection-start-line="35" selection-start-column="44" selection-end-line="35" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/hunk/learn/session/SessionDemo2.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="11" column="3" selection-start-line="11" selection-start-column="3" selection-end-line="11" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/hunk/learn/session/DeleteSession.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="17" column="22" selection-start-line="17" selection-start-column="22" selection-end-line="17" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/hunk/learn/session/history/entity/Product.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.46596065">
-          <caret line="14" column="18" selection-start-line="14" selection-start-column="18" selection-end-line="14" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/hunk/learn/session/history/Dao/ProductDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="27" column="35" selection-start-line="27" selection-start-column="35" selection-end-line="27" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/hunk/learn/session/history/servlet/ListServlet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/hunk/learn/session/history/servlet/DetailServlet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="192" column="45" selection-start-line="192" selection-start-column="45" selection-end-line="192" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/jsp/01.hello.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.032258">
-          <caret line="15" column="31" selection-start-line="15" selection-start-column="31" selection-end-line="15" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/jsp/02.script.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.258064">
-          <caret line="72" column="3" selection-start-line="72" selection-start-column="3" selection-end-line="72" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/jsp/common/hearder.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.677419">
-          <caret line="8" column="11" selection-start-line="8" selection-start-column="11" selection-end-line="8" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/jsp/03.index.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.064516">
-          <caret line="17" column="6" selection-start-line="17" selection-start-column="6" selection-end-line="17" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/jsp/04.page.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.526087">
@@ -1068,6 +937,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-14.129032">
           <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1156,14 +1026,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/jsp/modifContact.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.032258">
-          <caret line="46" column="18" selection-start-line="46" selection-start-column="18" selection-end-line="46" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/el/01.page.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-6.645161">
@@ -1247,16 +1109,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/hunk/learn/web/contact/servlet/AddContactServlet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="29" column="5" selection-start-line="23" selection-start-column="0" selection-end-line="29" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/hunk/learn/web/contact/servlet/DeleteContactServlet.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1285,14 +1137,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="26" column="13" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/jsp/addContact.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.806452">
-          <caret line="14" column="31" selection-start-line="14" selection-start-column="4" selection-end-line="14" selection-end-column="31" />
           <folding />
         </state>
       </provider>
@@ -1337,18 +1181,234 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/hunk/learn/web/contact/util/XMLUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="20" column="14" selection-start-line="20" selection-start-column="14" selection-end-line="20" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.05945946">
           <caret line="1" column="8" selection-start-line="1" selection-start-column="8" selection-end-line="1" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hunk/learn/web/contact/util/XMLUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="14" column="3" selection-start-line="14" selection-start-column="3" selection-end-line="14" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/web/WEB-INF/lib/jstl-impl-1.2.2.jar!/META-INF/c.tld">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/jsp/modifContact.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.387097">
+          <caret line="9" column="62" selection-start-line="9" selection-start-column="62" selection-end-line="9" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/jsp/addContact.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="3.548387">
+          <caret line="19" column="31" selection-start-line="19" selection-start-column="31" selection-end-line="19" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hunk/learn/web/contact/servlet/AddContactServlet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="59" column="55" selection-start-line="59" selection-start-column="55" selection-end-line="59" selection-end-column="55" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/tag/02.demotag.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.387097">
+          <caret line="18" column="6" selection-start-line="18" selection-start-column="6" selection-end-line="18" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hunk/learn/tag/DemoTag.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#517#518#0" expanded="true" />
+            <element signature="e#547#548#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hunk/learn/tag/ShowIpTag.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="18" column="7" selection-start-line="18" selection-start-column="7" selection-end-line="18" selection-end-column="7" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hunk/learn/tag/OtherwiseTag.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.22702703">
+          <caret line="7" column="31" selection-start-line="7" selection-start-column="31" selection-end-line="7" selection-end-column="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hunk/learn/tag/WhenTag.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5837838">
+          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#300#301#0" expanded="true" />
+            <element signature="e#332#333#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hunk/learn/tag/ChooseTag.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5945946">
+          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#312#313#0" expanded="true" />
+            <element signature="e#339#340#0" expanded="true" />
+            <element signature="e#380#381#0" expanded="true" />
+            <element signature="e#412#413#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/tag/04.if.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5457227">
+          <caret line="16" column="23" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hunk/learn/tag/IfTag.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5837838">
+          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#299#300#0" expanded="true" />
+            <element signature="e#331#332#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hunk/learn/tag/LoginTag.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.65405405">
+          <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#474#475#0" expanded="true" />
+            <element signature="e#514#515#0" expanded="true" />
+            <element signature="e#562#563#0" expanded="true" />
+            <element signature="e#602#603#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/tag/01.hellotag.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.51917404">
+          <caret line="26" column="17" selection-start-line="26" selection-start-column="17" selection-end-line="26" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/tag/03.login.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5457227">
+          <caret line="22" column="7" selection-start-line="22" selection-start-column="7" selection-end-line="22" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hunk/learn/tag/Student.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.41621622">
+          <caret line="7" column="20" selection-start-line="7" selection-start-column="20" selection-end-line="7" selection-end-column="20" />
+          <folding>
+            <element signature="e#297#298#0" expanded="true" />
+            <element signature="e#324#325#0" expanded="true" />
+            <element signature="e#364#365#0" expanded="true" />
+            <element signature="e#396#397#0" expanded="true" />
+            <element signature="e#423#424#0" expanded="true" />
+            <element signature="e#449#450#0" expanded="true" />
+            <element signature="e#484#485#0" expanded="true" />
+            <element signature="e#514#515#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/tag/05.choose.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.4690266">
+          <caret line="24" column="23" selection-start-line="24" selection-start-column="23" selection-end-line="24" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/hunk.tld">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="94" column="28" selection-start-line="94" selection-start-column="28" selection-end-line="94" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hunk/learn/tag/ForEachTag.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.9621621">
+          <caret line="36" column="9" selection-start-line="36" selection-start-column="9" selection-end-line="36" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#413#414#0" expanded="true" />
+            <element signature="e#447#448#0" expanded="true" />
+            <element signature="e#485#486#0" expanded="true" />
+            <element signature="e#515#516#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/tag/06.foreach.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.2903225">
+          <caret line="38" column="44" selection-start-line="38" selection-start-column="44" selection-end-line="38" selection-end-column="44" />
+          <folding>
+            <element signature="e#669#678#0#JAVA" expanded="true" />
+            <element signature="e#908#925#0#JAVA" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/tag/07.javabean.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.48082596">
+          <caret line="27" column="58" selection-start-line="27" selection-start-column="58" selection-end-line="27" selection-end-column="58" />
           <folding />
         </state>
       </provider>
