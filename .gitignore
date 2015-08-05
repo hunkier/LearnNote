@@ -1,6 +1,4 @@
 /out/
 /target/
-/web/WEB-INF/classes/*
-.idea
 /.idea
 /web/WEB-INF/classes
