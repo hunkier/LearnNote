@@ -124,6 +124,9 @@ public class ContactDaoImpl implements ContactDao {
             // 2.创建List对象
             List<Contact> list = new ArrayList<Contact>();
             // 3.读取contact标签
+            if (!doc.hasContent()){
+                return  list ;
+            }
             List<Element> conList = ((List<Element>) doc.selectNodes("//contact"));
             for (Element e : conList) {
                 // 创建Contact对象
@@ -191,6 +194,17 @@ public class ContactDaoImpl implements ContactDao {
 
     }
 
-
-
+    /**
+     * 根据姓名查询是否重复
+     *
+     * @param name
+     * @return true:重复<br/> false:不重复
+     */
+    @Override
+    public boolean checkContact(String name) {
+        // 查询name标签的内容和传入的那么值是否一致？
+        Document doc = XMLUtil.getDocument();
+        Element nameEle = (Element) doc.selectSingleNode("//name[text()='"+name+"']");
+        return  null != nameEle;
+    }
 }

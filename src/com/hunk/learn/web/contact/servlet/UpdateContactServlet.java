@@ -3,6 +3,8 @@ package com.hunk.learn.web.contact.servlet;
 import com.hunk.learn.web.contact.dao.ContactDao;
 import com.hunk.learn.web.contact.dao.Impl.ContactDaoImpl;
 import com.hunk.learn.web.contact.entity.Contact;
+import com.hunk.learn.web.contact.service.ContactService;
+import com.hunk.learn.web.contact.service.impl.ContactServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,10 +18,12 @@ import java.io.IOException;
  */
 @WebServlet(name = "UpdateContactServlet", urlPatterns = "/UpdateContactServlet")
 public class UpdateContactServlet extends HttpServlet {
-    private ContactDao dao ;
+    //    private ContactDao dao ;
+    private ContactService contactService;
     @Override
     public void init() throws ServletException {
-        dao = new ContactDaoImpl();
+//        dao = new ContactDaoImpl();
+        contactService = new ContactServiceImpl();
     }
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //设置编码
@@ -33,7 +37,8 @@ public class UpdateContactServlet extends HttpServlet {
         contact.setQq(request.getParameter("qq"));
         contact.setName(request.getParameter("name"));
         contact.setAge(Integer.parseInt(request.getParameter("age")));
-        dao.updateContact(contact);
+//        dao.updateContact(contact);
+        contactService.updateContact(contact);
         response.sendRedirect(request.getContextPath() + "/ListContactServlet");
     }
 

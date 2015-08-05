@@ -4,6 +4,9 @@ package com.hunk.learn.web.contact.servlet;
 import com.hunk.learn.web.contact.dao.ContactDao;
 import com.hunk.learn.web.contact.dao.Impl.ContactDaoImpl;
 import com.hunk.learn.web.contact.entity.Contact;
+import com.hunk.learn.web.contact.exception.NameRepeatException;
+import com.hunk.learn.web.contact.service.ContactService;
+import com.hunk.learn.web.contact.service.impl.ContactServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,10 +21,12 @@ import java.io.IOException;
  */
 @WebServlet(name = "AddContactServlet", urlPatterns = "/AddContactServlet")
 public class AddContactServlet extends HttpServlet {
-    private ContactDao dao ;
+//    private ContactDao dao ;
+    private ContactService contactService;
     @Override
     public void init() throws ServletException {
-        dao = new ContactDaoImpl();
+//        dao = new ContactDaoImpl();
+        contactService = new ContactServiceImpl();
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -47,7 +52,15 @@ public class AddContactServlet extends HttpServlet {
         contact.setQq(qq);
 
         // 2.调用dao类的添加联系人方法
-        dao.addContact(contact);
+//        dao.addContact(contact);
+        try {
+            contactService.addContact(contact);
+        }catch (NameRepeatException e){
+            // 处理自定义业务异常
+            request.setAttribute("msg",e.getMessage());
+            request.getRequestDispatcher("/jsp/addContact.jsp").forward(request, response);
+            return;
+        }
 
         // 3.跳转到查询联系人的页面
         response.sendRedirect(request.getContextPath() + "/ListContactServlet");

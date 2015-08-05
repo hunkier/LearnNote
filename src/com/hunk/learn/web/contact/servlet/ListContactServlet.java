@@ -3,6 +3,8 @@ package com.hunk.learn.web.contact.servlet;
 import com.hunk.learn.web.contact.dao.ContactDao;
 import com.hunk.learn.web.contact.dao.Impl.ContactDaoImpl;
 import com.hunk.learn.web.contact.entity.Contact;
+import com.hunk.learn.web.contact.service.ContactService;
+import com.hunk.learn.web.contact.service.impl.ContactServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,10 +22,12 @@ import java.util.List;
 @WebServlet(name = "ListContactServlet", urlPatterns = "/ListContactServlet")
 public class ListContactServlet extends HttpServlet {
 
-    private ContactDao dao ;
+    //    private ContactDao dao ;
+    private ContactService contactService;
     @Override
     public void init() throws ServletException {
-        dao = new ContactDaoImpl();
+//        dao = new ContactDaoImpl();
+        contactService = new ContactServiceImpl();
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -32,7 +36,8 @@ public class ListContactServlet extends HttpServlet {
         response.setCharacterEncoding("utf-8");
 
         // 1.从xml中读取联系人数据
-        List<Contact> list = dao.findAll();
+//        List<Contact> list = dao.findAll();
+        List<Contact> list = contactService.findAll();
 
         // 2.显示到浏览器
         // 把结果保存到域对象中

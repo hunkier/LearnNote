@@ -1,6 +1,7 @@
 package com.hunk.learn.web.contact.util;
 
 import org.dom4j.Document;
+import org.dom4j.DocumentHelper;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
@@ -13,7 +14,7 @@ import java.io.FileOutputStream;
  * Created by hunk on 2015/8/3.
  */
 public class XMLUtil {
-    public final static  String FILE_PATH = XMLUtil.class.getResource("/").getPath() +"com/hunk/learn/web/contact/contact.xml";
+    public final static  String FILE_PATH = XMLUtil.class.getResource("/").getPath() +"contact.xml";
 
     /**
      * 读取xml文档方法
@@ -21,8 +22,15 @@ public class XMLUtil {
      */
     public static Document getDocument(){
         try {
-            Document doc = new SAXReader().read(new File(FILE_PATH));
-            return  doc;
+            File file = new File(FILE_PATH);
+            if (!file.exists()){
+                //如果没有xml文件，则创建xml文件
+                Document document = DocumentHelper.createDocument();
+                // 创建根标签
+                document.addElement("contactList");
+                return document;
+            }
+            return new SAXReader().read(new File(FILE_PATH));
         }catch (Exception e){
             e.printStackTrace();
             throw new RuntimeException(e);

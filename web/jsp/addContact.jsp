@@ -17,11 +17,14 @@
 </head>
 <body>
 <center><h3>添加联系人</h3></center>
-<form action="AddContactServlet" method="post">
+<form action="${pageContext.request.contextPath}/AddContactServlet" method="post">
     <table align="center" border="1" width="300px">
         <tr>
             <th>姓名</th>
-            <td><input type="text" name="name"></td>
+            <td>
+                <input type="text" name="name">
+                <font color="red">${msg}</font>
+            </td>
         </tr>
         <tr>
             <th>性别</th>

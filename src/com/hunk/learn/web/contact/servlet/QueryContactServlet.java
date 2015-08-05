@@ -3,6 +3,8 @@ package com.hunk.learn.web.contact.servlet;
 import com.hunk.learn.web.contact.dao.ContactDao;
 import com.hunk.learn.web.contact.dao.Impl.ContactDaoImpl;
 import com.hunk.learn.web.contact.entity.Contact;
+import com.hunk.learn.web.contact.service.ContactService;
+import com.hunk.learn.web.contact.service.impl.ContactServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,10 +20,12 @@ import java.io.IOException;
  */
 @WebServlet(name = "QueryContactServlet", urlPatterns = "/QueryContactServlet")
 public class QueryContactServlet extends HttpServlet {
-    private ContactDao dao ;
+    //    private ContactDao dao ;
+    private ContactService contactService;
     @Override
     public void init() throws ServletException {
-        dao = new ContactDaoImpl();
+//        dao = new ContactDaoImpl();
+        contactService = new ContactServiceImpl();
     }
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //设置编码
@@ -32,7 +36,8 @@ public class QueryContactServlet extends HttpServlet {
         String id = request.getParameter("id");
 
         // 2.调用dao根据id查询联系人方法
-        Contact contact = dao.findById(id);
+//        Contact contact = dao.findById(id);
+        Contact contact = contactService.findById(id);
         HttpSession session = request.getSession(true);
         session.setAttribute("contact",contact);
         response.sendRedirect(request.getContextPath()+"/jsp/modifContact.jsp");

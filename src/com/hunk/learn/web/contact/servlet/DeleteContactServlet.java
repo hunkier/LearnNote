@@ -2,6 +2,8 @@ package com.hunk.learn.web.contact.servlet;
 
 import com.hunk.learn.web.contact.dao.ContactDao;
 import com.hunk.learn.web.contact.dao.Impl.ContactDaoImpl;
+import com.hunk.learn.web.contact.service.ContactService;
+import com.hunk.learn.web.contact.service.impl.ContactServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,16 +17,19 @@ import java.io.IOException;
  */
 @WebServlet(name = "DeleteContactServlet", urlPatterns = "/DeleteContactServlet")
 public class DeleteContactServlet extends HttpServlet {
-    private ContactDao dao ;
+    //    private ContactDao dao ;
+    private ContactService contactService;
     @Override
     public void init() throws ServletException {
-        dao = new ContactDaoImpl();
+//        dao = new ContactDaoImpl();
+        contactService = new ContactServiceImpl();
     }
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //设置编码
         request.setCharacterEncoding("utf-8");
         response.setCharacterEncoding("utf-8");
-        dao.deleteContact(request.getParameter("id"));
+//        dao.deleteContact(request.getParameter("id"));
+        contactService.deleteContact(request.getParameter("id"));
         response.sendRedirect(request.getContextPath() + "/ListContactServlet");
     }
 
