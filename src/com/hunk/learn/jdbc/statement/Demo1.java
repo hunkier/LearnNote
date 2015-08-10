@@ -1,5 +1,6 @@
 package com.hunk.learn.jdbc.statement;
 
+import com.hunk.learn.jdbc.DbUtil;
 import org.junit.Test;
 
 import java.sql.Connection;
@@ -29,7 +30,8 @@ public class Demo1 {
             // 1.驱动注册
             Class.forName("com.mysql.jdbc.Driver");
             // 2.获取连接对象
-            conn = DriverManager.getConnection(url,user,password);
+//            conn = DriverManager.getConnection(url,user,password);
+            conn = DbUtil.getConnection();
             // 3.创建Statement
             stmt = conn.createStatement();
             // 4.准备sql
@@ -50,16 +52,7 @@ public class Demo1 {
             e.printStackTrace();
             throw new RuntimeException(e);
         }finally {
-            // 7.关闭连接（顺序：后打开的先关闭）
-            if (null!=stmt){
-                try {
-                    stmt.close();
-                }catch (SQLException e){
-                    e.printStackTrace();
-                    throw  new RuntimeException(e);
-                }
-            }
-//            if ()
+            DbUtil.close(conn,stmt);
         }
 
     }

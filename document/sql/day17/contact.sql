@@ -1,32 +1,36 @@
 -- **************** day17 ************* --
-create database day17 default character set utf8;
-show create database day17;
-drop database day17;
-use day17;
+create database contactsys_web default character set utf8;
+show create database contactsys_web;
+drop database contactsys_web;
+use contactsys_web;
 show tables;
--- 创建学生表
-create table student(
-  id int primary key auto_increment,
+-- 创建联系人表
+create table contact(
+  id varchar(50) primary key,
   name varchar(20),
-  gender varchar(2)
+  gender varchar(2),
+  age int,
+  phone varchar(20),
+  email varchar(20),
+  qq varchar(20)
 );
 
 
-desc student;
+desc contact;
 
-drop table student;
+drop table contact;
 
 -- 插入记录
-insert into student (name,gender) values ('张三','男');
+insert into contact (name,gender) values ('张三','男');
 
 -- 查询
-select * from student;
+select * from contact;
 
 -- 更新
-update student set name='王五' where id=1;
+update contact set name='王五' where id=1;
 
 -- 删除
-delete from student where id=1;
+delete from contact where id=1;
 
 -- 模拟用户登录
 -- 用户表
@@ -62,13 +66,13 @@ select * from users where 1=1;
 delimiter $
 create procedure pro_findById(in sid int)
   begin
-    select * from student where id=sid;
+    select * from contact where id=sid;
     end $
 
 delimiter $
 create procedure pro_findById2(in sid int,out vname varchar(20))
   begin
-    select name into vname from student where id=sid;
+    select name into vname from contact where id=sid;
     end $
 
 

@@ -2,6 +2,7 @@ package com.hunk.learn.web.contact.service.impl;
 
 import com.hunk.learn.web.contact.dao.ContactDao;
 import com.hunk.learn.web.contact.dao.Impl.ContactDaoImpl;
+import com.hunk.learn.web.contact.dao.Impl.ContactDaoMySQLImpl;
 import com.hunk.learn.web.contact.entity.Contact;
 import com.hunk.learn.web.contact.exception.NameRepeatException;
 import com.hunk.learn.web.contact.service.ContactService;
@@ -14,7 +15,8 @@ import java.util.List;
  * Created by hunk on 2015/8/5.
  */
 public class ContactServiceImpl implements ContactService {
-    private ContactDao dao = new ContactDaoImpl();
+//    private ContactDao dao = new ContactDaoImpl();
+    private ContactDao dao = new ContactDaoMySQLImpl();
 
     /**
      * 添加联系人

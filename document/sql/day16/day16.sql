@@ -8,39 +8,39 @@ show tables;
 show create database day16;
 drop database day16;
 
--- ****************** Ò»¡¢Êı¾İÔ¼Êø ********************* --
--- 1.1 Ä¬ÈÏÖµ
+-- ****************** ä¸€ã€æ•°æ®çº¦æŸ ********************* --
+-- 1.1 é»˜è®¤å€¼
 create table student(
   id int,
   name varchar(20),
-  address varchar(50) default '¹ãÖİÌìºÓ'  -- Ä¬ÈÏÖµ
+  address varchar(50) default 'å¹¿å·å¤©æ²³'  -- é»˜è®¤å€¼
 );
 
--- µ±×Ö¶ÎÃ»ÓĞ²åÈëÖµµÄÊ±ºò£¬mysql×Ô¶¯¸ø¸Ã×Ö¶Î·ÖÅäÄ¬ÈÏÖµ
-insert into student (id,name) values (1,'ÕÅÈı');
--- ×¢Òâ£º Ä¬ÈÏÖµµÄ×Ö¶ÎÔÊĞíÎªnull
-insert into student(id,name,address) values(2,'ÀîËÄ',null),(3,'ÍõÎå','¹ãÖİ·¬Ø®');
+-- å½“å­—æ®µæ²¡æœ‰æ’å…¥å€¼çš„æ—¶å€™ï¼Œmysqlè‡ªåŠ¨ç»™è¯¥å­—æ®µåˆ†é…é»˜è®¤å€¼
+insert into student (id,name) values (1,'å¼ ä¸‰');
+-- æ³¨æ„ï¼š é»˜è®¤å€¼çš„å­—æ®µå…è®¸ä¸ºnull
+insert into student(id,name,address) values(2,'æå››',null),(3,'ç‹äº”','å¹¿å·ç•ªç¦º');
 
--- 1.2 ·Ç¿Õ
--- ĞèÇó£º gender×Ö¶Î±ØĞëÓĞÖµ£¨²»Îªnull£©
+-- 1.2 éç©º
+-- éœ€æ±‚ï¼š genderå­—æ®µå¿…é¡»æœ‰å€¼ï¼ˆä¸ä¸ºnullï¼‰
 create table student(
   id int,
   name varchar(20),
-  gender varchar(2) not null -- ·Ç¿Õ
+  gender varchar(2) not null -- éç©º
 );
 
--- ·Ç¿Õ×Ö¶Î±ØĞë¸³Öµ
-insert into student (id,name) value(1,'ÀîËÄ');
--- ·Ç¿Õ×Ö¶Î²»ÄÜ²åÈënull
-insert into student (id,name,gender) value (1,'ÀîËÄ',null);
-insert into student (id,name,gender) value (1,'ÀîËÄ','ÄĞ');
+-- éç©ºå­—æ®µå¿…é¡»èµ‹å€¼
+insert into student (id,name) value(1,'æå››');
+-- éç©ºå­—æ®µä¸èƒ½æ’å…¥null
+insert into student (id,name,gender) value (1,'æå››',null);
+insert into student (id,name,gender) value (1,'æå››','ç”·');
 drop table student;
 select * from student;
 desc student;
 
--- 1.3 Î¨Ò»
+-- 1.3 å”¯ä¸€
 create table student(
-  id int UNIQUE , -- Î¨Ò»
+  id int UNIQUE , -- å”¯ä¸€
   name varchar(20)
 );
 
@@ -51,7 +51,7 @@ insert into student (id,name) value(2,'lisi');
 
 select * from student;
 
--- 1.4 Ö÷¼ü £¨·Ç¿Õ+Î¨Ò»£©
+-- 1.4 ä¸»é”® ï¼ˆéç©º+å”¯ä¸€ï¼‰
 drop table student;
 
 create table student(
@@ -59,48 +59,48 @@ create table student(
   name varchar(20)
 );
 
-insert into student(id,name)values(1,'ÕÅÈı');
-insert into student(id,name)values(2,'ÕÅÈı');
-# insert into student(id,name)values(1,'ÀîËÄ'); --  [23000][1062] Duplicate entry '1' for key 'PRIMARY'
-# insert into student(name)values('ÀîËÄ'); -- [HY000][1364] Field 'id' doesn't have a default value
+insert into student(id,name)values(1,'å¼ ä¸‰');
+insert into student(id,name)values(2,'å¼ ä¸‰');
+# insert into student(id,name)values(1,'æå››'); --  [23000][1062] Duplicate entry '1' for key 'PRIMARY'
+# insert into student(name)values('æå››'); -- [HY000][1364] Field 'id' doesn't have a default value
 
--- 1.5 ×ÔÔö³¤
+-- 1.5 è‡ªå¢é•¿
 drop table student;
 create table student(
   id int(4) zerofill primary key AUTO_INCREMENT,
   name varchar(20)
 );
 
--- ×ÔÔö×Ö¶Î¿ÉÒÔ²»¸³Öµ£¬×Ô¶¯µİÔö
-insert into student(name) values('ÕÅÈı');
-insert into student(name) values('ÀîËÄ');
-insert into student(name) values('ÍõÎå');
+-- è‡ªå¢å­—æ®µå¯ä»¥ä¸èµ‹å€¼ï¼Œè‡ªåŠ¨é€’å¢
+insert into student(name) values('å¼ ä¸‰');
+insert into student(name) values('æå››');
+insert into student(name) values('ç‹äº”');
 
 select * from student;
--- ²»ÄÜÓ°Ïì×ÔÔö³¤Ô¼Êø
+-- ä¸èƒ½å½±å“è‡ªå¢é•¿çº¦æŸ
 delete from student;
--- ¿ÉÒÔÓ°Ïì×ÔÔö³¤
+-- å¯ä»¥å½±å“è‡ªå¢é•¿
 truncate table student;
 
--- 1.6 Íâ¼üÔ¼Êø
--- Ô±¹¤±í
+-- 1.6 å¤–é”®çº¦æŸ
+-- å‘˜å·¥è¡¨
 create table employee(
   id int primary key,
   empName varchar(20),
   deptName varchar(20)
 );
 
-insert into employee(id,empName,deptName) values(1,'ÕÅÈı','Èí¼ş¿ª·¢²¿');
-insert into employee(id,empName,deptName) values(2,'ÀîËÄ','Èí¼ş¿ª·¢²¿');
-insert into employee(id,empName,deptName) values(3,'ÍõÎå','Ó¦ÓÃÎ¬»¤²¿');
+insert into employee(id,empName,deptName) values(1,'å¼ ä¸‰','è½¯ä»¶å¼€å‘éƒ¨');
+insert into employee(id,empName,deptName) values(2,'æå››','è½¯ä»¶å¼€å‘éƒ¨');
+insert into employee(id,empName,deptName) values(3,'ç‹äº”','åº”ç”¨ç»´æŠ¤éƒ¨');
 
 select * from employee;
 
--- Ìí¼ÓÔ±¹¤£¬²¿ÃÅµÄÊı¾İÈßÓà¸ß
-insert into employee values(4,'³ÂÁù','Èí¼ş¿ª·¢²¿');
+-- æ·»åŠ å‘˜å·¥ï¼Œéƒ¨é—¨çš„æ•°æ®å†—ä½™é«˜
+insert into employee values(4,'é™ˆå…­','è½¯ä»¶å¼€å‘éƒ¨');
 
--- ½â¾öÊı¾İÈßÓà¸ßµÄÎÊÌâ£º¸øÈßÓàµÄ×Ö¶Î·Åµ½Ò»ÕÅ¶ÀÁ¢µÄ±íÖĞ
--- ¶ÀÁ¢Éè¼ÆÒ»ÕÅ²¿ÃÅ±í
+-- è§£å†³æ•°æ®å†—ä½™é«˜çš„é—®é¢˜ï¼šç»™å†—ä½™çš„å­—æ®µæ”¾åˆ°ä¸€å¼ ç‹¬ç«‹çš„è¡¨ä¸­
+-- ç‹¬ç«‹è®¾è®¡ä¸€å¼ éƒ¨é—¨è¡¨
 create table dept(
   id int primary key,
   deptName varchar(20)
@@ -108,111 +108,111 @@ create table dept(
 
 drop table employee;
 
--- ĞŞ¸ÄÔ±¹¤±í
+-- ä¿®æ”¹å‘˜å·¥è¡¨
 create table employee(
   id int primary key,
   empName varchar(20),
-  deptId int, -- °Ñ²¿ÃÅÃû³Æ¸ÄÎª²¿ÃÅID
-  -- ÉùÃ÷Ò»¸öÍâ¼üÔ¼Êø
+  deptId int, -- æŠŠéƒ¨é—¨åç§°æ”¹ä¸ºéƒ¨é—¨ID
+  -- å£°æ˜ä¸€ä¸ªå¤–é”®çº¦æŸ
   constraint employee_dept_fk foreign key(deptId) references dept(id) on update cascade on delete cascade
-  --              Íâ¼üÃû³Æ                    Íâ¼ü                ²Î¿¼±í( ²Î¿¼×Ö¶Î)     on cascade update :¼¶ÁªĞŞ¸Ä
+  --              å¤–é”®åç§°                    å¤–é”®                å‚è€ƒè¡¨( å‚è€ƒå­—æ®µ)     on cascade update :çº§è”ä¿®æ”¹
 );
 
-insert into dept(id,deptName) values(1,'Èí¼ş¿ª·¢²¿');
-insert into dept(id,deptName) values(2,'Ó¦ÓÃÎ¬»¤²¿');
-insert into dept(id,deptName) values(3,'ÃØÊé²¿');
+insert into dept(id,deptName) values(1,'è½¯ä»¶å¼€å‘éƒ¨');
+insert into dept(id,deptName) values(2,'åº”ç”¨ç»´æŠ¤éƒ¨');
+insert into dept(id,deptName) values(3,'ç§˜ä¹¦éƒ¨');
 
 
-insert into employee value(1,'ÕÅÈı',1);
-insert into employee value(2,'ÀîËÄ',1);
-insert into employee value(3,'ÍõÎå',2);
-insert into employee value(4,'³ÂÁù',3);
+insert into employee value(1,'å¼ ä¸‰',1);
+insert into employee value(2,'æå››',1);
+insert into employee value(3,'ç‹äº”',2);
+insert into employee value(4,'é™ˆå…­',3);
 
--- ÎÊÌâ£º ¸Ã¼ÇÂ¼ÒµÎñÉÏ²»ºÏ·¨£¬Ô±¹¤²åÈëÁËÒ»¸ö²»´æÔÚµÄ²¿ÃÅÊı¾İ
-insert into employee values(5,'³ÂÁù',4); -- Î¥·´Íâ¼üÔ¼Êø [23000][1452] Cannot add or update a child row: a foreign key constraint fails (`day16`.`employee`, CONSTRAINT `employee_dept_fk` FOREIGN KEY (`deptId`) REFERENCES `dept` (`id`) ON DELETE CASCADE ON UPDATE CASCADE)
+-- é—®é¢˜ï¼š è¯¥è®°å½•ä¸šåŠ¡ä¸Šä¸åˆæ³•ï¼Œå‘˜å·¥æ’å…¥äº†ä¸€ä¸ªä¸å­˜åœ¨çš„éƒ¨é—¨æ•°æ®
+insert into employee values(5,'é™ˆå…­',4); -- è¿åå¤–é”®çº¦æŸ [23000][1452] Cannot add or update a child row: a foreign key constraint fails (`day16`.`employee`, CONSTRAINT `employee_dept_fk` FOREIGN KEY (`deptId`) REFERENCES `dept` (`id`) ON DELETE CASCADE ON UPDATE CASCADE)
 
--- 1£© µ±ÓĞÁËÍâ¼üÔ¼Êø£¬Ìí¼ÓÊı¾İµÄË³Ğò£ºÏÈÌí¼ÓÖ÷±í£¬ÔÙÌí¼Ó¸±±íÊı¾İ
--- 2£© µ±ÓĞÁËÍâ¼üÔ¼Êø£¬ĞŞ¸ÄÊı¾İµÄË³Ğò£ºÏÈĞŞ¸Ä¸±±í£¬ÔÚĞŞ¸ÄÖ÷±íÊı¾İ
--- 3£© µ±ÓĞÁËÍâ¼üÔ¼Êø£¬É¾³ıÊı¾İµÄË³Ğò£ºÏÈÉ¾³ı¸½±í£¬ÔÙÉ¾³ıÖ÷±íÊı¾İ
--- ĞŞ¸Ä²¿ÃÅ£¨²»ÄÜÖ±½ÓĞŞ¸ÄÖ÷±í£©
+-- 1ï¼‰ å½“æœ‰äº†å¤–é”®çº¦æŸï¼Œæ·»åŠ æ•°æ®çš„é¡ºåºï¼šå…ˆæ·»åŠ ä¸»è¡¨ï¼Œå†æ·»åŠ å‰¯è¡¨æ•°æ®
+-- 2ï¼‰ å½“æœ‰äº†å¤–é”®çº¦æŸï¼Œä¿®æ”¹æ•°æ®çš„é¡ºåºï¼šå…ˆä¿®æ”¹å‰¯è¡¨ï¼Œåœ¨ä¿®æ”¹ä¸»è¡¨æ•°æ®
+-- 3ï¼‰ å½“æœ‰äº†å¤–é”®çº¦æŸï¼Œåˆ é™¤æ•°æ®çš„é¡ºåºï¼šå…ˆåˆ é™¤é™„è¡¨ï¼Œå†åˆ é™¤ä¸»è¡¨æ•°æ®
+-- ä¿®æ”¹éƒ¨é—¨ï¼ˆä¸èƒ½ç›´æ¥ä¿®æ”¹ä¸»è¡¨ï¼‰
 update dept set id=4 where id=3;
--- ÏÈĞŞ¸ÄÔ±¹¤±í
+-- å…ˆä¿®æ”¹å‘˜å·¥è¡¨
 update employee set deptId=2 where id=4;
 
--- É¾³ı²¿ÃÅ
+-- åˆ é™¤éƒ¨é—¨
 delete from dept where id=2;
 
--- ÏÈÉ¾³ıÔ±¹¤±í
+-- å…ˆåˆ é™¤å‘˜å·¥è¡¨
 delete from employee where deptId=2;
 delete * from dept;
 
 select * from dept;
 select * from employee;
 
--- ¼¶ÁªĞŞ¸Ä£¨ĞŞ¸Ä£©
--- Ö±½ÓĞŞ¸Ä²¿ÃÅ
+-- çº§è”ä¿®æ”¹ï¼ˆä¿®æ”¹ï¼‰
+-- ç›´æ¥ä¿®æ”¹éƒ¨é—¨
 update dept set id=5 where id=4;
 
--- ¼¶ÁªÉ¾³ı
--- Ö±½ÓÉ¾³ı²¿ÃÅ
+-- çº§è”åˆ é™¤
+-- ç›´æ¥åˆ é™¤éƒ¨é—¨
 delete from dept where id=1;
 
 
 
--- ************* ¶ş¡¢¹ØÁª²éÑ¯£¨¶à±í²éÑ¯£© *************** --
--- ĞèÇó£º²éÑ¯Ô±¹¤¼°ÆäËùÔÚ²¿ÃÅ¡££¨ÏÔÊ¾Ô±¹¤ĞÕÃû£¬²¿ÃÅÃû³Æ£©
--- 2.1 ½»²æÁ¬½Ó²éÑ¯£¨²»ÍÆ¼ö¡£²úÉúµÑ¿¨¶û»ıÏÖÏó£º4*4=16£¬ÓĞĞ©ÊÇÖØ¸´¼ÇÂ¼£©
+-- ************* äºŒã€å…³è”æŸ¥è¯¢ï¼ˆå¤šè¡¨æŸ¥è¯¢ï¼‰ *************** --
+-- éœ€æ±‚ï¼šæŸ¥è¯¢å‘˜å·¥åŠå…¶æ‰€åœ¨éƒ¨é—¨ã€‚ï¼ˆæ˜¾ç¤ºå‘˜å·¥å§“åï¼Œéƒ¨é—¨åç§°ï¼‰
+-- 2.1 äº¤å‰è¿æ¥æŸ¥è¯¢ï¼ˆä¸æ¨èã€‚äº§ç”Ÿç¬›å¡å°”ç§¯ç°è±¡ï¼š4*4=16ï¼Œæœ‰äº›æ˜¯é‡å¤è®°å½•ï¼‰
 select empName,deptName from employee,dept;
 
--- ĞèÇó£º²éÑ¯Ô±¹¤¼°ÆäËùÔÚµÄ²¿ÃÅ£¨ÏÔÊ¾Ô±¹¤ĞÕÃû£¬²¿ÃÅÃû³Æ£©
--- ¶à±í²éÑ¯¹æÔò£º1£©È·¶¨²éÄÄĞ©±í  2£©È·¶¨²éÄÄĞ©×Ö¶Î 3£©±íÓë±íÖ®¼äµÄÁ¬½ÓÌõ¼ş£¨¹æÂÉ£ºÁ¬½ÓÌõ¼şÊıÁ¿ÊÇ±íÊıÁ¿-1£©
--- 2.2 ÄÚÁ¬½Ó£ºÖ»ÓĞÂú×ãÌõ¼şµÄ½á¹û²Å»áÏÔÊ¾
-select empName,deptName        -- 2£© È·¶¨²éÄÄĞ©×Ö¶Î
-  from employee,dept              -- 1) È·¶¨²éÄÄĞ©±í
-  where employee.deptId=dept.id; -- 3£©±íÓë±íÖ®¼äÁ¬½Ó¹ØÏµ
+-- éœ€æ±‚ï¼šæŸ¥è¯¢å‘˜å·¥åŠå…¶æ‰€åœ¨çš„éƒ¨é—¨ï¼ˆæ˜¾ç¤ºå‘˜å·¥å§“åï¼Œéƒ¨é—¨åç§°ï¼‰
+-- å¤šè¡¨æŸ¥è¯¢è§„åˆ™ï¼š1ï¼‰ç¡®å®šæŸ¥å“ªäº›è¡¨  2ï¼‰ç¡®å®šæŸ¥å“ªäº›å­—æ®µ 3ï¼‰è¡¨ä¸è¡¨ä¹‹é—´çš„è¿æ¥æ¡ä»¶ï¼ˆè§„å¾‹ï¼šè¿æ¥æ¡ä»¶æ•°é‡æ˜¯è¡¨æ•°é‡-1ï¼‰
+-- 2.2 å†…è¿æ¥ï¼šåªæœ‰æ»¡è¶³æ¡ä»¶çš„ç»“æœæ‰ä¼šæ˜¾ç¤º
+select empName,deptName        -- 2ï¼‰ ç¡®å®šæŸ¥å“ªäº›å­—æ®µ
+  from employee,dept              -- 1) ç¡®å®šæŸ¥å“ªäº›è¡¨
+  where employee.deptId=dept.id; -- 3ï¼‰è¡¨ä¸è¡¨ä¹‹é—´è¿æ¥å…³ç³»
 
--- ÄÚÁ¬½ÓµÄÁíÒ»ÖÖĞ´·¨
+-- å†…è¿æ¥çš„å¦ä¸€ç§å†™æ³•
 select empName,deptName
   from employee
   inner join dept
   on employee.deptId=dept.id;
 
--- Ê¹ÓÃ±ğÃû
+-- ä½¿ç”¨åˆ«å
 select e.empName,d.deptName
   from employee e
   inner join dept d
   on e.deptId=d.id;
 
-insert into dept(id,deptName) values(4,'×Ü¾­°ì');
+insert into dept(id,deptName) values(4,'æ€»ç»åŠ');
 
--- ĞèÇó£º²éÑ¯Ã¿¸ö²¿ÃÅµÄÔ±¹¤
--- Ô¤ÆÚ½á¹û
- -- Èí¼ş¿ª·¢²¿  ÕÅÈı
- -- Èí¼ş¿ª·¢²¿  ÀîËÄ
- -- Ó¦ÓÃÎ¬»¤²¿  ÍõÎå
- -- ÃØÊé²¿      ³ÂÁù
- -- ×Ü¾­°ì      null
--- 2.2 ×ó[Íâ]Á¬½Ó²éÑ¯£ºÊ¹ÓÃ×ó±ß±íµÄÊı¾İÈ¥Æ¥ÅäÓÒ±ß±íµÄÊı¾İ£¬Èç¹û·ûºÏÁ¬½ÓÌõ¼şµÄ½á¹ûÏÔÊ¾£¬Èç¹û²»·ûºÏÁ¬½ÓÔòÏÔÊ¾null
-  -- £¨×¢Òâ£º×óÍâÁ¬½Ó£º×ó±íµÄÊı¾İÒ»¶¨»áÏÔÊ¾£©
+-- éœ€æ±‚ï¼šæŸ¥è¯¢æ¯ä¸ªéƒ¨é—¨çš„å‘˜å·¥
+-- é¢„æœŸç»“æœ
+ -- è½¯ä»¶å¼€å‘éƒ¨  å¼ ä¸‰
+ -- è½¯ä»¶å¼€å‘éƒ¨  æå››
+ -- åº”ç”¨ç»´æŠ¤éƒ¨  ç‹äº”
+ -- ç§˜ä¹¦éƒ¨      é™ˆå…­
+ -- æ€»ç»åŠ      null
+-- 2.2 å·¦[å¤–]è¿æ¥æŸ¥è¯¢ï¼šä½¿ç”¨å·¦è¾¹è¡¨çš„æ•°æ®å»åŒ¹é…å³è¾¹è¡¨çš„æ•°æ®ï¼Œå¦‚æœç¬¦åˆè¿æ¥æ¡ä»¶çš„ç»“æœæ˜¾ç¤ºï¼Œå¦‚æœä¸ç¬¦åˆè¿æ¥åˆ™æ˜¾ç¤ºnull
+  -- ï¼ˆæ³¨æ„ï¼šå·¦å¤–è¿æ¥ï¼šå·¦è¡¨çš„æ•°æ®ä¸€å®šä¼šæ˜¾ç¤ºï¼‰
 select d.deptName,e.empName
   from dept d
   left outer join employee e
   on d.id = e.deptId;
 
--- 2.3 ÓÒ[Íâ]Á¬½Ó²éÑ¯£ºÊ¹ÓÃÓÒ±ßµÄ±íµÄÊı¾İÈ¥Æ¥Åä×ó±ß±íµÄÊı¾İ£¬Èç¹ûÈç¹û·ûºÏÁ¬½ÓÌõ¼şµÄ½á¹ûÔòÏÔÊ¾£¬²»·ûºÏÁ¬½ÓÌõ¼şµÄ½á¹ûÔòÏÔÊ¾null
-  -- £¨×¢Òâ£ºÓÒÍâÁ¬½Ó£ºÓÒ±ßµÄÊı¾İÒ»¶¨»áÍê³ÉÏÔÊ¾£¡£©
+-- 2.3 å³[å¤–]è¿æ¥æŸ¥è¯¢ï¼šä½¿ç”¨å³è¾¹çš„è¡¨çš„æ•°æ®å»åŒ¹é…å·¦è¾¹è¡¨çš„æ•°æ®ï¼Œå¦‚æœå¦‚æœç¬¦åˆè¿æ¥æ¡ä»¶çš„ç»“æœåˆ™æ˜¾ç¤ºï¼Œä¸ç¬¦åˆè¿æ¥æ¡ä»¶çš„ç»“æœåˆ™æ˜¾ç¤ºnull
+  -- ï¼ˆæ³¨æ„ï¼šå³å¤–è¿æ¥ï¼šå³è¾¹çš„æ•°æ®ä¸€å®šä¼šå®Œæˆæ˜¾ç¤ºï¼ï¼‰
 select d.deptName,e.empName
   from employee e
   right outer join dept d
   on d.id=e.deptId;
 
--- 2.4 ×ÔÁ¬½Ó²éÑ¯
--- ĞèÇó£º²éÑ¯Ô±¹¤¼°ÆäÉÏË¾
--- Ô¤ÆÚ½á¹û
-  --  ÕÅÈı    null
-  --  ÀîËÄ    ÕÅÈı
-  --  ÍõÎå    ÀîËÄ
-  --  ³ÂÁù    ÍõÎå
+-- 2.4 è‡ªè¿æ¥æŸ¥è¯¢
+-- éœ€æ±‚ï¼šæŸ¥è¯¢å‘˜å·¥åŠå…¶ä¸Šå¸
+-- é¢„æœŸç»“æœ
+  --  å¼ ä¸‰    null
+  --  æå››    å¼ ä¸‰
+  --  ç‹äº”    æå››
+  --  é™ˆå…­    ç‹äº”
 select e.empName, b.empName
     from employee e
     left outer join employee b
@@ -220,109 +220,109 @@ select e.empName, b.empName
 
 select * from dept;
 select * from employee;
--- Ìí¼ÓÉÏË¾
+-- æ·»åŠ ä¸Šå¸
 alter table employee add  bossId int;
 update employee set bossId=1 where id=2;
 update employee set bossId=2 where id=3;
 update employee set bossId=3 where id=4;
 
--- ********** Èı¡¢´æ´¢¹ı³Ì *********** --
--- ÉùÃ÷½áÊø·û
--- ´´½¨´æ´¢¹ı³Ì
+-- ********** ä¸‰ã€å­˜å‚¨è¿‡ç¨‹ *********** --
+-- å£°æ˜ç»“æŸç¬¦
+-- åˆ›å»ºå­˜å‚¨è¿‡ç¨‹
 delimiter $
 create procedure pro_test()
   begin
-    -- ¿ÉÒÔĞ´¶à¸ösqlÓï¾ä
+    -- å¯ä»¥å†™å¤šä¸ªsqlè¯­å¥
     select * from employee;
   end $
 
--- Ö´ĞĞ´æ´¢¹ı³Ì
+-- æ‰§è¡Œå­˜å‚¨è¿‡ç¨‹
 call pro_test();
 
--- 3.1 ´øÓĞ²ÎÊıµÄ´æ´¢¹ı³Ì
--- ĞèÇó´«ÈëÒ»¸öÔ±¹¤µÄid£¬²éÑ¯Ô±¹¤ĞÅÏ¢
+-- 3.1 å¸¦æœ‰å‚æ•°çš„å­˜å‚¨è¿‡ç¨‹
+-- éœ€æ±‚ä¼ å…¥ä¸€ä¸ªå‘˜å·¥çš„idï¼ŒæŸ¥è¯¢å‘˜å·¥ä¿¡æ¯
 delimiter $
-create procedure pro_findById(in eid int) -- in: ÊäÈë²ÎÊı
+create procedure pro_findById(in eid int) -- in: è¾“å…¥å‚æ•°
 begin
   select * from employee where id=eid;
 end $
 
--- µ÷ÓÃ
+-- è°ƒç”¨
 call pro_findById(1);
 
--- 3.2 ´øÓĞÊä³ö²ÎÊıµÄ´æ´¢¹ı³Ì
+-- 3.2 å¸¦æœ‰è¾“å‡ºå‚æ•°çš„å­˜å‚¨è¿‡ç¨‹
 delimiter $
-create procedure pro_testOut(out str varchar(20)) -- out: Êä³ö²ÎÊı
+create procedure pro_testOut(out str varchar(20)) -- out: è¾“å‡ºå‚æ•°
 begin
-      -- ¸ø²ÎÊı¸³Öµ
+      -- ç»™å‚æ•°èµ‹å€¼
   set str='hello sql procedure';
 end $
 
 call pro_testOut(@name);
 select @name ;
 
--- É¾³ı´æ´¢¹ı³Ì
+-- åˆ é™¤å­˜å‚¨è¿‡ç¨‹
 drop procedure pro_testOut;
--- µ÷ÓÃ
--- ÈçºÎ½ÓÊÜ·µ»Ø²ÎÊıµÄÖµ£¿£¿
--- *** mysqlµÄ±äÁ¿ ******
--- È«¾Ö±äÁ¿£¨ÄÚÖÃ±äÁ¿£©£ºmysqlÊı¾İ¿âÄÚÖÃµÄ±äÁ¿£¨ËùÓĞµÄÁ¬½Ó¶¼Æğ×÷ÓÃ£©
-       -- ²é¿´ËùÓĞÈ«¾Ö±äÁ¿£º show ariables
-       -- ²é¿´Ä³¸öÈ«¾Ö±äÁ¿£º select @@±äÁ¿Ãû
-       -- ĞŞ¸ÄÈ«¾Ö±äÁ¿£º     set ±äÁ¿Ãû=ĞÂÖµ
-       -- character_set_client£º mysql·şÎñÆ÷µÄ½ÓÊÕÊı¾İµÄ±àÂë
-       -- character_set_result£º mysql·şÎñÆ÷µÄÊä³öÊı¾İµÄ±àÂë
+-- è°ƒç”¨
+-- å¦‚ä½•æ¥å—è¿”å›å‚æ•°çš„å€¼ï¼Ÿï¼Ÿ
+-- *** mysqlçš„å˜é‡ ******
+-- å…¨å±€å˜é‡ï¼ˆå†…ç½®å˜é‡ï¼‰ï¼šmysqlæ•°æ®åº“å†…ç½®çš„å˜é‡ï¼ˆæ‰€æœ‰çš„è¿æ¥éƒ½èµ·ä½œç”¨ï¼‰
+       -- æŸ¥çœ‹æ‰€æœ‰å…¨å±€å˜é‡ï¼š show ariables
+       -- æŸ¥çœ‹æŸä¸ªå…¨å±€å˜é‡ï¼š select @@å˜é‡å
+       -- ä¿®æ”¹å…¨å±€å˜é‡ï¼š     set å˜é‡å=æ–°å€¼
+       -- character_set_clientï¼š mysqlæœåŠ¡å™¨çš„æ¥æ”¶æ•°æ®çš„ç¼–ç 
+       -- character_set_resultï¼š mysqlæœåŠ¡å™¨çš„è¾“å‡ºæ•°æ®çš„ç¼–ç 
 
--- »á»°±äÁ¿£º  Ö»´æÔÚÓÚµ±Ç°¿Í»§¶ËÓëÊı¾İ¿â·şÎñÆ÷¶ËµÄÒ»´ÎÁ¬½ÓÖĞ¡£Èç¹û¶Ï¿ªÁ¬½Ó£¬ÄÇÃ´»á»°±äÁ¿È«²¿¶ªÊ§£¡
-      --  ¶¨Òå»á±ä±äÁ¿£º set @±äÁ¿Ãû=Öµ
-      --  ²é¿´»á»°±äÁ¿£º select @±äÁ¿
+-- ä¼šè¯å˜é‡ï¼š  åªå­˜åœ¨äºå½“å‰å®¢æˆ·ç«¯ä¸æ•°æ®åº“æœåŠ¡å™¨ç«¯çš„ä¸€æ¬¡è¿æ¥ä¸­ã€‚å¦‚æœæ–­å¼€è¿æ¥ï¼Œé‚£ä¹ˆä¼šè¯å˜é‡å…¨éƒ¨ä¸¢å¤±ï¼
+      --  å®šä¹‰ä¼šå˜å˜é‡ï¼š set @å˜é‡å=å€¼
+      --  æŸ¥çœ‹ä¼šè¯å˜é‡ï¼š select @å˜é‡
 
--- ¾Ö²¿±äÁ¿£º ÔÚ´æ´¢¹ı³ÌÖĞÊ¹ÓÃµÄ±äÁ¿½Ğ¾Ö²¿±äÁ¿¡£Ö»Òª´æ´¢¹ı³ÌÖ´ĞĞÍê±Ï£¬¾Ö²¿±äÁ¿¾Í¶ªÊ§£¡
+-- å±€éƒ¨å˜é‡ï¼š åœ¨å­˜å‚¨è¿‡ç¨‹ä¸­ä½¿ç”¨çš„å˜é‡å«å±€éƒ¨å˜é‡ã€‚åªè¦å­˜å‚¨è¿‡ç¨‹æ‰§è¡Œå®Œæ¯•ï¼Œå±€éƒ¨å˜é‡å°±ä¸¢å¤±ï¼
 
--- 1£©¶¨ÒåÒ»¸ö»á»°±äÁ¿name£¬ 2£©Ê¹ÓÃname»á»°±äÁ¿½ÓÊÕ´æ´¢¹ı³ÌµÄ·µ»ØÖµ
+-- 1ï¼‰å®šä¹‰ä¸€ä¸ªä¼šè¯å˜é‡nameï¼Œ 2ï¼‰ä½¿ç”¨nameä¼šè¯å˜é‡æ¥æ”¶å­˜å‚¨è¿‡ç¨‹çš„è¿”å›å€¼
 call pro_testOut(@name);
--- ²é¿´±äÁ¿
+-- æŸ¥çœ‹å˜é‡
 select @name;
 
--- 3.3 ´øÓĞÊäÈëÊä³ö²ÎÊıµÄ´æ´¢¹ı³Ì
+-- 3.3 å¸¦æœ‰è¾“å…¥è¾“å‡ºå‚æ•°çš„å­˜å‚¨è¿‡ç¨‹
 delimiter $
-create procedure pro_testInOut(inout n int) -- inout: ÊäÈëÊä³ö²ÎÊı
+create procedure pro_testInOut(inout n int) -- inout: è¾“å…¥è¾“å‡ºå‚æ•°
 begin
-  -- ²é¿´±äÁ¿
+  -- æŸ¥çœ‹å˜é‡
   select n;
   set n=500;
 end $
 
--- µ÷ÓÃ
+-- è°ƒç”¨
 set @n=10;
 call pro_testInOut(@n);
 select @n;
 
--- 3.4 ´øÓĞÌõ¼şÅĞ¶ÏµÄ´æ´¢¹ı³Ì
--- ĞèÇó£º  ÊäÈëÒ»¸öÕûÊı£¬Èç¹û1£¬Ôò·µ»Ø¡°ĞÇÆÚÒ»¡±£¬Èç¹û2£¬·µ»Ø¡°ĞÇÆÚ¶ş¡±£¬Èç¹û3£¬·µ»Ø¡°ĞÇÆÚÈı¡±¡£ÆäËûÊı×Ö·µ»Ø¡°ÊäÈë´íÎó¡±¡£
+-- 3.4 å¸¦æœ‰æ¡ä»¶åˆ¤æ–­çš„å­˜å‚¨è¿‡ç¨‹
+-- éœ€æ±‚ï¼š  è¾“å…¥ä¸€ä¸ªæ•´æ•°ï¼Œå¦‚æœ1ï¼Œåˆ™è¿”å›â€œæ˜ŸæœŸä¸€â€ï¼Œå¦‚æœ2ï¼Œè¿”å›â€œæ˜ŸæœŸäºŒâ€ï¼Œå¦‚æœ3ï¼Œè¿”å›â€œæ˜ŸæœŸä¸‰â€ã€‚å…¶ä»–æ•°å­—è¿”å›â€œè¾“å…¥é”™è¯¯â€ã€‚
 delimiter $
 create procedure pro_testIf(in num int, out str varchar(20))
 begin
   if num=1 THEN
-    set str='ĞÇÆÚÒ»';
+    set str='æ˜ŸæœŸä¸€';
   elseif num=2 then
-    set str='ĞÇÆÚ¶ş';
+    set str='æ˜ŸæœŸäºŒ';
   elseif num=3 then
-    set str='ĞÇÆÚÈı';
+    set str='æ˜ŸæœŸä¸‰';
   else
-    set str='ÊäÈë´íÎó';
+    set str='è¾“å…¥é”™è¯¯';
   end if;
 end $
 
 call pro_testIf(4,@str);
 select @str;
 
--- 3.5 ´øÓĞÑ­»·¹¦ÄÜµÄ´æ´¢¹ı³Ì
--- ĞèÇó£º  ÊäÈëÒ»¸öÕûÊı£¬ÇóºÍ¡£ÀıÈç£¬ÊäÈë100£¬Í³¼Æ1-100µÄºÍ
+-- 3.5 å¸¦æœ‰å¾ªç¯åŠŸèƒ½çš„å­˜å‚¨è¿‡ç¨‹
+-- éœ€æ±‚ï¼š  è¾“å…¥ä¸€ä¸ªæ•´æ•°ï¼Œæ±‚å’Œã€‚ä¾‹å¦‚ï¼Œè¾“å…¥100ï¼Œç»Ÿè®¡1-100çš„å’Œ
 delimiter $
 create procedure pro_testWhile(in num int,out result int)
 begin
-  -- ¶¨ÒåÒ»¸ö¾Ö²¿±äÁ¿
+  -- å®šä¹‰ä¸€ä¸ªå±€éƒ¨å˜é‡
   declare i int default 1;
   declare vsum int default 0;
   while i<=num do
@@ -335,7 +335,7 @@ end $
 call pro_testWhile(100,@result);
 select @result;
 
--- 3.6 Ê¹ÓÃ²éÑ¯µÄ½á¹û¸³Öµ¸ø±äÁ¿£¨into£©
+-- 3.6 ä½¿ç”¨æŸ¥è¯¢çš„ç»“æœèµ‹å€¼ç»™å˜é‡ï¼ˆintoï¼‰
 delimiter $
 create procedure pro_findById2(in eid int,out vname varchar(20))
 begin
@@ -348,24 +348,24 @@ select @name;
 use day15;
 select * from student2;
 
--- Á·Ï°£º ±àĞ´Ò»¸ö´æ´¢¹ı³Ì
-  -- Èç¹ûÑ§ÉúµÄÓ¢Óï³É¼¨Æ½¾ù·ÖĞ¡ÓÚµÈÓÚ70·Ö£¬ÔòÊä³ö¡¯Ò»°ã¡®
-  -- Èç¹ûÑ§ÉúµÄÓ¦ÓÃ³É¼¨Æ½¾ù·Ö´óÓÚ70£¬ÇÒĞ¡ÓÚµÈÓÚ90·Ö£¬ÔòÊä³ö¡¯Á¼ºÃ¡®
-  -- Èç¹ûÑ§ÉúµÄÓ¢Óï³É¼¨Æ½¾ù·Ö´óÓÚ90·Ö£¬ÔòÊä³öÓÅĞã
+-- ç»ƒä¹ ï¼š ç¼–å†™ä¸€ä¸ªå­˜å‚¨è¿‡ç¨‹
+  -- å¦‚æœå­¦ç”Ÿçš„è‹±è¯­æˆç»©å¹³å‡åˆ†å°äºç­‰äº70åˆ†ï¼Œåˆ™è¾“å‡ºâ€™ä¸€èˆ¬â€˜
+  -- å¦‚æœå­¦ç”Ÿçš„åº”ç”¨æˆç»©å¹³å‡åˆ†å¤§äº70ï¼Œä¸”å°äºç­‰äº90åˆ†ï¼Œåˆ™è¾“å‡ºâ€™è‰¯å¥½â€˜
+  -- å¦‚æœå­¦ç”Ÿçš„è‹±è¯­æˆç»©å¹³å‡åˆ†å¤§äº90åˆ†ï¼Œåˆ™è¾“å‡ºä¼˜ç§€
 
 delimiter $
 create procedure pro_testAvg(out str varchar(20))
 begin
-  -- ¶¨Òå¾Ö²¿±äÁ¿£¬½ÓÊÕÆ½¾ù·Ö
+  -- å®šä¹‰å±€éƒ¨å˜é‡ï¼Œæ¥æ”¶å¹³å‡åˆ†
   declare savg double;
-  -- ¼ÆËãÆ½¾ù·Ö
+  -- è®¡ç®—å¹³å‡åˆ†
   select avg(english) into savg from student2;
   if savg<=70 then
-    set str='Ò»°ã';
+    set str='ä¸€èˆ¬';
   elseif savg>70 and savg<=90 then
-    set str='Á¼ºÃ';
+    set str='è‰¯å¥½';
   else
-    set str='ÓÅĞã';
+    set str='ä¼˜ç§€';
   end if;
 end $
 
@@ -373,65 +373,65 @@ call pro_testAvg(@str);
 select @str;
 
 use day16;
--- ********************* ËÄ¡¢´¥·¢Æ÷ ***************** --
+-- ********************* å››ã€è§¦å‘å™¨ ***************** --
 select * from employee;
 
--- ÈÕÖ¾±í
+-- æ—¥å¿—è¡¨
 create table test_log(
   id int primary key auto_increment,
   content varchar(100)
 );
 
--- ĞèÇó£º  µ±ÏòÔ±¹¤±í²åÈëÒ»Ìõ¼ÇÈëÊ±£¬Ï£Íûmysql×Ô¶¯Í¬Ê±ÍùÈÕÖ¾±í²åÈëÊı¾İ
--- ´´½¨´¥·¢Æ÷
-create trigger tri_empAdd after insert on employee for each row -- µ±Ô±¹¤±í²åÈëÒ»ÌõÊı¾İÊ±
-  insert into test_log(content) values('Ô±¹¤±í²åÈëÁËÒ»ÌõÊı¾İ');
+-- éœ€æ±‚ï¼š  å½“å‘å‘˜å·¥è¡¨æ’å…¥ä¸€æ¡è®°å…¥æ—¶ï¼Œå¸Œæœ›mysqlè‡ªåŠ¨åŒæ—¶å¾€æ—¥å¿—è¡¨æ’å…¥æ•°æ®
+-- åˆ›å»ºè§¦å‘å™¨
+create trigger tri_empAdd after insert on employee for each row -- å½“å‘˜å·¥è¡¨æ’å…¥ä¸€æ¡æ•°æ®æ—¶
+  insert into test_log(content) values('å‘˜å·¥è¡¨æ’å…¥äº†ä¸€æ¡æ•°æ®');
 
--- ²åÈëÊı¾İ
-insert into employee(id,empName,deptId) values(7,'Ôú¹ÅË¹',1);
-insert into employee(id,empName,deptId) values(8,'Ôú¹ÅË¹2',1);
+-- æ’å…¥æ•°æ®
+insert into employee(id,empName,deptId) values(7,'æ‰å¤æ–¯',1);
+insert into employee(id,empName,deptId) values(8,'æ‰å¤æ–¯2',1);
 
--- ´´½¨´¥·¢Æ÷£¨ĞŞ¸Ä£©
-create trigger tri_empUpdate after update on employee for each row -- µ±Ô±¹¤±í¸üĞÂÁËÒ»ÌõÊı¾İ
-  insert into test_log(content) values ('Ô±¹¤±íĞŞ¸ÄÁËÒ»ÌõÊı¾İ');
+-- åˆ›å»ºè§¦å‘å™¨ï¼ˆä¿®æ”¹ï¼‰
+create trigger tri_empUpdate after update on employee for each row -- å½“å‘˜å·¥è¡¨æ›´æ–°äº†ä¸€æ¡æ•°æ®
+  insert into test_log(content) values ('å‘˜å·¥è¡¨ä¿®æ”¹äº†ä¸€æ¡æ•°æ®');
 
--- ĞŞ¸Ä
+-- ä¿®æ”¹
 update employee set empName='eric' where id=7;
 
--- ´´½¨´¥·¢Æ÷£¨É¾³ı£©
+-- åˆ›å»ºè§¦å‘å™¨ï¼ˆåˆ é™¤ï¼‰
 create trigger tri_empDel after delete on employee for each row
-  insert into test_log(content) values('Ô±¹¤±íÉ¾³ıÁËÒ»Ìõ¼ÇÂ¼');
+  insert into test_log(content) values('å‘˜å·¥è¡¨åˆ é™¤äº†ä¸€æ¡è®°å½•');
 
--- É¾³ı
+-- åˆ é™¤
 delete from employee where id=7;
 
 select * from employee;
 select * from test_log;
 
--- ************* Îå¡¢mysqlÈ¨ÏŞÎÊÌâ *********** --
--- mysqlÊı¾İ¿âÈ¨ÏŞÎÊÌâ£ºroot £ºÓµÓĞËùÓĞÈ¨ÏŞ£¨¿ÉÒÔ¸ÉÈÎºÎÊÂ£©
--- È¨ÏŞÕË»§£¬Ö»ÓµÓĞ²¿·ÖÈ¨ÏŞ£¨CURD£©ÀıÈç£¬Ö»ÄÜ²Ù×÷Ä³¸öÊı¾İ¿âµÄÄ³ÕÅ±í
--- Èç¹ûĞŞ¸ÄmysqlµÄÓÃ»§ÃÜÂë£¿
--- password£ºmd5¼ÓÃÜº¯Êı£¨µ¥Ïò¼ÓÃÜ£©
+-- ************* äº”ã€mysqlæƒé™é—®é¢˜ *********** --
+-- mysqlæ•°æ®åº“æƒé™é—®é¢˜ï¼šroot ï¼šæ‹¥æœ‰æ‰€æœ‰æƒé™ï¼ˆå¯ä»¥å¹²ä»»ä½•äº‹ï¼‰
+-- æƒé™è´¦æˆ·ï¼Œåªæ‹¥æœ‰éƒ¨åˆ†æƒé™ï¼ˆCURDï¼‰ä¾‹å¦‚ï¼Œåªèƒ½æ“ä½œæŸä¸ªæ•°æ®åº“çš„æŸå¼ è¡¨
+-- å¦‚æœä¿®æ”¹mysqlçš„ç”¨æˆ·å¯†ç ï¼Ÿ
+-- passwordï¼šmd5åŠ å¯†å‡½æ•°ï¼ˆå•å‘åŠ å¯†ï¼‰
 select password('root'); -- *81F5E21E35407D884A6CD4A731AEBFB6AF209E1B
 
--- mysqlÊı¾İ¿â£¬ÓÃ»§ÅäÖÃ±í£ºuser±í
+-- mysqlæ•°æ®åº“ï¼Œç”¨æˆ·é…ç½®è¡¨ï¼šuserè¡¨
 use mysql;
 
 select * from user;
 
--- ĞŞ¸ÄÃÜÂë
+-- ä¿®æ”¹å¯†ç 
 update user set password=password('123456') where user='root';
 update user set password='' where user='root';
 
--- ·ÖÅäÈ¨ÏŞÕË»§
+-- åˆ†é…æƒé™è´¦æˆ·
 grant select on day16.employee to 'eric'@'localhost' identified by '123456';
 grant delete on day16.employee to 'eric'@'localhost' identified by '123456';
 
 
--- ***** Áù¡¢mysql±¸·İºÍ»¹Ô­ ****** --
--- ±¸·İ£¬ÔÚÃüÁîĞĞÔËĞĞ  mysqldump -u root -p day17 > C:/back.sql
--- »Ö¸´£¬ÔÚÃüÁîĞĞÔËĞĞ  mysql -u root -p day17 < C:/back.sql
+-- ***** å…­ã€mysqlå¤‡ä»½å’Œè¿˜åŸ ****** --
+-- å¤‡ä»½ï¼Œåœ¨å‘½ä»¤è¡Œè¿è¡Œ  mysqldump -u root -p day17 > C:/back.sql
+-- æ¢å¤ï¼Œåœ¨å‘½ä»¤è¡Œè¿è¡Œ  mysql -u root -p day17 < C:/back.sql
 
 
 
