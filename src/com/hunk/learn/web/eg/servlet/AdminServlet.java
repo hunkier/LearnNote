@@ -4,6 +4,7 @@ import com.hunk.learn.web.eg.entity.Admin;
 import com.hunk.learn.web.eg.exception.UserExistException;
 import com.hunk.learn.web.eg.service.IAdminService;
 import com.hunk.learn.web.eg.service.impl.AdminService;
+import com.hunk.learn.web.eg.util.WebUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,8 +24,8 @@ public class AdminServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // 获取操作类型
         String method = request.getParameter("method");
-        if ("register".equals(method)){
-
+        if ("regiester".equals(method)){
+                register(request,response);
         }
 
     }
@@ -41,6 +42,7 @@ public class AdminServlet extends HttpServlet {
      * @throws IOException
      */
     private void register(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+       /*
         // 1.获取请求参数
         String userName = request.getParameter("userName");
         String pwd = request.getParameter("pwd");
@@ -48,14 +50,23 @@ public class AdminServlet extends HttpServlet {
         Admin admin = new Admin();
         admin.setUserName(userName);
         admin.setPwd(pwd);
+        */
+
+        // 使用BeanUtils组件处理请求数据的封装
+        Admin admin = WebUtils.copyToBean(request,Admin.class);
 
         // 调用Service处理注册的业务逻辑
         try {
             adminService.register(admin);
+            request.setAttribute("userName", admin.getUserName());
+            request.getRequestDispatcher("/jdbc/success.jsp").forward(request,response);
         } catch (UserExistException e) {
             // 用户名存在，跳转到首页
             e.printStackTrace();
             request.setAttribute("message",e.getMessage());
+            request.getRequestDispatcher("/jdbc/regiester.jsp").forward(request,response);
+        }catch (Exception e){
+            response.sendRedirect(request.getContextPath() + "/jdbc/error/error.jsp");
         }
     }
 }

@@ -34,8 +34,9 @@ public class AdminService implements IAdminService{
 
             // 3.用户不存在，可以注册
             dao.save(admin);
-        } catch (Exception e) {
+        } catch (UserExistException e) {
             e.printStackTrace();
+            throw  new UserExistException(e.getMessage());
         }
     }
 
