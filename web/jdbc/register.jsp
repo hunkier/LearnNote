@@ -1,5 +1,6 @@
 <%--
   Created by IntelliJ IDEA.
+<<<<<<< Updated upstream
   User: hunk
   Date: 2015/8/12
   Time: 10:29
@@ -16,7 +17,7 @@
     <title>注册</title>
 </head>
 <body>
-<form action="AdminServlet?method=regiester" method="post">
+<form action="AdminServlet?method=register" method="post">
     <table >
         <tr>
             <td>用户名</td>

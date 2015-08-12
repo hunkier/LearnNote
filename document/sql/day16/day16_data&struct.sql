@@ -13,6 +13,10 @@ File Encoding         : 65001
 Date: 2015-08-07 16:02:06
 */
 
+create database day16 default character set utf8;
+
+use day16;
+
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------

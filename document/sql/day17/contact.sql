@@ -1,7 +1,7 @@
 -- **************** day17 ************* --
 create database contactsys_web default character set utf8;
 show create database contactsys_web;
-drop database contactsys_web;
+-- drop database contactsys_web;
 use contactsys_web;
 show tables;
 -- 创建联系人表

@@ -3,6 +3,7 @@ create database day17 default character set utf8;
 show create database day17;
 drop database day17;
 use day17;
+
 show tables;
 -- 创建学生表
 create table student(
@@ -16,8 +17,11 @@ desc student;
 
 drop table student;
 
+truncate student;
+
 -- 插入记录
 insert into student (name,gender) values ('张三','男');
+insert into student (name,gender) values ('王五','男');
 
 -- 查询
 select * from student;

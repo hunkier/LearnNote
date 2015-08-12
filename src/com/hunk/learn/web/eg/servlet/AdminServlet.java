@@ -24,8 +24,8 @@ public class AdminServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // 获取操作类型
         String method = request.getParameter("method");
-        if ("regiester".equals(method)){
-                register(request,response);
+        if ("register".equals(method)){
+            register(request,response);
         }
 
     }
@@ -64,7 +64,7 @@ public class AdminServlet extends HttpServlet {
             // 用户名存在，跳转到首页
             e.printStackTrace();
             request.setAttribute("message",e.getMessage());
-            request.getRequestDispatcher("/jdbc/regiester.jsp").forward(request,response);
+            request.getRequestDispatcher("/jdbc/register.jsp").forward(request,response);
         }catch (Exception e){
             response.sendRedirect(request.getContextPath() + "/jdbc/error/error.jsp");
         }

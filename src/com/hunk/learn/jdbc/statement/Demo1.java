@@ -4,7 +4,6 @@ import com.hunk.learn.jdbc.DbUtil;
 import org.junit.Test;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -16,7 +15,7 @@ public class Demo1 {
     // 连接数据库的URL
     private String url = "jdbc:mysql://localhost:3306/day17";
     // jdbc协议：数据库子协议：主机：端口/连接的数据库
-    private String user = "root";
+    private String user = "hunk";
     private String password = "123456";
 
     /**
@@ -27,10 +26,15 @@ public class Demo1 {
         Statement stmt = null ;
         Connection conn = null ;
         try {
+
+            /*
             // 1.驱动注册
             Class.forName("com.mysql.jdbc.Driver");
             // 2.获取连接对象
 //            conn = DriverManager.getConnection(url,user,password);
+
+            conn = DriverManager.getConnection(url,user,password);
+            */
             conn = DbUtil.getConnection();
             // 3.创建Statement
             stmt = conn.createStatement();
@@ -52,7 +56,23 @@ public class Demo1 {
             e.printStackTrace();
             throw new RuntimeException(e);
         }finally {
-            DbUtil.close(conn,stmt);
+           //  DbUtil.close(conn,stmt);
+            // 7.关闭连接（顺序：后打开的先关闭）
+            if (null!=stmt){
+                try {
+                    stmt.close();
+                }catch (SQLException e){
+                    e.printStackTrace();
+                    throw  new RuntimeException(e);
+                }
+            }
+            if (null!=conn){
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
     }

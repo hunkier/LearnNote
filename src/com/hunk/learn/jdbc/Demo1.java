@@ -15,7 +15,7 @@ public class Demo1 {
     // 连接数据库的URL
     private String url = "jdbc:mysql://localhost:3306/day17";
                         // jdbc协议：数据库子协议：主机：端口/连接的数据库
-    private String user = "root";
+    private String user = "hunk";
     private String password = "123456";
 
     /**
