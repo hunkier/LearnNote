@@ -30,9 +30,11 @@
     </tr>
     <c:if test="${not empty requestScope.listEmp}">
         <c:forEach var="emp" items="${requestScope.listEmp}" varStatus="vs">
-            <tr>${vs.count}</tr>
-            <tr>${emp.empId}</tr>
-            <tr>${emp.empName}</tr>
+            <tr>
+                <td>${vs.count}</td>
+                <td>${emp.empId}</td>
+                <td>${emp.empName}</td>
+            </tr>
         </c:forEach>
     </c:if>
 </table>
