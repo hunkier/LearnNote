@@ -17,18 +17,18 @@ import java.io.IOException;
  */
 @WebServlet(name = "DeleteContactServlet", urlPatterns = "/DeleteContactServlet")
 public class DeleteContactServlet extends HttpServlet {
-    //    private ContactDao dao ;
+    //    private ContactDao entity ;
     private ContactService contactService;
     @Override
     public void init() throws ServletException {
-//        dao = new ContactDaoImpl();
+//        entity = new ContactDaoImpl();
         contactService = new ContactServiceImpl();
     }
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //设置编码
         request.setCharacterEncoding("utf-8");
         response.setCharacterEncoding("utf-8");
-//        dao.deleteContact(request.getParameter("id"));
+//        entity.deleteContact(request.getParameter("id"));
         contactService.deleteContact(request.getParameter("id"));
         response.sendRedirect(request.getContextPath() + "/ListContactServlet");
     }

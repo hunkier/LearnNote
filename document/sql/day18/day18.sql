@@ -34,6 +34,8 @@ select * from dept;
 select * from employee;
 select e.empId,e.empName,d.deptName from employee e left outer join dept d on e.deptId=d.id;
 
+delete from employee where empId>1;
+
 
 -- 创建银行账号表
 create table account(

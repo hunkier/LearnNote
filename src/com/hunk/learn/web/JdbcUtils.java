@@ -1,4 +1,4 @@
-package com.hunk.learn.web.page;
+package com.hunk.learn.web;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.apache.commons.dbutils.QueryRunner;

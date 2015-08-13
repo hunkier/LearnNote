@@ -22,11 +22,11 @@ import java.util.List;
 @WebServlet(name = "ListContactServlet", urlPatterns = "/ListContactServlet")
 public class ListContactServlet extends HttpServlet {
 
-    //    private ContactDao dao ;
+    //    private ContactDao entity ;
     private ContactService contactService;
     @Override
     public void init() throws ServletException {
-//        dao = new ContactDaoImpl();
+//        entity = new ContactDaoImpl();
         contactService = new ContactServiceImpl();
     }
 
@@ -36,7 +36,7 @@ public class ListContactServlet extends HttpServlet {
         response.setCharacterEncoding("utf-8");
 
         // 1.从xml中读取联系人数据
-//        List<Contact> list = dao.findAll();
+//        List<Contact> list = entity.findAll();
         List<Contact> list = contactService.findAll();
 
         // 2.显示到浏览器

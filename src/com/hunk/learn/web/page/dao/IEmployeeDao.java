@@ -19,4 +19,10 @@ public interface IEmployeeDao {
      * @return
      */
     public int getTotalCount();
+
+    /**
+     * 添加员工
+     * @param employee
+     */
+    public void save(Employee employee);
 }

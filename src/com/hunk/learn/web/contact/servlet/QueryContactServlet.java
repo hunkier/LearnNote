@@ -20,11 +20,11 @@ import java.io.IOException;
  */
 @WebServlet(name = "QueryContactServlet", urlPatterns = "/QueryContactServlet")
 public class QueryContactServlet extends HttpServlet {
-    //    private ContactDao dao ;
+    //    private ContactDao entity ;
     private ContactService contactService;
     @Override
     public void init() throws ServletException {
-//        dao = new ContactDaoImpl();
+//        entity = new ContactDaoImpl();
         contactService = new ContactServiceImpl();
     }
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -36,7 +36,7 @@ public class QueryContactServlet extends HttpServlet {
         String id = request.getParameter("id");
 
         // 2.调用dao根据id查询联系人方法
-//        Contact contact = dao.findById(id);
+//        Contact contact = entity.findById(id);
         Contact contact = contactService.findById(id);
         HttpSession session = request.getSession(true);
         session.setAttribute("contact",contact);

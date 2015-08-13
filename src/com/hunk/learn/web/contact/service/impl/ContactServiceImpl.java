@@ -15,7 +15,7 @@ import java.util.List;
  * Created by hunk on 2015/8/5.
  */
 public class ContactServiceImpl implements ContactService {
-//    private ContactDao dao = new ContactDaoImpl();
+//    private ContactDao entity = new ContactDaoImpl();
     private ContactDao dao = new ContactDaoMySQLImpl();
 
     /**

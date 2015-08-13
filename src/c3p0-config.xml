@@ -1,6 +1,6 @@
 <c3p0-config>
     <default-config>
-        <property name="jdbcUrl">jdbc:mysql://localhost:3306/day18</property>
+        <property name="jdbcUrl">jdbc:mysql://localhost:3306/day18?useUnicode=true&amp;characterEncoding=UTF8 </property>
         <property name="driverClass">com.mysql.jdbc.Driver</property>
         <property name="user">hunk</property>
         <property name="password">123456</property>
@@ -9,7 +9,7 @@
         <property name="maxIdleTime">1000</property>
     </default-config>
     <name-config name="oracle_config">
-        <property name="jdbcUrl">jdbc:mysql://localhost:3306/day18</property>
+        <property name="jdbcUrl">jdbc:mysql://localhost:3306/day18?useUnicode=true&amp;characterEncoding=UTF8 </property>
         <property name="driverClass">com.mysql.jdbc.Driver</property>
         <property name="user">hunk</property>
         <property name="password">123456</property>

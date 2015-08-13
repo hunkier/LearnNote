@@ -18,11 +18,11 @@ import java.io.IOException;
  */
 @WebServlet(name = "UpdateContactServlet", urlPatterns = "/UpdateContactServlet")
 public class UpdateContactServlet extends HttpServlet {
-    //    private ContactDao dao ;
+    //    private ContactDao entity ;
     private ContactService contactService;
     @Override
     public void init() throws ServletException {
-//        dao = new ContactDaoImpl();
+//        entity = new ContactDaoImpl();
         contactService = new ContactServiceImpl();
     }
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -37,7 +37,7 @@ public class UpdateContactServlet extends HttpServlet {
         contact.setQq(request.getParameter("qq"));
         contact.setName(request.getParameter("name"));
         contact.setAge(Integer.parseInt(request.getParameter("age")));
-//        dao.updateContact(contact);
+//        entity.updateContact(contact);
         contactService.updateContact(contact);
         response.sendRedirect(request.getContextPath() + "/ListContactServlet");
     }
