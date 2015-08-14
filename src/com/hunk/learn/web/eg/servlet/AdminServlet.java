@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
@@ -26,6 +27,8 @@ public class AdminServlet extends HttpServlet {
         String method = request.getParameter("method");
         if ("register".equals(method)){
             register(request,response);
+        }else if ("out".equals(method)){
+            out(request,response);
         }
 
     }
@@ -68,5 +71,29 @@ public class AdminServlet extends HttpServlet {
         }catch (Exception e){
             response.sendRedirect(request.getContextPath() + "/jdbc/error/error.jsp");
         }
+
+
     }
+
+    /**
+     * 注销登录，退出
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
+    private void out(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+            // 1.获取session
+            HttpSession session = request.getSession(false);
+            // 2.判断
+        if (null!=session){
+            // 从session中移除用户
+            // session.removeAttribute("loginInfo");  // ?
+            // 销毁
+            session.invalidate();
+
+            // 3.跳转（登录）
+            response.sendRedirect(request.getContextPath() + "/emp/login.jsp");
+        }
+        }
 }

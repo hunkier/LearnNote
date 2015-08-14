@@ -4,12 +4,15 @@ import com.hunk.learn.web.emp.entity.Admin;
 import com.hunk.learn.web.emp.service.IAdminService;
 import com.hunk.learn.web.emp.service.impl.AdminService;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 处理登录请求
@@ -43,6 +46,21 @@ public class LoginServlet extends HttpServlet {
                 // 登录成功
                 // 先，保存数据到session
                 request.getSession().setAttribute("loginInfo",loginInfo);
+                // 【在线列表：1.先从serletContext中拿到在线列表集合；（onLineUserList）
+                //             2.当前用户放入"在线列表集合中"】
+                // 实现1：先得到servletContextduix
+                ServletContext sc = getServletContext();
+                // 实现2：再获取在线列表集合
+                List<Admin> onlineList = (List<Admin>)sc.getAttribute("onlineList");
+                // 判断
+                if (null==onlineList){
+                    onlineList = new ArrayList<Admin>();
+                    // 放入到ServletContex中
+                    sc.setAttribute("onlineList",onlineList);
+                }
+                    // 实现3：添加当前登录者
+                    onlineList.add(loginInfo);
+                    // sc.setAttribute("onlineList",onlineList); // 对象引用，不需要写也可以
                 // 再，跳转到首页显示servlet(/index)
                 uri = "/emp/index";
             }

@@ -45,6 +45,7 @@ public class LoginFilter implements Filter {
         // 2.判断：先放行一些资源：/login.jsp、/login
         if ("login".equals(requestPath) || "login.jsp".equals(requestPath)){
             chain.doFilter(request,response);
+            return;
         }else{
             // 3.  对其他资源进行拦截
             // 3.1 先去Session，获取session中登录用户（loginInfo)
@@ -56,6 +57,7 @@ public class LoginFilter implements Filter {
                 if (null != obj){
                     // 放行
                     chain.doFilter(request,response);
+                    return;
                 }else {
                     // 3.3 如果获取内容为空，说明没有登录；跳转到登录
                     uri = "/emp/login.jsp";
@@ -63,6 +65,7 @@ public class LoginFilter implements Filter {
             }else {
                 uri = "/emp/login.jsp";
             }
+
             request.getRequestDispatcher(uri).forward(request,response);
         }
     }

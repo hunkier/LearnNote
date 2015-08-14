@@ -20,7 +20,9 @@
     <meta http-equiv="expires" content="0">
 </head>
 <body>
-<h1>欢迎你，${sessionScope.loginInfo.userName}</h1>
+<%--<h1>欢迎你，${sessionScope.loginInfo.userName}</h1>--%>
+<!--  引入头部页面  -->
+<jsp:include page="public/head.jsp"></jsp:include>
 <!--  列表展示数据  -->
 <table align="center" border="1" width="80%" cellpadding="3" cellspacing="0">
     <tr>

@@ -1,0 +1,192 @@
+使用Log4J进行日志操作
+
+Log4J简介
+
+Log4J是Apache的一个开放源代码项目，它是一个日志操作包，通过使用Log4J，可以指定日志信息输出的目的地，如控制台、文件、ＣＵＩ组件、NT的事件记录器；还可以控制每一条日志输出格式。此外，通过定义日志信息的级别，能够非常细致地控制日志的输出，最令人感兴趣的是，这些功能可以通过一个配置文件来灵活进行配置，而不需要修改应程序代码。
+在应用程序中输出日志有３个目的：
+	监视代码中变量的变化情况，把数据周期性记录到文件中供其他应用进行统计分析工作
+	跟踪代码运行时轨迹，作为日后审计的依据
+	担当集成开发环境中的调试器的作用，向文件和控制台打印代码的调试信息
+要在程序中输出日志，最普通的做法就是在代码中嵌入语句，这些打印语句可以把日志输出到控制台或文件中，比较好的做法就是构造一个日志操作类来封装此类操作，而不是让一系列的打印语句充斥代码的主体。
+
+在强调可重用组件的今天，除了自己从头到尾开发一个可重用的日志操作类名，Apache为我们提供了一个强有力的现成的日志操作包Log4J。
+Log4J主要由三大组件构成：
+	Logger:负责生成日志，并能够对日志信息进行分类筛选，通俗地讲就是决定什么日志信息应该输出，什么日志信息应该被忽略
+	Appender：定义了日志信息输出的目的地，指定日志信息应该被输出到什么地方，这些地方可以是控制台、文件、网络设备等
+	Layout: 指定日志信息的输出格式
+这个３个组件协同工作，使得开发者能够依据日志信息类别记录信息，并能够在程序运行期间，控制日志信息的输出格式以及日志存放地点。
+一个Logger可以有多个Appender，这意味着日志信息可以同时输出到多个设备上，每个Appender都对应一种Layout,Layout决定了输出日志信息的格式。
+假定根据实际需要，要求程序中的日志信息既能输出到程序运行的控制台下，又能输出到指定的文件中，并且当日志信息输出到控制台时SimplLayout布局，当日志信息输出到文件时PatternLayout布局，此时Logger、Appender和Layout3个组件的关系如图　　
+
+
+
+Appender组件 （指定输出目的）
+Log4J的Appender组件决定将日志信息输出到什么地方。日前Log4J的Ａｐｐｅｎｄｅｒ支持将日志信息输出到以下的目的：
+	控制台(Console)
+	文件
+	ＧＵＩ组件
+一个logger可以同时对应多个Appender,也就是说，一个Logger的日志信息可以同时输出到多个目的地，例如：要为rootLogger配置两个Appender;　一个是file，一个是console,则可以采用如下配置代码：
+　　　
+log4j.rootLogger =WARN,file,console          rootLogger  配置日志级别、输出目的；
+log4j.appender.file=org.apache.log4jRollingFileAppender
+    log4j.appender.file=log.txt
+log4j.appender.console=org.apache.log4j.ConsoleAppender
+ Layout组件
+Layout组件用来决定日志的输出格式，它有以下几种类型
+	org.apache.log4j.HTMLLayout(以ＨＴＭＬ表格形式布局)
+	org.apache.log4j.PatternLayout(可以灵活地指定布局模式)
+	org.apache.log4j.SimpleLayout(包含日志信息级别和信息字符串)
+	org.apache.log4j.TTCCLayout(包含日志产生的时间、线程和类别等信息)
+
+
+Log4j的基本使用方法
+在应用程序中使用Log4J，首先在一个配置文件中配置Log4j的各个组件，然后就可以在程序中通过Log4ＪAPI来操作日志
+
+定义配置文件
+Log4J由３个重要的组件构成：Logger、Appender和layout。Log4J支持在程序中以编程的方式设置这些组件，还支持通过配置文件来配置组件，后一种方式更为灵活。
+Log4J支持两种配置文件格式，一种是ＸＭＬ格式，一种是Java属性文件，
+
+1. 配置Logger组件
+其语法为：
+      log4j.rootLogger = [ level ] , appenderName1, appenderName2, …
+举例：
+	log4j.rootLogger =WARN,file,console
+
+       level : 是日志记录的优先级，分为OFF、FATAL、ERROR、WARN、INFO、DEBUG、ALL或者您定义的级别。
+Log4j建议只使用四个级别，优先级从高到低分别是ERROR>WARN>INFO>DEBUG。通过在这里定义的级别，您可以控制到应用程序中相应级别的日志信息的开关。比如在这里定 义了INFO级别，则应用程序中所有DEBUG级别的日志信息将不被打印出来。
+appenderName:就是指定日志信息输出到哪个地方。您可以同时指定多个输出目的地。
+All：打印所有日志。
+Off：关闭所有的日志。
+     例如：log4j.rootLogger＝info,A1,B2,C3
+
+
+2. 配置Appender组件
+
+其语法为：
+     log4j.appender.appenderName =fully.qualified.name.of.appender.class.
+举例：
+	log4j.appender.console=org.apache.log4j.ConsoleAppender
+
+    "fully.qualified.name.of.appender.class" 可以指定下面五个目的地中的一个：
+          1.org.apache.log4j.ConsoleAppender（控制台）
+          2.org.apache.log4j.FileAppender（文件） 【只能把日志输出一个文件，不推荐】
+          3.org.apache.log4j.DailyRollingFileAppender（每天产生一个日志文件）
+          4.org.apache.log4j.RollingFileAppender（文件大小到达指定尺寸的时候产生一个新的文件）
+          5.org.apache.log4j.WriterAppender（将日志信息以流格式发送到任意指定的地方）
+
+A.ConsoleAppender选项
+    Threshold=WARN:指定日志消息的输出最低层次。
+     ImmediateFlush=true:默认值是true,意谓着所有的消息都会被立即输出。
+     Target=System.err：默认情况下是：System.out,指定输出控制台
+B.FileAppender 选项
+Threshold=WARN:指定日志消息的输出最低层次。
+ImmediateFlush=true:默认值是true,意谓着所有的消息都会被立即输出。
+File=mylog.txt:指定消息输出到mylog.txt文件。
+     Append=false:默认值是true,即将消息增加到指定文件中，false指将消息覆盖
+指定的文件内容。
+C.DailyRollingFileAppender 选项
+      Threshold=WARN:指定日志消息的输出最低层次。
+       ImmediateFlush=true:默认值是true,意谓着所有的消息都会被立即输出。
+       File=mylog.txt:指定消息输出到mylog.txt文件。
+       Append=false:默认值是true,即将消息增加到指定文件中，false指将消息覆盖指定
+的文件内容。
+      DatePattern='.'yyyy-ww:每周滚动一次文件，即每周产生一个新的文件。当然也可
+以指定按月、周、天、时和分。即对应的格式如下：
+                    1)'.'yyyy-MM: 每月
+                    2)'.'yyyy-ww: 每周
+                    3)'.'yyyy-MM-dd: 每天
+                    4)'.'yyyy-MM-dd-a: 每天两次
+                    5)'.'yyyy-MM-dd-HH: 每小时
+                    6)'.'yyyy-MM-dd-HH-mm: 每分钟
+D.RollingFileAppender 选项
+           Threshold=WARN:指定日志消息的输出最低层次。
+            ImmediateFlush=true:默认值是true,意谓着所有的消息都会被立即输出。
+            File=mylog.log:指定消息输出到mylog.txt文件。
+            Append=false:默认值是true,即将消息增加到指定文件中，false指将消息覆盖指
+定的文件内容。
+            MaxFileSize=100KB: 后缀可以是KB, MB 或者是 GB. 在日志文件到达该大小
+时，将会自动滚动，即将原来的内容移到mylog.log.1文件。
+            MaxBackupIndex=2:指定可以产生的滚动文件的最大数。
+3、配置日志信息的格式
+其语法为：
+　　1)log4j.appender.appenderName.layout=fully.qualified.name.of.layout.class
+         "fully.qualified.name.of.layout.class" 可以指定下面4个格式中的一个：
+举例：log4j.appender.console.layout=org.apache.log4j.PatternLayout
+      log4j.appender.console.layout.ConversionPattern=%d %p %c.%M()-%m%n
+
+               1.org.apache.log4j.HTMLLayout（以HTML表格形式布局）包含选项：
+LocationInfo=true:默认值是false,输出java文件名称和行号
+                      Title=my app file: 默认值是 Log4J Log Messages.
+
+　　       2.org.apache.log4j.PatternLayout（可以灵活地指定布局模式）包含选项：
+ConversionPattern=%m%n :指定怎样格式化指定的消息。
+
+　　       3.org.apache.log4j.SimpleLayout（包含日志信息的级别和信息字符串）
+　　       4.org.apache.log4j.TTCCLayout（包含日志产生的时间、线程、类别等等信息）
+        2)log4j.appender.A1.layout.ConversionPattern=%-4r %-5p %d{yyyy-MM-dd HH:mm:ssS} %c %m%n
+      日志信息格式中几个符号所代表的含义：
+　　 －X号: X信息输出时左对齐；
+         %p: 输出日志信息优先级，即DEBUG，INFO，WARN，ERROR，FATAL,
+         %d: 输出日志时间点的日期或时间，默认格式为ISO8601，也可以在其后指定格式，比如：  %d{yyy MMM dd HH:mm:ss,SSS}，输出类似：2002年10月18日 22：10：28，921
+         %r: 输出自应用启动到输出该log信息耗费的毫秒数
+        %c: 输出日志信息所属的类目，通常就是所在类的全名
+         %t: 输出产生该日志事件的线程名
+         %l: 输出日志事件的发生位置，相当于%C.%M(%F:%L)的组合,包括类目名、发生的线程， 以及在代码中的行数。举例：Testlog4.main(TestLog4.java:10)
+         %x: 输出和当前线程相关联的NDC(嵌套诊断环境),尤其用到像java servlets这样的多客户多线程的应用中。
+        %%: 输出一个"%"字符
+        %F: 输出日志消息产生时所在的文件名称
+        %L: 输出代码中的行号
+        %m: 输出代码中指定的消息,产生的日志具体信息
+        %n: 输出一个回车换行符，Windows平台为"\r\n"，Unix平台为"\n"输出日志信息换行
+%M  代表方法的名字
+         可以在%与模式字符之间加上修饰符来控制其最小宽度、最大宽度、和文本的对齐方式。如：
+         1)%20c：指定输出category的名称，最小的宽度是20，如果category的名称小于20。
+          2)%-20c:指定输出category的名称，最小的宽度是20，如果category的名称小于20的话，"-"号指定左对齐。
+          3)%.30c:指定输出category的名称，最大的宽度是30，如果category的名称大于30的话，就会将左边多出的字符截掉，但小于30的话也不会有空格。
+           4)%20.30c:如果category的名称小于20就补空格，并且右对齐，如果其名称长于30字符，就从左边交远销出的字符截掉。
+在程序中访问Log4J,需要用到Log4J的ＪＡＲ文件。
+在程序中使用Log4J包含以下过程：
+	获得日志记录器
+	读取配置文件，配置Log4J环境
+	输出日志信息
+
+
+在进入学习Log4J之前，我们要了解通用日志包中的两个常用接口LogFactory和Log，下面分别介绍它们的用法。
+Log接口
+通用日志包把日志消息分为6种级别：FATAL(致命的)、ERROR(错误)、WARN(警告)、INFO(信息)、DEBUG(调试)和TRACE(细节)。其中FATAL级别最高，TRACE级别最低。通用日志包采用日志级别机制，可以灵活的控制输出的日志内容。
+org.apache.commons.logging.Log接口代表日志器，它提供了一组输出日志的方法：
+	fatal(Object message): 输出FATAL级别的日志消息。
+	error(Object message): 输出ERROR级别的日志消息。
+	……
+	trace(Object message): 输出TRACE级别的日志消息。
+    对于以上输出日志的方法，只有当它输出日志的级别大于或等于为日志其配置的日志级别时，这个方法才会被真正执行。例如，如果日志器的日志级别为WARN，那么在程序中，它的fatal()、error()和warn()方法会被执行，而info()、debug()和trace()方法不会被执行。
+Log接口还提供了一组判断是否允许输出特定级别的日志消息的方法：
+	isFatalEnabled()
+	isErrorEnabled()
+	……
+	isTraceEnabled()
+在程序输出某种级别的日志消息之前，提倡先调用以上方法来判断该级别的日志是否允许输出，这有助于提高应用的性能。例如以下代码先把日志消息添加到StringBuffer中，最后在调用日志器的debug()方法输出日志：
+StringBuffer buf = new StringBuffer();
+buf.append(“Login Successsul - ”);
+buf.append(“Name:”);
+buf.append(username);
+log.debug(buf.toString());
+对于以上代码，如果日志器实际上不允许输出DEBUG级别的日志，那么执行日志器的debug()方法不会输出任何消息，此时向StringBuffer中添加消息的一大串操做都将是多余的。为了提高性能，可以合理的使用isDebugEnabled()方法，避免应用执行多余的操作：
+if(log.isDebugEnabled){
+	StringBuffer buf = new StringBuffer();
+buf.append(“Login Successsul - ”);
+buf.append(“Name:”);
+buf.append(username);
+log.debug(bug.toString());
+}
+(二)LogFactory接口
+org.apache.commons.logging.LogFactory接口提供了获得日志器实例的两个静态方法：
+	public static Log getLog(String name)throws LogConfigurationException;
+	public static Log getLog(Class class) throws LogConfigurationException;
+第一个getLog()方法以name参数作为日志器的名字；第二个getLog()方法以class参数指定的类的名字作为日志器的名字，以下是第二个getLog()方法的一种实现方式：
+public static Log getLog(Class class) throws LogConfigurationException{
+getLog(class.getName);     //call getLog(String name)
+}
+
+小结
+Log4J主要由３大组件构成：Logger、Appender和Layout。Logger控制日志信息的输出；Appender决定日志信息的输出目的地；Layout决定日志信息的输出格式。Log4J允许用户在配置文件中灵活地配置这些组件。在程序中使用Log4J非常方便，只要先取得日志记录器，然后读取配置文件并配置Log4J环境，接下来就可以在程序中任何需要输出日志的地方，调用Logger类的适当方法来生成日志。

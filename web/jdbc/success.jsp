@@ -1,6 +1,5 @@
 <%--
   Created by IntelliJ IDEA.
-<<<<<<< Updated upstream
   User: hunk
   Date: 2015/8/12
   Time: 10:34

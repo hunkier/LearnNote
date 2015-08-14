@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: hunk
-  Date: 2015/8/12
-  Time: 10:29
+  Date: 2015/8/14
+  Time: 15:30
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" import="java.util.*" pageEncoding="UTF-8" %>
@@ -12,28 +12,34 @@
 %>
 <html>
 <head>
+    <%
+        ResourceBundle bundle = ResourceBundle.getBundle("com.hunk.learn.listener.i18n.msg",request.getLocale());
+        pageContext.setAttribute("bundle",bundle);
+    %>
     <base href="<%=basePath%>">
-    <title>注册</title>
+    <title><%=bundle.getString("title")%></title>
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="0">
 </head>
 <body>
-<form action="AdminServlet?method=register" method="post">
-    <table >
+<form name="frmLogin" action="admin?method=login" method="post">
+    <table align="center" border="1">
         <tr>
-            <td>用户名</td>
+            <td><%=bundle.getString("username") %></td>
             <td>
                 <input type="text" name="userName">
-                ${message}
             </td>
         </tr>
         <tr>
-            <td>密码</td>
+            <td><%=bundle.getString("pwd") %></td>
             <td>
                 <input type="password" name="pwd">
             </td>
         </tr>
         <tr>
-            <td colspan="2" align="center">
-                <input type="submit" value="注册">
+            <td>
+                <input type="submit" value="<%=bundle.getString("submit") %>">
             </td>
         </tr>
     </table>
