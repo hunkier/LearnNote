@@ -168,13 +168,8 @@ select empName,deptName from employee,dept;
 -- 多表查询规则：1）确定查哪些表  2）确定查哪些字段 3）表与表之间的连接条件（规律：连接条件数量是表数量-1）
 -- 2.2 内连接：只有满足条件的结果才会显示
 select empName,deptName        -- 2） 确定查哪些字段
-<<<<<<< Updated upstream
   from employee,dept              -- 1) 确定查哪些表
   where employee.deptId=dept.id; -- 3）表与表之间连接关系
-=======
-from employee,dept              -- 1) 确定查哪些表
-where employee.deptId=dept.id; -- 3）表与表之间连接关系
->>>>>>> Stashed changes
 
 -- 内连接的另一种写法
 select empName,deptName
@@ -186,11 +181,7 @@ from employee
 select e.empName,d.deptName
 from employee e
   inner join dept d
-<<<<<<< Updated upstream
   on e.deptId=d.id;
-=======
-    on e.deptId=d.id;
->>>>>>> Stashed changes
 
 insert into dept(id,deptName) values(4,'总经办');
 
@@ -213,11 +204,7 @@ from dept d
 select d.deptName,e.empName
 from employee e
   right outer join dept d
-<<<<<<< Updated upstream
   on d.id=e.deptId;
-=======
-    on d.id=e.deptId;
->>>>>>> Stashed changes
 
 -- 2.4 自连接查询
 -- 需求：查询员工及其上司
@@ -256,15 +243,9 @@ call pro_test();
 -- 需求传入一个员工的id，查询员工信息
 delimiter $
 create procedure pro_findById(in eid int) -- in: 输入参数
-<<<<<<< Updated upstream
 begin
   select * from employee where id=eid;
 end $
-=======
-  begin
-    select * from employee where id=eid;
-  end $
->>>>>>> Stashed changes
 
 -- 调用
 call pro_findById(1);
@@ -272,17 +253,10 @@ call pro_findById(1);
 -- 3.2 带有输出参数的存储过程
 delimiter $
 create procedure pro_testOut(out str varchar(20)) -- out: 输出参数
-<<<<<<< Updated upstream
 begin
       -- 给参数赋值
   set str='hello sql procedure';
 end $
-=======
-  begin
-    -- 给参数赋值
-    set str='hello sql procedure';
-  end $
->>>>>>> Stashed changes
 
 call pro_testOut(@name);
 select @name ;
@@ -313,19 +287,11 @@ select @name;
 -- 3.3 带有输入输出参数的存储过程
 delimiter $
 create procedure pro_testInOut(inout n int) -- inout: 输入输出参数
-<<<<<<< Updated upstream
 begin
   -- 查看变量
   select n;
   set n=500;
 end $
-=======
-  begin
-    -- 查看变量
-    select n;
-    set n=500;
-  end $
->>>>>>> Stashed changes
 
 -- 调用
 set @n=10;
@@ -336,7 +302,6 @@ select @n;
 -- 需求：  输入一个整数，如果1，则返回“星期一”，如果2，返回“星期二”，如果3，返回“星期三”。其他数字返回“输入错误”。
 delimiter $
 create procedure pro_testIf(in num int, out str varchar(20))
-<<<<<<< Updated upstream
 begin
   if num=1 THEN
     set str='星期一';
@@ -348,19 +313,6 @@ begin
     set str='输入错误';
   end if;
 end $
-=======
-  begin
-    if num=1 THEN
-      set str='星期一';
-    elseif num=2 then
-      set str='星期二';
-    elseif num=3 then
-      set str='星期三';
-    else
-      set str='输入错误';
-    end if;
-  end $
->>>>>>> Stashed changes
 
 call pro_testIf(4,@str);
 select @str;
@@ -369,19 +321,11 @@ select @str;
 -- 需求：  输入一个整数，求和。例如，输入100，统计1-100的和
 delimiter $
 create procedure pro_testWhile(in num int,out result int)
-<<<<<<< Updated upstream
 begin
   -- 定义一个局部变量
   declare i int default 1;
   declare vsum int default 0;
   while i<=num do
-=======
-  begin
-    -- 定义一个局部变量
-    declare i int default 1;
-    declare vsum int default 0;
-    while i<=num do
->>>>>>> Stashed changes
       set vsum=vsum+i;
       set i=i+1;
     end while;
@@ -411,21 +355,6 @@ select * from student2;
 
 delimiter $
 create procedure pro_testAvg(out str varchar(20))
-<<<<<<< Updated upstream
-begin
-  -- 定义局部变量，接收平均分
-  declare savg double;
-  -- 计算平均分
-  select avg(english) into savg from student2;
-  if savg<=70 then
-    set str='一般';
-  elseif savg>70 and savg<=90 then
-    set str='良好';
-  else
-    set str='优秀';
-  end if;
-end $
-=======
   begin
     -- 定义局部变量，接收平均分
     declare savg double;
@@ -439,7 +368,6 @@ end $
       set str='优秀';
     end if;
   end $
->>>>>>> Stashed changes
 
 call pro_testAvg(@str);
 select @str;
@@ -494,10 +422,6 @@ delete from user where user='hunk';
 
 select * from user;
 
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
 -- 修改密码
 update user set password=password('123456') where user='root';
 update user set password=password('123456') where user='hunk';
@@ -509,10 +433,6 @@ grant delete on day16.employee to 'eric'@'localhost' identified by '123456';
 grant all privileges  on *.*  to 'hunkier'@'localhost' identified by'';
 grant all privileges  on *.*  to 'hunk'@'localhost' identified by'123456';
 
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
 -- ***** 六、mysql备份和还原 ****** --
 -- 备份，在命令行运行  mysqldump -u root -p day17 > C:/back.sql
 -- 恢复，在命令行运行  mysql -u root -p day17 < C:/back.sql
