@@ -66,4 +66,20 @@ create table test(
 select * from test;
 select * from test where context is not null;
 
+-- mybatis
+create table user(
+  id int PRIMARY KEY AUTO_INCREMENT,
+  username varchar(20),
+  sex varchar(2),
+  birthday date ,
+  address varchar(100),
+  detail varchar(255),
+  score float
+);
+
+insert into user(username, sex, birthday, address, detail, score) values('李四','女','1999-01-01','广州市天河区体育东路','detial...',100);
+insert into user(username, sex, address, detail, score) values('张三','男','广州市海珠区磨碟沙','detial...',99);
+
+select * from user;
+
 
