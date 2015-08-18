@@ -50,6 +50,7 @@ public class UserDaoImplTest {
         // 调用dao方法
         List<User> list = userDao.findUserList();
         System.out.println(list);
+
     }
 
 
