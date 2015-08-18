@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * 4.控制层开发
@@ -88,7 +89,12 @@ public class AdminServlet extends HttpServlet {
             // 2.判断
         if (null!=session){
             // 从session中移除用户
-            // session.removeAttribute("loginInfo");  // ?
+            com.hunk.learn.web.emp.entity.Admin  admin = (com.hunk.learn.web.emp.entity.Admin)session.getAttribute("loginInfo");
+            List<com.hunk.learn.web.emp.entity.Admin> onlineList = (List<com.hunk.learn.web.emp.entity.Admin>)getServletContext().getAttribute("onlineList");
+            if (null!=onlineList && null!=admin){
+                onlineList.remove(admin);
+            }
+             // session.removeAttribute("loginInfo");  // ?
             // 销毁
             session.invalidate();
 

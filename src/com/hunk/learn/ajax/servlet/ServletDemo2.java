@@ -12,10 +12,26 @@ import java.io.IOException;
  */
 @WebServlet(name = "ServletDemo2", urlPatterns = "/ajax/demo2")
 public class ServletDemo2 extends HttpServlet{
+    private String usernames[] = {"admin","hunk"};
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //
         System.out.println(this.getClass().getName() +" 执行了！");
+        String username = req.getParameter("username");
+        boolean b = false;
+        for (String s : usernames){
+            if (s.equals(username)){
+                b = true;
+                return;
+            }
+        }
+        String msg = null;
+        if (b){
+            msg = "<font color='red'>用户名不可用</font>";
+        }else{
+            msg = "<font color='green'>用户可用</font>";
+        }
+
     }
 
     @Override

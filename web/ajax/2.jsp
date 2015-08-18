@@ -18,8 +18,38 @@
     <meta http-equiv="pragma" content="no-cache">
     <meta http-equiv="cache-control" content="no-cache">
     <meta http-equiv="expires" content="0">
+    <script type="text/javascript" src="${basePath}ajax/util.js" ></script>
+    <script type="text/javascript">
+        window.onload= function () {
+            alert("1");
+            document.getElementById("username").onblur=function(){
+                if(this.value==""){
+                    alert("请输入用户名");
+                    this.focus(); // 恢复焦点
+                    return;
+                }
+                // 发出异步请求
+                var xhr = getXHR();
+                xhr.onreadystatechange= function(){
+                    if(xhr.readyState==4){
+                        if(xhr.status==200){
+                            document.getElementById("msg").innerHTML=xhr.responseText;
+                        }
+                    }
+                }
+                xhr.open("POST","${basePath}ajax/demo2?time="+new Date().getTime());
+                // 设置请求消息头，告知客户端提交正文的MIME类型
+                xhr.setRequestHeader("Content-type","application/x-wwww-form-unlencoded");
+                xhr.send("username="this.value);
+            }
+        }
+    </script>
 </head>
 <body>
-This is my first jsp page.<br/>
+<form action="" method="post">
+    用户名:<input type="text" id="username" name="username"/><span id="msg"></span><br/>
+    密  码:<input type="password" id="password" name="password"/><br/>
+    <input type="submit" value="注册"/>
+</form>
 </body>
 </html>

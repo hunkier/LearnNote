@@ -66,7 +66,8 @@ public class LoginFilter implements Filter {
                 uri = "/emp/login.jsp";
             }
 
-            request.getRequestDispatcher(uri).forward(request,response);
+            response.sendRedirect(request.getContextPath()+uri);
+            // request.getRequestDispatcher(uri).forward(request,response);
         }
     }
 

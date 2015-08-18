@@ -58,19 +58,21 @@ public class LoginServlet extends HttpServlet {
                     // 放入到ServletContex中
                     sc.setAttribute("onlineList",onlineList);
                 }
-                    // 实现3：添加当前登录者
-                    onlineList.add(loginInfo);
-                    // sc.setAttribute("onlineList",onlineList); // 对象引用，不需要写也可以
+                // 实现3：添加当前登录者
+                onlineList.add(loginInfo);
+                // sc.setAttribute("onlineList",onlineList); // 对象引用，不需要写也可以
                 // 再，跳转到首页显示servlet(/index)
                 uri = "/emp/index";
+                // request.getRequestDispatcher(uri).forward(request,response);
             }
         } catch (Exception e) {
             // 测试
             e.printStackTrace();
             uri = "/error/error.jsp";
+
         }
         // 3.跳转
-        request.getRequestDispatcher(uri).forward(request,response);
+        response.sendRedirect(request.getContextPath() + uri);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
