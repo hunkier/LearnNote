@@ -14,14 +14,14 @@
 <html>
 <head>
     <base href="<%=basePath%>">
-    <title>2</title>
+    <title>检测用户名是否可用</title>
     <meta http-equiv="pragma" content="no-cache">
     <meta http-equiv="cache-control" content="no-cache">
     <meta http-equiv="expires" content="0">
     <script type="text/javascript" src="${basePath}ajax/util.js" ></script>
     <script type="text/javascript">
         window.onload= function () {
-            alert("1");
+
             document.getElementById("username").onblur=function(){
                 if(this.value==""){
                     alert("请输入用户名");
@@ -39,8 +39,8 @@
                 }
                 xhr.open("POST","${basePath}ajax/demo2?time="+new Date().getTime());
                 // 设置请求消息头，告知客户端提交正文的MIME类型
-                xhr.setRequestHeader("Content-type","application/x-wwww-form-unlencoded");
-                xhr.send("username="this.value);
+                xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+                xhr.send("username="+this.value);
             }
         }
     </script>

@@ -1,25 +1,29 @@
 package com.hunk.learn.ajax.domain;
 
-import com.thoughtworks.xstream.annotations.XStreamAlias;
-import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
+import com.thoughtworks.xstream.annotations.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by hunk on 2015/8/17.
  */
-@XStreamAlias("city")
-public class City {
+@XStreamAlias("province")
+public class Province {
     @XStreamAsAttribute
     private int code;
     @XStreamAsAttribute
     private String name;
 
-    public City() {
+    public Province() {
     }
 
-    public City( int code,String name) {
-        this.name = name;
+    public Province(int code, String name) {
         this.code = code;
+        this.name = name;
     }
+    @XStreamImplicit
+    private List<City> citys = new ArrayList<City>();
 
     public int getCode() {
         return code;
@@ -37,11 +41,19 @@ public class City {
         this.name = name;
     }
 
-    @Override
+    public List<City> getCitys() {
+        return citys;
+    }
+
+    public void setCitys(List<City> citys) {
+        this.citys = citys;
+    }
+
     public String toString() {
-        return "City{" +
+        return "Province{" +
                 "code=" + code +
                 ", name='" + name + '\'' +
+                ", citys=" + citys +
                 '}';
     }
 }
