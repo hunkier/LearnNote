@@ -251,8 +251,8 @@ select * from student limit 3,2;
 select * from student limit 4,2;
 select * from student limit 5,2;
 
--- 2.10 查询排序  (order by)
--- 语法 ： order by 字段 asc/desc
+-- 2.10 查询排序  (Order by)
+-- 语法 ： Order by 字段 asc/desc
 -- asc:   顺序，正序。数值：递增， 字母：自然顺序（a-z）
 -- desc:  倒序，反序。数值：递减， 字母：自然反序（z-a）
 

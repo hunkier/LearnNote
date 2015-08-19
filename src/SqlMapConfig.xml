@@ -9,10 +9,10 @@
         <environment id="development">
             <transactionManager type="JDBC" />
             <dataSource type="POOLED">
-                <property name="driver" value="${jdbc.driverClass}" />
-                <property name="url" value="${jdbc.url}" />
-                <property name="username" value="${jdbc.user}" />
-                <property name="password" value="${jdbc.password}" />
+                <property name="driver" value="${JDBC.driverClass}" />
+                <property name="url" value="${JDBC.url}" />
+                <property name="username" value="${JDBC.user}" />
+                <property name="password" value="${JDBC.password}" />
             </dataSource>
         </environment>
     </environments>
