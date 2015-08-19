@@ -51,6 +51,7 @@ public class UserDaoImplTest {
         List<User> list = userDao.findUserList();
         System.out.println(list);
 
+
     }
 
 
