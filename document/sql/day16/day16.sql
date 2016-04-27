@@ -433,6 +433,9 @@ grant delete on day16.employee to 'eric'@'localhost' identified by '123456';
 grant all privileges  on *.*  to 'hunkier'@'localhost' identified by'';
 grant all privileges  on *.*  to 'hunk'@'localhost' identified by'123456';
 
+-- 刷新用户权限
+FLUSH PRIVILEGES;
+
 -- ***** 六、mysql备份和还原 ****** --
 -- 备份，在命令行运行  mysqldump -u root -p day17 > C:/back.sql
 -- 恢复，在命令行运行  mysql -u root -p day17 < C:/back.sql
