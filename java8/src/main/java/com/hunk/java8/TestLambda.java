@@ -48,6 +48,16 @@ public class TestLambda {
         return  mf.getValue(str);
     }
 
+    /**
+     * 对两个数字进行运算
+     */
+    @Test
+    public  void test3(){
+        op(100L,100L,(x,y)->x+y);
+
+        op(200L,200L, (x,y)->x*y);
+    }
+
     public void op(Long l1, Long l2, MyFunction2<Long, Long> mf){
         System.out.println(mf.getValue(l1,l2));
     }
