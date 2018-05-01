@@ -3,9 +3,11 @@ package com.hunk.java8;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 /**
@@ -26,6 +28,35 @@ import java.util.function.Supplier;
  *
  */
 public class TestLambda3 {
+
+
+    /**
+     * Predicate</T>：断言型接口
+     */
+    @Test
+    public void test4(){
+        List<String> list = Arrays.asList("Hello","Lambda","www","ok");
+        List<String> newList = filterStr(list,(s)->s.length()>3);
+        newList.forEach(System.out::println);
+    }
+
+
+    /**
+     * 需求：将满足条件的字符串，放入集合中
+     * @param list
+     * @param pre
+     * @return
+     */
+    public List<String> filterStr(List<String> list, Predicate<String> pre){
+        List<String> result = new ArrayList<>();
+        for (String s : list) {
+            if (pre.test(s)){
+                result.add(s);
+            }
+        }
+        return  result;
+
+    }
 
     /**
      * Function<T, R> 函数型接口：

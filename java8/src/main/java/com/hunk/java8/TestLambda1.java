@@ -36,13 +36,7 @@ public class TestLambda1 {
 
 
 
-    List<Employee> employees = Arrays.asList(
-            new Employee("张三", 18, 9999.99),
-            new Employee("李四", 38, 5555.55),
-            new Employee("王五", 50, 6666.66),
-            new Employee("赵六", 16, 3333.33),
-            new Employee("田七", 8, 7777.77)
-    );
+    List<Employee> employees = EmployeeUtils.getEmployees();
 
 
     public List<Employee> filterEmployees(List<Employee> employees){
