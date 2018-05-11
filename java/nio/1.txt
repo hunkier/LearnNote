@@ -1,0 +1,2 @@
+FileChannel inChannel = FileChannel.open(Paths.get("d:/1.mp4"), StandardOpenOption.READ);
+FileChannel outChannel = FileChannel.open(Paths.get("d:/2.mp4"), StandardOpenOption.WRITE, StandardOpenOption.READ, StandardOpenOption.CREATE);
