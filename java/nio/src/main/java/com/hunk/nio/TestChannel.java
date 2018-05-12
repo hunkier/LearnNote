@@ -121,7 +121,7 @@ public class TestChannel {
         try (
 
                 RandomAccessFile inFile = new RandomAccessFile("1.txt", "rw");
-                RandomAccessFile outFile = new RandomAccessFile("2.txt", "rw");
+                RandomAccessFile outFile = new RandomAccessFile("target/2.txt", "rw");
                 // 1.获取通道
                 FileChannel inChannel = inFile.getChannel();
                 FileChannel outChannel = outFile.getChannel();
