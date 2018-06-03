@@ -2,6 +2,7 @@ package com.hunk.client;
 
 import org.jboss.netty.bootstrap.ClientBootstrap;
 import org.jboss.netty.channel.*;
+import org.jboss.netty.channel.socket.nio.NioClientSocketChannelFactory;
 import org.jboss.netty.channel.socket.nio.NioServerSocketChannelFactory;
 import org.jboss.netty.handler.codec.string.StringDecoder;
 import org.jboss.netty.handler.codec.string.StringEncoder;
@@ -24,7 +25,7 @@ public class Client {
         ExecutorService worker = Executors.newCachedThreadPool();
 
         // socket工厂
-        bootstrap.setFactory(new NioServerSocketChannelFactory(boss,worker));
+        bootstrap.setFactory(new NioClientSocketChannelFactory(boss,worker));
 
         // 管道工厂
         bootstrap.setPipelineFactory(new ChannelPipelineFactory() {
@@ -39,7 +40,7 @@ public class Client {
         });
 
         // 链接服务端
-        ChannelFuture connect = bootstrap.connect(new InetSocketAddress("127.0.0.1", 10101));
+        ChannelFuture connect = bootstrap.connect(new InetSocketAddress("127.0.0.1", 8088));
         Channel channel = connect.getChannel();
 
         System.out.println("client start");
