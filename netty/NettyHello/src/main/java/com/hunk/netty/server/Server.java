@@ -1,5 +1,6 @@
 package com.hunk.netty.server;
 
+import lombok.extern.slf4j.Slf4j;
 import org.jboss.netty.bootstrap.ServerBootstrap;
 import org.jboss.netty.channel.ChannelPipeline;
 import org.jboss.netty.channel.ChannelPipelineFactory;
@@ -15,6 +16,7 @@ import java.util.concurrent.Executors;
 /**
  * netty 服务端入门
  */
+@Slf4j
 public class Server {
 
     public static void main(String[] args) {
@@ -45,7 +47,7 @@ public class Server {
 
         bootstrap.bind(new InetSocketAddress(8088));
 
-        System.out.println("start!!!");
+        log.info("start!!!");
 
     }
 

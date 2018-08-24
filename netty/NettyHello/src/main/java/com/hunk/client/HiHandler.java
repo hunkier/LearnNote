@@ -1,11 +1,18 @@
 package com.hunk.client;
 
+import lombok.extern.slf4j.Slf4j;
 import org.jboss.netty.channel.*;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * 消息接收处理类
  */
+@Slf4j
 public class HiHandler extends SimpleChannelHandler {
+
+    DateTimeFormatter dtf2 = DateTimeFormatter.ofPattern("yyyy年MM月dd日 HH:mm:ss");
     /**
      * 接收消息
      */
@@ -14,7 +21,8 @@ public class HiHandler extends SimpleChannelHandler {
 
 
         String s = (String) e.getMessage();
-        System.out.println(s);
+        LocalDateTime now = LocalDateTime.now();
+        log.info(dtf2.format(now)+"   client :"+ s);
 
         super.messageReceived(ctx, e);
     }
@@ -24,7 +32,7 @@ public class HiHandler extends SimpleChannelHandler {
      */
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, ExceptionEvent e) throws Exception {
-        System.out.println("exceptionCaught");
+        log.info("exceptionCaught");
         super.exceptionCaught(ctx, e);
     }
 
@@ -33,7 +41,7 @@ public class HiHandler extends SimpleChannelHandler {
      */
     @Override
     public void channelConnected(ChannelHandlerContext ctx, ChannelStateEvent e) throws Exception {
-        System.out.println("channelConnected");
+        log.info("channelConnected");
         super.channelConnected(ctx, e);
     }
 
@@ -42,7 +50,7 @@ public class HiHandler extends SimpleChannelHandler {
      */
     @Override
     public void channelDisconnected(ChannelHandlerContext ctx, ChannelStateEvent e) throws Exception {
-        System.out.println("channelDisconnected");
+        log.info("channelDisconnected");
         super.channelDisconnected(ctx, e);
     }
 
@@ -51,7 +59,7 @@ public class HiHandler extends SimpleChannelHandler {
      */
     @Override
     public void channelClosed(ChannelHandlerContext ctx, ChannelStateEvent e) throws Exception {
-        System.out.println("channelClosed");
+        log.info("channelClosed");
         super.channelClosed(ctx, e);
     }
 }

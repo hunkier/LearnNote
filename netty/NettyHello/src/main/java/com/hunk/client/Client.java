@@ -1,5 +1,6 @@
 package com.hunk.client;
 
+import lombok.extern.slf4j.Slf4j;
 import org.jboss.netty.bootstrap.ClientBootstrap;
 import org.jboss.netty.channel.*;
 import org.jboss.netty.channel.socket.nio.NioClientSocketChannelFactory;
@@ -15,6 +16,7 @@ import java.util.concurrent.Executors;
 /**
  * netty客户端入门
  */
+@Slf4j
 public class Client {
     public static void main(String[] args) {
 
@@ -43,11 +45,11 @@ public class Client {
         ChannelFuture connect = bootstrap.connect(new InetSocketAddress("127.0.0.1", 8088));
         Channel channel = connect.getChannel();
 
-        System.out.println("client start");
+        log.info("client start");
 
         Scanner scanner = new Scanner(System.in);
         while (true){
-            System.out.println("请输入");
+            log.info("请输入");
             channel.write(scanner.next());
         }
 
