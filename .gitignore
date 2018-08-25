@@ -9,3 +9,5 @@ target/*
 .idea/*
 *.iml
 old/JavaEE/javaee.iml
+.vagrant
+.bash_history
