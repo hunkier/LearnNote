@@ -167,7 +167,46 @@ docker image build
 
 等同于
 
-```
+```shell
 docker build
+```
+
+# Dockerfile
+
+## From
+
+```dockerfile
+FROM scratch  #制作base image
+FROM centos   #使用base image
+FROM ubuntu:14:04
+```
+
+尽量使用官方的image作为base image
+
+## LABEL
+
+```dockerfile
+LABEL maintainer="huangkier@gmail.com"		# 作者
+LABEL version="1.0"							# 版本
+LABEL description="This is description"		# 描述
+```
+
+metadata不可少
+
+# RUN
+
+```dockerfile
+RUN yum update && yum install -y vim \
+	python-dev		# 反斜杠换行
+```
+
+```dockerfile
+RUN apt-get update && apt-get install -y perl\
+	pwgen --no-intsll-recommends && rm -rf \
+	/var/lib/apt/list/*		# 注意清理cache
+```
+
+```dockerfile
+RUN /bin/bash -c 'source $HOME/.bashrc;ehco $HOME'
 ```
 
