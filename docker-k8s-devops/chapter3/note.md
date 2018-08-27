@@ -3,7 +3,30 @@
 ```bash
 vagrant plugin install vagrant-vbguest
 ```
+安装失败尝试替换gem源
+用gem sources来更改源是没用的，需要手工修改。
+使用Notepad++中“文件查找”的替换功能，将 C:\HashiCorp\Vagrant\embedded\gems 下所有文件中的
+https://rubygems.org
+替换为：
+https://ruby.taobao.org/
 
+https://gems.ruby-china.com/
+
+即可
+
+修改文件 Vagrant\embedded\gems\2.1.2\gems\vagrant-2.1.2\lib\vagrant\bundler.rb
+```shell
+    # Location of HashiCorp gem repository
+    HASHICORP_GEMSTORE = "https://gems.hashicorp.com/".freeze
+
+    # Default gem repositories
+    # https://rubygems.org
+    DEFAULT_GEM_SOURCES = [
+      "https://gems.ruby-china.com/".freeze
+  #   "https://rubygems.org/".freeze
+  #    HASHICORP_GEMSTORE
+    ].freeze
+```
 
 
 #### 添加vagrant用户到docker组
@@ -71,7 +94,7 @@ docker container ls -a
 
 
 
-#### 移除container
+##### 移除container
 
 ```shell
 docker container rm containerId
@@ -80,7 +103,7 @@ docker container rm containerId
 
 等同`docker rm containerId`
 
-#### 查看image 
+##### 查看image 
 ```shell
 docker image ls
 ```
@@ -88,14 +111,14 @@ docker image ls
 
 等同于`docker images`
 
-#### 移除image
+##### 移除image
 ```shell
 docker image rm imageId
 ```
 
 等同于`docker rmi imageId`
 
-#### 列出所有container的id
+##### 列出所有container的id
 
 ```shell
 docker container ls -aq
@@ -113,7 +136,7 @@ docker ps -aq
 docker container ls -a | awk {`print$1`}
 ```
 
-#### 删除所有的container
+##### 删除所有的container
 
 ```shell
 docker container rm $(docker container ls -aq)
@@ -127,19 +150,19 @@ docker rm $(docker ps -aq)
 
 
 
-#### 列出所有不在运行的容器
+##### 列出所有不在运行的容器
 
 ```shell
 docker container ls -f "status=exited"
 ```
 
-#### 列出所有不在运行的容器的id
+##### 列出所有不在运行的容器的id
 
 ```shell
 docker container ls -f "status=exited" -q
 ```
 
-#### 删除所有不在运行的container
+##### 删除所有不在运行的container
 
 ```shell
 docker rm $(docker container ls -f "status=exited" -q)
@@ -147,7 +170,7 @@ docker rm $(docker container ls -f "status=exited" -q)
 
 
 
-#### 从container生成新的image
+##### 从container生成新的image
 
 ```shell
 docker container commit
@@ -159,7 +182,7 @@ docker container commit
 docker commit
 ```
 
-#### 从Dockerfile生成新的image
+##### 从Dockerfile生成新的image
 
 ```shell
 docker image build
@@ -171,9 +194,9 @@ docker image build
 docker build
 ```
 
-# Dockerfile
+### Dockerfile
 
-## From
+##### From
 
 ```dockerfile
 FROM scratch  #制作base image
@@ -183,7 +206,7 @@ FROM ubuntu:14:04
 
 尽量使用官方的image作为base image
 
-## LABEL
+##### LABEL
 
 ```dockerfile
 LABEL maintainer="huangkier@gmail.com"		# 作者
@@ -193,7 +216,7 @@ LABEL description="This is description"		# 描述
 
 metadata不可少
 
-# RUN
+##### RUN
 
 ```dockerfile
 RUN yum update && yum install -y vim \
