@@ -72,13 +72,16 @@ public class UserController {
     ){
         String message = "Verify code is:";
         String code = randomCode("0123456789",6);
-
+        message +=code;
+        log.info("sendVerifyCode, mobile: {}, email: {}, message: {}", mobile, email, message);
         try {
             boolean result = false;
             if (StringUtils.isNotBlank(mobile)){
                 result = serviceProvider.getMessageService().sendMobileMessage(mobile,message);
+                redisClient.set(mobile,code,1800);
             }else if (StringUtils.isNotBlank(email)){
                 result = serviceProvider.getMessageService().sendEmailMessage(email, message);
+                redisClient.set(email,code,1800);
             }else {
                 return Response.MOBILE_OR_EMAIL_REQUIRED;
             }

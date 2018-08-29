@@ -10,38 +10,44 @@ from email.mime.text import MIMEText
 from email.header import Header
 
 sender = 'imoocd@163.com'
-authCode = 'aA111111'
+authcode = 'aA111111'
+
+port = 9090
+
+
 class MessageServiceHandler:
 
     def sendMobileMessage(self, mobile, message):
-        print ("sendMobileMessage, mobile:"+mobile+", message:"+message)
+        print "sendMobileMessage"
         return True
 
     def sendEmailMessage(self, email, message):
-        print ("sendEmailMessage, email:"+email+", message:"+message)
+        print "sendEmailMessage, email:" + email + ", message:" + message
         messageObj = MIMEText(message, "plain", "utf-8")
         messageObj['From'] = sender
         messageObj['To'] = email
         messageObj['Subject'] = Header('慕课网邮件', 'utf-8')
         try:
             smtpObj = smtplib.SMTP('smtp.163.com')
-            smtpObj.login(sender, authCode)
+            smtpObj.login(sender, authcode)
             smtpObj.sendmail(sender, [email], messageObj.as_string())
-            print ("send mail success")
+            print 'send mail success'
             return True
-        except smtplib.SMTPException:
-            print ("send mail failed!")
+        except smtplib.SMTPException, ex:
+            print 'send mail failed'
+            print ex
             return False
 
 
 if __name__ == '__main__':
     handler = MessageServiceHandler()
-    processor = MessageService.Processor(handler)
-    transport = TSocket.TServerSocket(None,"9090")
+    process = MessageService.Processor(handler)
+    transport = TSocket.TServerSocket("127.0.0.1", port)
     tfactory = TTransport.TFramedTransportFactory()
     pfactory = TBinaryProtocol.TBinaryProtocolFactory()
 
-    server = TServer.TSimpleServer(processor, transport, tfactory, pfactory)
-    print ("python thrift server start")
+    server = TServer.TSimpleServer(process, transport, tfactory, pfactory)
+    print "python thrift server start , port: "
+    print  port
     server.serve()
-    print ("python thrift server exit")
+    print "python thrift server exit"

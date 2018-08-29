@@ -5,12 +5,19 @@
 # * 'ptr' and 'ptrp' create a POST request with a simple or parameter-like body;
 # * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
 
-### 发送验证码
+### 发送手机验证码
 POST http://localhost:8082/user/sendVerifyCode
 Accept: */*
 Content-Type: application/x-www-form-urlencoded
 
 mobile=18812345678
+
+### 发送邮箱验证码
+POST http://localhost:8082/user/sendVerifyCode
+Accept: */*
+Content-Type: application/x-www-form-urlencoded
+
+email=805015788@qq.com
 
 ### 注册
 POST http://localhost:8082/user/register
