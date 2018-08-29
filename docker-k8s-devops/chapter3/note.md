@@ -31,6 +31,7 @@ https://gems.ruby-china.com/
 
 #### 添加vagrant用户到docker组
 ```shell
+sudo groupadd docker
 sudo gpasswd -a vagrant docker
 ```
 
@@ -436,7 +437,69 @@ hunkier/hello-world               latest              a42c82b5c218        8 minu
 
 ## Run a local registry: Quick Version  [registry](https://hub.docker.com/_/registry/)
 
+需要修改daemon.json
+
 ```
+sudo vi /etc/docker/daemon.json
+```
+
+daemon.json内容为
+
+```json
+
+{
+  "registry-mirrors": [
+    "https://dhcl9iu5.mirror.aliyuncs.com",
+    "https://docker.mirrors.ustc.edu.cn",
+    "http://29bd46d3.m.daocloud.io",
+     "http://hub-mirror.c.163.com"
+  ],
+  "insecure-registries": [
+    "loclhost:5000"
+  ],
+  "debug": true,
+  "experimental": true
+}
+```
+
+将register地址添加到insecure-registries
+
+在docker.service中添加
+
+```shell
+sudo vi /lib/systemd/system/docker.service
+```
+
+
+
+```
+EnvironmentFile=/etc/docker/daemon.json
+```
+
+```php
+
+[Service]
+Type=notify
+# the default is not to use systemd for cgroups because the delegate issues still
+# exists and systemd currently does not support the cgroup feature set required
+# for containers run by docker
+ExecStart=/usr/bin/dockerd
+EnvironmentFile=/etc/docker/daemon.json
+ExecReload=/bin/kill -s HUP $MAINPID
+```
+
+重启服务
+
+```shell
+[vagrant@docker hello-world]$ sudo systemctl restart docker
+Warning: docker.service changed on disk. Run 'systemctl daemon-reload' to reload units.
+[vagrant@docker hello-world]$ sudo systemctl daemon-reload
+[vagrant@docker hello-world]$ sudo systemctl restart docker
+```
+
+
+
+```shell
 $ docker run -d -p 5000:5000 --restart always --name registry registry:2
 ```
 
@@ -449,6 +512,69 @@ $ docker push localhost:5000/ubuntu
 ```
 
 ```shell
-docker build -t 10.75.44.222:5000/hello world
+[vagrant@docker hello-world]$ docker build -t localhost:5000/hello-world .
+
+Sending build context to Docker daemon  864.8kB
+Step 1/3 : FROM scratch
+ --->
+Step 2/3 : ADD hello /
+ ---> Using cache
+ ---> 9b18b10e99eb
+Step 3/3 : CMD ["/hello"]
+ ---> Using cache
+ ---> ee810313ebf9
+Successfully built ee810313ebf9
+Successfully tagged localhost:5000/hello-world:latest
+
+[vagrant@docker hello-world]$ docker push localhost:5000/hello-world:latest
+The push refers to repository [localhost:5000/hello-world]
+419382855b85: Pushed
+latest: digest: sha256:12ca105dc5e427e6c43a173c8a07fb37245b7ddf8b012ee98edc96ef80b7956c size: 527
+[vagrant@docker hello-world]$ docker pull localhost:5000/hello-world
+Using default tag: latest
+latest: Pulling from hello-world
+Digest: sha256:12ca105dc5e427e6c43a173c8a07fb37245b7ddf8b012ee98edc96ef80b7956c
+Status: Image is up to date for localhost:5000/hello-world:latest
+```
+
+register提供rest接口http://localhost:5000/v2/_catalog
+
+```shell
+[vagrant@docker hello-world]$ curl http://localhost:5000/v2/_catalog
+{"repositories":["hello-world"]}
+```
+
+```shell
+pip install flash
+python app.py
+```
+
+app.py的代码为
+
+```python
+from flash import Flash
+app = Flash(__name__)
+@app.route('/')
+def hello():
+	return "hello docker"
+if __name__ == '__main__':
+	app.run()
+	
+```
+
+需要安装python环境
+
+```shell
+sudo yum -y install python2
+sudo yum -y install epel-release
+sudo yum -y install python-pip
+pip install --upgrade pip
+pip install Flash
+```
+
+image在构建（build）失败时，进入中间过程image中的容器中查看问题
+
+```shell
+docker run -it imageid /bin/bash
 ```
 

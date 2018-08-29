@@ -13,7 +13,9 @@ sudo tee /etc/docker/daemon.json <<-'EOF'
     "http://29bd46d3.m.daocloud.io",
      "http://hub-mirror.c.163.com"
   ],
-  "insecure-registries": [],
+  "insecure-registries": [
+    "loclhost:5000"
+  ],
   "debug": true,
   "experimental": true
 }
