@@ -47,7 +47,7 @@ Vagrant.configure("2") do |config|
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
   config.vm.synced_folder ".", "/home/vagrant/soft"
-  config.vm.hostname = "docker"
+  config.vm.hostname = "chapter3"
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
@@ -56,7 +56,7 @@ Vagrant.configure("2") do |config|
   config.vm.provider "virtualbox" do |vb|
     # Display the VirtualBox GUI when booting the machine
     vb.gui = false
-    vb.name = "docker"
+    vb.name = "chapter3"
 
     # Customize the amount of memory on the VM:
     vb.memory = "4096"
