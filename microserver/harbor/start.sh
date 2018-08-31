@@ -13,12 +13,12 @@ sudo tee /etc/docker/daemon.json <<-'EOF'
     "http://29bd46d3.m.daocloud.io",
      "http://hub-mirror.c.163.com"
   ],
-  "labels": ["name=docker-server"],
+  "labels": ["name=harbor"],
   "hosts": [
         "tcp://0.0.0.0:2376",
         "unix:///var/run/docker.sock"
     ],
-  "insecure-registries": [],
+  "insecure-registries": ["192.168.33.2"],
   "debug": true,
   "experimental": true
 }
@@ -28,12 +28,13 @@ sudo groupadd docker
 sudo gpasswd -a vagrant docker
 sudo yum install -y git vim gcc glibc-static telnet bridge-utils net-tools python2  wget
 sudo systemctl start docker
+systemctl enable dockedocke
 #curl -Lo harbor-offline-installer.tgz https://storage.googleapis.com/harbor-releases/harbor-offline-installer-v1.5.2.tgz && tar xvf harbor-offline-installer.tgz
 sudo yum install epel-release -y
 sudo yum install python-pip -y
 sudo pip install --upgrade pip
 sudo pip install docker-compose
-curl -Lo harbor-offline-installer.tgz http://harbor.orientsoft.cn/harbor-v1.5.0/harbor-offline-installer-v1.5.0.tgz && tar xvf harbor-offline-installer.tgz
-cd soft/harbor
+#curl -Lo harbor-offline-installer.tgz http://harbor.orientsoft.cn/harbor-v1.5.0/harbor-offline-installer-v1.5.0.tgz && tar xvf harbor-offline-installer.tgz
+cd harbor
 sudo ./install.sh
 echo `pwd`

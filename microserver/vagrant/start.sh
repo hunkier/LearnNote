@@ -23,6 +23,7 @@ sudo groupadd docker
 sudo gpasswd -a vagrant docker
 sudo yum install -y git vim gcc glibc-static telnet bridge-utils net-tools
 sudo systemctl start docker
+systemctl enable docker
 sudo docker stop redis
 sudo docker rm redis
 sudo docker run -idt -p 6379:6379 --name redis -v /home/vagrant/soft/redis/conf/redis.conf:/usr/local/etc/redis/redis.conf redis

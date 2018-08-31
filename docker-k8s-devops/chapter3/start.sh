@@ -13,6 +13,11 @@ sudo tee /etc/docker/daemon.json <<-'EOF'
     "http://29bd46d3.m.daocloud.io",
      "http://hub-mirror.c.163.com"
   ],
+  "labels": ["name=docker-server"],
+  "hosts": [
+		"tcp://0.0.0.0:2376",
+		"unix:///var/run/docker.sock"
+	],
   "insecure-registries": [
     "loclhost:5000"
   ],
@@ -21,6 +26,8 @@ sudo tee /etc/docker/daemon.json <<-'EOF'
 }
 
 EOF
+sudo groupadd docker
 sudo gpasswd -a vagrant docker
 sudo yum install -y git vim gcc glibc-static telnet bridge-utils net-tools
 sudo systemctl start docker
+systemctl enable docker
