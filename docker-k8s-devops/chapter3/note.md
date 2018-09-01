@@ -578,3 +578,37 @@ image在构建（build）失败时，进入中间过程image中的容器中查�
 docker run -it imageid /bin/bash
 ```
 
+进入运行中的容器
+
+```shell
+docker exec -it containerId  /bin/bash
+```
+
+查看容器ip
+
+```shell
+docker exec -it containerId ip a
+```
+
+```shell
+[vagrant@chapter3 ~]$ docker exec -it c54 ip a
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+13: eth0@if14: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default
+    link/ether 02:42:ac:11:00:02 brd ff:ff:ff:ff:ff:ff link-netnsid 0
+    inet 172.17.0.2/16 brd 172.17.255.255 scope global eth0
+       valid_lft forever preferred_lft forever
+```
+
+给容器指定名字`--name=containerName`
+
+```shell
+[vagrant@chapter3 ~]$ docker run -d -p 5000:5000 --name=flask-hello-world 192.168.33.2/docker/flask-hello-world
+e6bb4e2e5d88f68e4e5d6292b46ca476833a594d2b690cd38535264aac7315bc
+[vagrant@chapter3 ~]$ docker ps
+CONTAINER ID        IMAGE                                   COMMAND                  CREATED             STATUS              PORTS                    NAMES
+e6bb4e2e5d88        192.168.33.2/docker/flask-hello-world   "/usr/local/bin/pyth…"   53 seconds ago      Up 52 seconds       0.0.0.0:5000->5000/tcp   flask-hello-world
+```
+

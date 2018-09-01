@@ -12,13 +12,13 @@ from email.header import Header
 sender = 'imoocd@163.com'
 authcode = 'aA111111'
 
-port = 9090
+port = '9090'
 
 
 class MessageServiceHandler:
 
     def sendMobileMessage(self, mobile, message):
-        print "sendMobileMessage"
+        print "sendMobileMessage, mobile:" + ", message:" + message
         return True
 
     def sendEmailMessage(self, email, message):
@@ -42,12 +42,11 @@ class MessageServiceHandler:
 if __name__ == '__main__':
     handler = MessageServiceHandler()
     process = MessageService.Processor(handler)
-    transport = TSocket.TServerSocket("127.0.0.1", port)
+    transport = TSocket.TServerSocket("0.0.0.0", port)
     tfactory = TTransport.TFramedTransportFactory()
     pfactory = TBinaryProtocol.TBinaryProtocolFactory()
 
     server = TServer.TSimpleServer(process, transport, tfactory, pfactory)
-    print "python thrift server start , port: "
-    print  port
+    print "python thrift server start , port: " + port
     server.serve()
     print "python thrift server exit"

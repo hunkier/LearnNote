@@ -4,4 +4,4 @@ RUN pip install flask
 COPY app.py /app/
 WORKDIR /app
 EXPOSE 5000
-CMD ["python", "app.py"]
+ENTRYPOINT ["/usr/local/bin/python2.7", "app.py"]

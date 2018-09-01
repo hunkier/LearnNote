@@ -19,13 +19,27 @@ sudo tee /etc/docker/daemon.json <<-'EOF'
 }
 
 EOF
+
+sudo cat >> /etc/sysctl.conf  <<EOF
+
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+net.bridge.bridge-nf-call-arptables = 1
+
+EOF
+
+sudo cat >> /usr/lib/sysctl.d/00-system.conf  <<EOF
+
+net.ipv4.ip_forward=1
+
+EOF
 sudo groupadd docker
 sudo gpasswd -a vagrant docker
 sudo yum install -y git vim gcc glibc-static telnet bridge-utils net-tools
 sudo systemctl start docker
-systemctl enable docker
-sudo docker stop redis
-sudo docker rm redis
-sudo docker run -idt -p 6379:6379 --name redis -v /home/vagrant/soft/redis/conf/redis.conf:/usr/local/etc/redis/redis.conf redis
+sudo systemctl enable docker
+#sudo docker stop redis
+#sudo docker rm redis
+#sudo docker run -idt -p 6379:6379 --name redis -v /home/vagrant/soft/redis/conf/redis.conf:/usr/local/etc/redis/redis.conf redis
 
 echo `pwd`

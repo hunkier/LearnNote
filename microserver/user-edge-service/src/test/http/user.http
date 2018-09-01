@@ -32,15 +32,16 @@ POST http://localhost:8082/user/login
 Accept: */*
 Content-Type: application/x-www-form-urlencoded
 
-username=lilei&password=123456
+username=hunk&password=123456
+
+#username=lilei&password=123456
 
 ### 获取用户信息
 POST http://localhost:8082/user/authentication
 Accept: */*
-token: sp7f43vmp7daovpmmzelf2s7jn40knh3
+token: bxc4nazmlouyg5mgc248507jj77pqzfo
 Content-Type: application/x-www-form-urlencoded
 
-username=lilei&password=123456
 
 ###
 
