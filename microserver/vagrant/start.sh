@@ -13,7 +13,12 @@ sudo tee /etc/docker/daemon.json <<-'EOF'
     "http://29bd46d3.m.daocloud.io",
      "http://hub-mirror.c.163.com"
   ],
-  "insecure-registries": [],
+  "labels": ["name=micro-service"],
+  "hosts": [
+        "tcp://0.0.0.0:2376",
+        "unix:///var/run/docker.sock"
+    ],
+  "insecure-registries": ["192.168.33.2"],
   "debug": true,
   "experimental": true
 }
@@ -38,6 +43,12 @@ sudo gpasswd -a vagrant docker
 sudo yum install -y git vim gcc glibc-static telnet bridge-utils net-tools
 sudo systemctl start docker
 sudo systemctl enable docker
+#docker pull openjdk:7-jre
+#docker tag openjdk:7-jre 192.168.33.2/micro-service/openjdk:7-jre:latest
+#docker push 192.168.33.2/micro-service/openjdk:7-jre:latest
+#docker pull python:2.7
+#docker tag python:2.7 192.168.33.2/micro-service/python:2.7
+#docker push 192.168.33.2/micro-service/python:2.7
 #sudo docker stop redis
 #sudo docker rm redis
 #sudo docker run -idt -p 6379:6379 --name redis -v /home/vagrant/soft/redis/conf/redis.conf:/usr/local/etc/redis/redis.conf redis

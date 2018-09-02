@@ -24,17 +24,32 @@ sudo tee /etc/docker/daemon.json <<-'EOF'
 }
 
 EOF
+
+
+sudo cat >> /etc/sysctl.conf  <<EOF
+
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+net.bridge.bridge-nf-call-arptables = 1
+
+EOF
+
+sudo cat >> /usr/lib/sysctl.d/00-system.conf  <<EOF
+
+net.ipv4.ip_forward=1
+
+EOF
+
 sudo groupadd docker
 sudo gpasswd -a vagrant docker
 sudo yum install -y git vim gcc glibc-static telnet bridge-utils net-tools python2  wget
 sudo systemctl start docker
-systemctl enable dockedocke
 #curl -Lo harbor-offline-installer.tgz https://storage.googleapis.com/harbor-releases/harbor-offline-installer-v1.5.2.tgz && tar xvf harbor-offline-installer.tgz
 sudo yum install epel-release -y
 sudo yum install python-pip -y
 sudo pip install --upgrade pip
 sudo pip install docker-compose
 #curl -Lo harbor-offline-installer.tgz http://harbor.orientsoft.cn/harbor-v1.5.0/harbor-offline-installer-v1.5.0.tgz && tar xvf harbor-offline-installer.tgz
-cd harbor
+cd /harbor
 sudo ./install.sh
 echo `pwd`

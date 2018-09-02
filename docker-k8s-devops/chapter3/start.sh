@@ -27,6 +27,21 @@ sudo tee /etc/docker/daemon.json <<-'EOF'
 }
 
 EOF
+
+sudo cat >> /etc/sysctl.conf  <<EOF
+
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+net.bridge.bridge-nf-call-arptables = 1
+
+EOF
+
+sudo cat >> /usr/lib/sysctl.d/00-system.conf  <<EOF
+
+net.ipv4.ip_forward=1
+
+EOF
+
 sudo groupadd docker
 sudo gpasswd -a vagrant docker
 sudo yum install -y git vim gcc glibc-static telnet bridge-utils net-tools

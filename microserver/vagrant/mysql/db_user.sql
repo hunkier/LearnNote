@@ -35,4 +35,21 @@ CREATE TABLE `pe_user`  (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户表' ROW_FORMAT = Compact;
 
+
+-- ----------------------------
+-- Table structure for pe_teacher
+-- ----------------------------
+DROP TABLE IF EXISTS `pe_teacher`;
+CREATE TABLE `pe_teacher`  (
+  `user_id` int(11) NOT NULL COMMENT '主键',
+  `intro` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '介绍',
+  `stars` int(11) NULL DEFAULT NULL COMMENT '评星',
+  PRIMARY KEY (`user_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of pe_user
+-- ----------------------------
+INSERT INTO `pe_user` VALUES (1, 'hunk', 'e10adc3949ba59abbe56e057f20f883e', 'hunk', '18812345678', '805015788@qq.com');
+
 SET FOREIGN_KEY_CHECKS = 1;
