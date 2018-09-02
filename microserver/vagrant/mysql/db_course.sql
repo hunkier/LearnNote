@@ -31,16 +31,27 @@ CREATE TABLE `pe_course`  (
   `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '课程名称',
   `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '课程描述',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Compact;
 
 -- ----------------------------
--- Table structure for pe_user_course
+-- Records of pe_course
 -- ----------------------------
-DROP TABLE IF EXISTS `pe_user_course`;
-CREATE TABLE `pe_user_course`  (
+INSERT INTO `pe_course` VALUES (1, '微服务docker实战', '很牛B的课程');
+
+-- ----------------------------
+-- Table structure for pr_user_course
+-- ----------------------------
+DROP TABLE IF EXISTS `pr_user_course`;
+CREATE TABLE `pr_user_course`  (
   `user_id` int(11) NOT NULL COMMENT '用户id',
   `course_id` int(11) NULL DEFAULT NULL COMMENT '课程id',
   PRIMARY KEY (`user_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Compact;
 
+-- ----------------------------
+-- Records of pr_user_course
+-- ----------------------------
+INSERT INTO `pr_user_course` VALUES (1, 1);
+
 SET FOREIGN_KEY_CHECKS = 1;
+
