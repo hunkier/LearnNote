@@ -43,11 +43,11 @@ sudo gpasswd -a vagrant docker
 sudo yum install -y git vim gcc glibc-static telnet bridge-utils net-tools
 sudo systemctl start docker
 sudo systemctl enable docker
-#docker pull openjdk:7-jre
-#docker tag openjdk:7-jre 192.168.33.2/micro-service/openjdk:7-jre:latest
+docker pull openjdk:7-jre
+docker tag openjdk:7-jre 192.168.33.2/micro-service/openjdk:7-jre
 #docker push 192.168.33.2/micro-service/openjdk:7-jre:latest
-#docker pull python:2.7
-#docker tag python:2.7 192.168.33.2/micro-service/python:2.7
+docker pull python:2.7
+docker tag python:2.7 192.168.33.2/micro-service/python:2.7
 #docker push 192.168.33.2/micro-service/python:2.7
 #sudo docker stop redis
 #sudo docker rm redis
