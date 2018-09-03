@@ -1,0 +1,58 @@
+version: '3'
+
+networks:
+  default:
+    external:
+      name: imooc-network
+
+services:
+  message-service:
+    image: message-service:latest
+
+  user-service:
+    image: user-service:latest
+    links:
+    - imooc-mysql
+    command:
+    - "--spring.profiles.active=docker"
+
+  user-edge-service:
+    image: user-edge-service:latest
+    links:
+    - user-service
+    - message-service
+    - redis
+    command:
+    - "--spring.profiles.active=docker"
+    - "--redis.address=172.19.0.3"
+
+  course-service:
+    image: course-service:latest
+    links:
+    - user-service
+    - imooc-zookeeper
+    - redis
+    - imooc-mysql
+    command:
+    - "--spring.profiles.active=docker"
+    - "--mysql.address=172.19.0.2"
+    - "--zookeeper.address=172.19.0.4"
+
+  course-edge-service:
+    image: course-edge-service:latest
+    links:
+    - user-edge-service
+    - imooc-zookeeper
+    command:
+    - "--spring.profiles.active=docker"
+    - "--zookeeper.address=172.19.0.4"
+
+  api-gateway-zuul:
+    image: api-gateway-zuul:latest
+    links:
+    - course-edge-service
+    - user-edge-service
+    command:
+    - "--spring.profiles.active=docker"
+    ports:
+    - 8080:8080

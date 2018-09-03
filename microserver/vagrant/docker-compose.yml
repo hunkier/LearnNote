@@ -1,0 +1,74 @@
+version: '3'
+
+networks:
+  default:
+    external: false
+
+services:
+  message-service:
+    image: 192.168.33.2/micro-service/message-service:latest
+
+  user-service:
+    image: 192.168.33.2/micro-service/user-service:latest
+    links:
+    - imooc-mysql
+    command:
+    - "--spring.profiles.active=docker"
+
+  user-edge-service:
+    image: 192.168.33.2/micro-service/user-edge-service:latest
+    links:
+    - user-service
+    - message-service
+    - redis
+    command:
+    - "--spring.profiles.active=docker"
+    - "--redis.address=172.19.0.3"
+
+  course-service:
+    image: 192.168.33.2/micro-service/course-service:latest
+    links:
+    - user-service
+    - imooc-zookeeper
+    - redis
+    - imooc-mysql
+    command:
+    - "--spring.profiles.active=docker"
+    - "--mysql.address=172.19.0.2"
+    - "--zookeeper.address=172.19.0.4"
+
+  course-edge-service:
+    image: 192.168.33.2/micro-service/course-edge-service:latest
+    links:
+    - user-edge-service
+    - imooc-zookeeper
+    command:
+    - "--spring.profiles.active=docker"
+    - "--zookeeper.address=172.19.0.4"
+
+  api-gateway-zuul:
+    image: 192.168.33.2/micro-service/api-gateway-zuul:latest
+    links:
+    - course-edge-service
+    - user-edge-service
+    command:
+    - "--spring.profiles.active=docker"
+    ports:
+    - 8080:8080
+
+  redis:
+   image: hub.c.163.com/public/redis:2.8.4
+   ports:
+     - 6379:6379
+
+  imooc-zookeeper:
+    image: zookeeper:3.5
+    ports:
+      - 2181:2181
+
+  imooc-mysql:
+    image: hub.c.163.com/library/mysql:5.6.36
+    command:
+    - "--MYSQL_ROOT_PASSWORD=123456"
+    ports:
+      - 3306:3306
