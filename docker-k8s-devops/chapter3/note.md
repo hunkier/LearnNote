@@ -612,3 +612,153 @@ CONTAINER ID        IMAGE                                   COMMAND             
 e6bb4e2e5d88        192.168.33.2/docker/flask-hello-world   "/usr/local/bin/pyth…"   53 seconds ago      Up 52 seconds       0.0.0.0:5000->5000/tcp   flask-hello-world
 ```
 
+进入运行中的容器
+
+```shell
+docker exec -it containerId /bin/bash
+```
+
+```shell
+[vagrant@chapter3 ~]$ docker ps
+CONTAINER ID        IMAGE                                   COMMAND                  CREATED             STATUS              PORTS                    NAMES
+e6bb4e2e5d88        192.168.33.2/docker/flask-hello-world   "/usr/local/bin/pyth…"   3 days ago          Up About a minute   0.0.0.0:5000->5000/tcp   flask-hello-world
+[vagrant@chapter3 ~]$ docker exec -it e6bb /bin/bash
+root@e6bb4e2e5d88:/app# python app.py
+```
+
+打印运行中容器ip地址
+
+```shell
+docker exec -it containerId ip a
+```
+
+```shell
+[vagrant@chapter3 ~]$ docker ps
+CONTAINER ID        IMAGE                                   COMMAND                  CREATED             STATUS              PORTS                    NAMES
+e6bb4e2e5d88        192.168.33.2/docker/flask-hello-world   "/usr/local/bin/pyth…"   3 days ago          Up 4 minutes        0.0.0.0:5000->5000/tcp   flask-hello-world
+[vagrant@chapter3 ~]$ docker exec e6bb4e2e5d88 ip a
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+7: eth0@if8: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default
+    link/ether 02:42:ac:11:00:02 brd ff:ff:ff:ff:ff:ff link-netnsid 0
+    inet 172.17.0.2/16 brd 172.17.255.255 scope global eth0
+       valid_lft forever preferred_lft forever
+```
+
+指定容器名字运行
+
+```shell
+docker run -d --name=demo hunk/flask-hello-world
+```
+
+```shell
+[vagrant@chapter3 ~]$ docker run -d --name=demo hunk/flask-hello-world
+ed3a7c6323d153696f60011ad23a0ed65ffe1065a63871bc1f5f10f017b58a57
+[vagrant@chapter3 ~]$ docker ps
+CONTAINER ID        IMAGE                                   COMMAND                  CREATED             STATUS              PORTS                    NAMES
+ed3a7c6323d1        hunk/flask-hello-world                  "python app.py"          7 seconds ago       Up 6 seconds        5000/tcp                 demo
+e6bb4e2e5d88        192.168.33.2/docker/flask-hello-world   "/usr/local/bin/pyth…"   3 days ago          Up 9 minutes        0.0.0.0:5000->5000/tcp   flask-hello-world
+[vagrant@chapter3 ~]$ docker stop e6bb4e2e5d88
+e6bb4e2e5d88
+[vagrant@chapter3 ~]$ docker rm e6bb4e2e5d88
+e6bb4e2e5d88
+[vagrant@chapter3 ~]$ docker stop demo
+demo
+[vagrant@chapter3 ~]$ docker rm demo
+demo
+[vagrant@chapter3 ~]$
+```
+
+查看容器详细信息
+
+```shell
+docker inspect containerId/Name
+```
+
+
+
+```shell
+[vagrant@chapter3 ~]$ docker rm $(docker ps -aq)
+3ad2a0093360
+01e5a2ad0f32
+[vagrant@chapter3 ~]$ docker run -d --name=demo hunk/flask-hello-world
+6e48a14c934c0963f5f0190650b0cebdc9eb7e4e9e81a5884a46b7d62a2735db
+[vagrant@chapter3 ~]$ docker ps -a
+CONTAINER ID        IMAGE                    COMMAND             CREATED             STATUS              PORTS               NAMES
+6e48a14c934c        hunk/flask-hello-world   "python app.py"     12 seconds ago      Up 11 seconds       5000/tcp            demo
+[vagrant@chapter3 ~]$ docker inspect demo
+```
+
+查看容器运行日志
+
+```shell
+docker logs containerId/Name
+```
+
+```shell
+[vagrant@chapter3 ~]$ docker logs demo
+ * Serving Flask app "app" (lazy loading)
+ * Environment: production
+   WARNING: Do not use the development server in a production environment.
+   Use a production WSGI server instead.
+ * Debug mode: off
+ * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+[vagrant@chapter3 ~]$
+```
+
+Linux下压力测试工具stress
+
+```shell
+docker run -it ubuntu
+root@9dfc15de5039:/# apt-get update && apt-get install stress -y
+```
+
+替换ubuntu源
+
+```shell
+cd /etc/apt/
+sed -i "s/http:\/\/security.ubuntu.com\/ubuntu/http:\/\/mirrors.aliyun.com\/ubuntu/g" sources.list
+ sed -i "s/http:\/\/archive.ubuntu.com\/ubuntu/http:\/\/mirrors.aliyun.com\/ubuntu/g" sources.list
+ cat sources.list
+```
+
+```bash
+root@423f668a8ccd:/# which stress
+/usr/bin/stress
+root@423f668a8ccd:/# stress --help
+`stress' imposes certain types of compute stress on your system
+
+Usage: stress [OPTION [ARG]] ...
+ -?, --help         show this help statement
+     --version      show version statement
+ -v, --verbose      be verbose
+ -q, --quiet        be quiet
+ -n, --dry-run      show what would have been done
+ -t, --timeout N    timeout after N seconds
+     --backoff N    wait factor of N microseconds before work starts
+ -c, --cpu N        spawn N workers spinning on sqrt()
+ -i, --io N         spawn N workers spinning on sync()
+ -m, --vm N         spawn N workers spinning on malloc()/free()
+     --vm-bytes B   malloc B bytes per vm worker (default is 256MB)
+     --vm-stride B  touch a byte every B bytes (default is 4096)
+     --vm-hang N    sleep N secs before free (default none, 0 is inf)
+     --vm-keep      redirty memory instead of freeing and reallocating
+ -d, --hdd N        spawn N workers spinning on write()/unlink()
+     --hdd-bytes B  write B bytes per hdd worker (default is 1GB)
+
+Example: stress --cpu 8 --io 4 --vm 2 --vm-bytes 128M --timeout 10s
+
+Note: Numbers may be suffixed with s,m,h,d,y (time) or B,K,M,G (size).
+root@423f668a8ccd:/#
+```
+
+```shell
+docker run -it ubuntu-stress --vm 1 --verbose
+```
+
+```shell
+docker run --cpu-shares=10 --name=test1 ubuntu-stress --cpu 1
+```
+
