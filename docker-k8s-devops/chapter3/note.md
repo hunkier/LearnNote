@@ -759,6 +759,24 @@ docker run -it ubuntu-stress --vm 1 --verbose
 ```
 
 ```shell
-docker run --cpu-shares=10 --name=test1 ubuntu-stress --cpu 1
+docker run --cpu-shares=10 --name=test1 ubuntu-stress --cpu 1	
+```
+
+dockerfile
+
+```dockerfile
+FROM library/ubuntu
+RUN cp /etc/apt/sources.list /etc/apt/sources.list.bak \
+&& sed -i "s/http:\/\/security.ubuntu.com\/ubuntu/http:\/\/mirrors.aliyun.com\/ubuntu/g" /etc/apt/sources.list \
+&& sed -i "s/http:\/\/archive.ubuntu.com\/ubuntu/http:\/\/mirrors.aliyun.com\/ubuntu/g" /etc/apt/sources.list  \
+&& apt-get update && apt-get install -y stress
+ENTRYPOINT ["/usr/bin/stress"]
+CMD []
+
+```
+
+```shell
+docker build -t 192.168.33.2/ubuntu-stress .
+docker run -it --name test1 192.168.33.2/ubuntu-stress --vm 1 --cpu 1 --verbose
 ```
 
