@@ -44,6 +44,7 @@ sudo groupadd docker
 sudo gpasswd -a vagrant docker
 sudo yum install -y git vim gcc glibc-static telnet bridge-utils net-tools python2  wget
 sudo systemctl start docker
+sudo systemctl enable docker
 #curl -Lo harbor-offline-installer.tgz https://storage.googleapis.com/harbor-releases/harbor-offline-installer-v1.5.2.tgz && tar xvf harbor-offline-installer.tgz
 sudo yum install epel-release -y
 sudo yum install python-pip -y

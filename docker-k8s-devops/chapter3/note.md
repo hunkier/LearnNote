@@ -454,8 +454,14 @@ daemon.json内容为
     "http://29bd46d3.m.daocloud.io",
      "http://hub-mirror.c.163.com"
   ],
+  "labels": ["name=chapter3"],
+  "hosts": [
+		"tcp://0.0.0.0:2376",
+		"unix:///var/run/docker.sock"
+	],
   "insecure-registries": [
-    "loclhost:5000"
+    "loclhost:5000",
+    "192.168.33.2"
   ],
   "debug": true,
   "experimental": true

@@ -8,12 +8,13 @@ sudo mkdir -p /etc/docker
 sudo tee /etc/docker/daemon.json <<-'EOF'
 {
   "registry-mirrors": [
+    "https://registry.docker-cn.com",
     "https://dhcl9iu5.mirror.aliyuncs.com",
     "https://docker.mirrors.ustc.edu.cn",
     "http://29bd46d3.m.daocloud.io",
      "http://hub-mirror.c.163.com"
   ],
-  "labels": ["name=chapter3"],
+  "labels": ["name=chapter4"],
   "hosts": [
 		"tcp://0.0.0.0:2376",
 		"unix:///var/run/docker.sock"
@@ -47,3 +48,7 @@ sudo gpasswd -a vagrant docker
 sudo yum install -y git vim gcc glibc-static telnet bridge-utils net-tools
 sudo systemctl start docker
 sudo systemctl enable docker
+sudo yum install epel-release -y
+sudo yum install python-pip -y
+sudo pip install --upgrade pip
+sudo pip install docker-compose
