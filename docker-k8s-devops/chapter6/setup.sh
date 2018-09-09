@@ -14,8 +14,11 @@ sudo tee /etc/docker/daemon.json <<-'EOF'
     "http://29bd46d3.m.daocloud.io",
      "http://hub-mirror.c.163.com"
   ],
-  "labels": ["name=chapter4"],
-  "hosts": [],
+  "labels": ["name=chapter6"],
+  "hosts": [
+		"tcp://0.0.0.0:2376",
+		"unix:///var/run/docker.sock"
+	],
   "insecure-registries": [
     "loclhost:5000",
     "192.168.33.2"
@@ -42,10 +45,16 @@ EOF
 
 sudo groupadd docker
 sudo gpasswd -a vagrant docker
-sudo yum install -y git vim gcc glibc-static telnet bridge-utils net-tools epel-release jq etcd
+sudo yum install -y git vim gcc glibc-static telnet bridge-utils net-tools jq etcd
 sudo systemctl start docker
 sudo systemctl enable docker
 sudo yum install epel-release -y
 sudo yum install python-pip -y
 sudo pip install --upgrade pip
 sudo pip install docker-compose
+docker pull mysql:5.6
+docker pull python:2.7
+docker pull redis
+docker pull wordpress
+docker pull nginx
+docker pull tutum/rabbitmq

@@ -11,3 +11,4 @@ target/*
 old/JavaEE/javaee.iml
 .vagrant
 .bash_history
+venv

@@ -1,7 +1,7 @@
 #### vagrant 添加vbx共享文件插件
 
 ```bash
-vagrant plugin install vagrant-vbguest
+vagrant plugin install vagrant-vbguest vagrant-scp vagrant-share
 ```
 安装失败尝试替换gem源
 用gem sources来更改源是没用的，需要手工修改。
