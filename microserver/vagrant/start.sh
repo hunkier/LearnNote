@@ -72,4 +72,6 @@ docker push 192.168.33.2/library/mysql:5.6.36
 #sudo docker rm redis
 #sudo docker run -idt -p 6379:6379 --name redis -v /home/vagrant/soft/redis/conf/redis.conf:/usr/local/etc/redis/redis.conf redis
 
+sudo timedatectl set-timezone Asia/Shanghai
+
 echo `pwd`

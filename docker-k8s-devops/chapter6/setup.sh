@@ -58,3 +58,4 @@ docker pull redis
 docker pull wordpress
 docker pull nginx
 docker pull tutum/rabbitmq
+sudo timedatectl set-timezone Asia/Shanghai

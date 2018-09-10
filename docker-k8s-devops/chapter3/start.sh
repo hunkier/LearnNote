@@ -47,3 +47,5 @@ sudo gpasswd -a vagrant docker
 sudo yum install -y git vim gcc glibc-static telnet bridge-utils net-tools
 sudo systemctl start docker
 sudo systemctl enable docker
+sudo timedatectl set-timezone Asia/Shanghai
+

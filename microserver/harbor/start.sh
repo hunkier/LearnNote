@@ -53,4 +53,5 @@ sudo pip install docker-compose
 #curl -Lo harbor-offline-installer.tgz http://harbor.orientsoft.cn/harbor-v1.5.0/harbor-offline-installer-v1.5.0.tgz && tar xvf harbor-offline-installer.tgz
 cd /harbor
 sudo ./install.sh
+sudo timedatectl set-timezone Asia/Shanghai
 echo `pwd`

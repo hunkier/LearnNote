@@ -52,3 +52,4 @@ sudo systemctl enable docker
 #sudo yum install python-pip -y
 #sudo pip install --upgrade pip
 #sudo pip install docker-compose
+sudo timedatectl set-timezone Asia/Shanghai
