@@ -1,6 +1,6 @@
-### docker swarm
+# docker swarm
 
-主节点manager
+### 主节点manager
 
 ```shell
 $ vagrant status
@@ -50,7 +50,7 @@ To add a manager to this swarm, run 'docker swarm join-token manager' and follow
 [vagrant@swarm-manager ~]$
 ```
 
-worker1节点
+### worker1节点
 
 ```shell
 [vagrant@swarm-worker1 ~]$ docker swarm join --token SWMTKN-1-5e3x287y2x0mzlr4rfnvvqzbu8tvt72nny293mdt70be0vkfxq-8549bsispxxg39nczjario7x6 192.168.205.10:2377
@@ -58,7 +58,7 @@ This node joined a swarm as a worker.
 [vagrant@swarm-worker1 ~]$
 ```
 
-查看所有节点
+### 查看所有节点
 
 ```shell
 [vagrant@swarm-manager ~]$ docker node ls
@@ -87,7 +87,7 @@ z3jpqindc3rga1ucig077a3q2     swarm-worker1       Ready               Active    
 [vagrant@swarm-manager ~]$
 ```
 
-通过swarm创建容器
+### 通过swarm创建容器
 
 ```shell
 [vagrant@swarm-manager ~]$ docker service create --name demo busybox sh -c "while true; do sleep 3600;done"
@@ -106,7 +106,7 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 [vagrant@swarm-manager ~]$
 ```
 
-三个节点看看是否有容器在运行
+### 三个节点看看是否有容器在运行
 
 ```shell
 [vagrant@swarm-manager ~]$ docker ps
@@ -123,7 +123,7 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 [vagrant@swarm-worker2 ~]$
 ```
 
-重启系统后docker service会自动运行
+### 重启系统后docker service会自动运行
 
 ```shell
 [vagrant@swarm-manager ~]$ docker service ls
@@ -136,7 +136,7 @@ ikktimjbvoug        demo.1              busybox:latest      swarm-manager       
 [vagrant@swarm-manager ~]$
 ```
 
-扩展容器
+### 扩展容器
 
 ```shell
 [vagrant@swarm-manager ~]$ docker service scale demo=5
@@ -162,7 +162,7 @@ t73ji5comfd7        demo.5              busybox:latest      swarm-worker2       
 [vagrant@swarm-manager ~]$
 ```
 
-工作节点上强制删除容器，swarm自动重新创建容器
+### 工作节点上强制删除容器，swarm自动重新创建容器
 
 ```shell
 [vagrant@swarm-worker1 ~]$ docker ps
@@ -228,7 +228,7 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 [vagrant@swarm-worker2 ~]$
 ```
 
-创建跨主机通讯网络
+### 创建跨主机通讯网络
 
 ```shell
 [vagrant@swarm-manager ~]$ docker network create -d overlay demo
@@ -245,7 +245,7 @@ mqs79u9ms8z4        ingress             overlay             swarm
 [vagrant@swarm-manager ~]$
 ```
 
-在overlay网络中创建mysql数据库
+### 在overlay网络中创建mysql数据库
 
 ```shell
 [vagrant@swarm-manager ~]$ docker service create --name mysql --env MYSQL_ROOT_PASSWORD=root --env MYSQL_DATABASE-wordpr
@@ -264,7 +264,7 @@ ju57429qsre0        mysql.1             mysql:5.6           swarm-worker2       
 [vagrant@swarm-manager ~]$
 ```
 
-通过overlay网络启动wordpress
+### 通过overlay网络启动wordpress
 
 ```shell
 [vagrant@swarm-manager ~]$ docker service create --name wordpress -p 80:80 --env WORDPRESS_DB_PASSWORD=root --env WORDPRESS_DB_HOST=mysql --network demo wordpress
@@ -287,7 +287,7 @@ xpbrxkstisop         \_ wordpress.1     wordpress:latest    swarm-manager       
 
 在浏览器上可以通过三个节点的ip进行访问
 
-swarm容器间网络通讯
+### swarm容器间网络通讯
 
 ```shell
 [vagrant@swarm-manager ~]$ docker service create --name whoami -p 8000:8000 --network demo -d jwilder/whoami
@@ -398,7 +398,7 @@ Non-authoritative answer:
 *** Can't find whoami: No answer
 ```
 
-查看网络
+### 查看网络
 
 ```shell
 [vagrant@swarm-worker1 ~]$ docker network inspect demo
@@ -636,9 +636,7 @@ NETWORK ID          NAME                DRIVER              SCOPE
 b0727605895c        host                host                local
 mqs79u9ms8z4        ingress             overlay             swarm
 5fde706d72b7        none                null                local
-[vagrant@swarm-worker1 ~]$ docker network inspect docker-gwbridge
-[]
-Error: No such network: docker-gwbridge
+[vagrant@swarm-worker1 ~]$ 
 [vagrant@swarm-worker1 ~]$ docker network inspect  docker_gwbridge
 [
     {
@@ -697,5 +695,263 @@ Error: No such network: docker-gwbridge
     }
 ]
 [vagrant@swarm-worker1 ~]$
+```
+
+查看docker网络
+
+```shell
+[vagrant@swarm-manager ~]$ sudo iptables -nL -t nat
+Chain PREROUTING (policy ACCEPT)
+target     prot opt source               destination
+DOCKER-INGRESS  all  --  0.0.0.0/0            0.0.0.0/0            ADDRTYPE match dst-type LOCAL
+DOCKER     all  --  0.0.0.0/0            0.0.0.0/0            ADDRTYPE match dst-type LOCAL
+
+Chain INPUT (policy ACCEPT)
+target     prot opt source               destination
+
+Chain OUTPUT (policy ACCEPT)
+target     prot opt source               destination
+DOCKER-INGRESS  all  --  0.0.0.0/0            0.0.0.0/0            ADDRTYPE match dst-type LOCAL
+DOCKER     all  --  0.0.0.0/0           !127.0.0.0/8          ADDRTYPE match dst-type LOCAL
+
+Chain POSTROUTING (policy ACCEPT)
+target     prot opt source               destination
+MASQUERADE  all  --  0.0.0.0/0            0.0.0.0/0            ADDRTYPE match src-type LOCAL
+MASQUERADE  all  --  172.17.0.0/16        0.0.0.0/0
+MASQUERADE  all  --  172.18.0.0/16        0.0.0.0/0
+
+Chain DOCKER (2 references)
+target     prot opt source               destination
+RETURN     all  --  0.0.0.0/0            0.0.0.0/0
+RETURN     all  --  0.0.0.0/0            0.0.0.0/0
+
+Chain DOCKER-INGRESS (2 references)
+target     prot opt source               destination
+DNAT       tcp  --  0.0.0.0/0            0.0.0.0/0            tcp dpt:8000 to:172.18.0.2:8000
+DNAT       tcp  --  0.0.0.0/0            0.0.0.0/0            tcp dpt:80 to:172.18.0.2:80
+RETURN     all  --  0.0.0.0/0            0.0.0.0/0
+[vagrant@swarm-manager ~]$ sudo ls /var/run/docker/netns
+0fb67d7d68cd  1-mqs79u9ms8  69bb98f9eb89  8c187d1cd545  d6c0a250b021  ingress_sbox
+1-58opymcjrf  40cc7b7c8155  6f828ac51ba2  b64c97611fc6  e90ed18bd83a
+[vagrant@swarm-manager ~]$ docker network ls
+NETWORK ID          NAME                DRIVER              SCOPE
+1fc7fdaf81ca        bridge              bridge              local
+58opymcjrf7b        demo                overlay             swarm
+6c2642aea9e1        docker_gwbridge     bridge              local
+a7643289f689        host                host                local
+mqs79u9ms8z4        ingress             overlay             swarm
+71da4e2708b5        none                null                local
+[vagrant@swarm-manager ~]$
+```
+
+### Ingress Network网络
+
+```shell
+[vagrant@swarm-manager ~]$ sudo nsenter --net=/var/run/docker/netns/ingress_sbox
+[root@swarm-manager vagrant]# ip a
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+8: eth0@if9: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1450 qdisc noqueue state UP group default
+    link/ether 02:42:0a:ff:00:02 brd ff:ff:ff:ff:ff:ff link-netnsid 0
+    inet 10.255.0.2/16 brd 10.255.255.255 scope global eth0
+       valid_lft forever preferred_lft forever
+    inet 10.255.0.31/32 brd 10.255.0.31 scope global eth0
+       valid_lft forever preferred_lft forever
+    inet 10.255.0.33/32 brd 10.255.0.33 scope global eth0
+       valid_lft forever preferred_lft forever
+10: eth1@if11: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default
+    link/ether 02:42:ac:12:00:02 brd ff:ff:ff:ff:ff:ff link-netnsid 1
+    inet 172.18.0.2/16 brd 172.18.255.255 scope global eth1
+       valid_lft forever preferred_lft forever
+[root@swarm-manager vagrant]#
+```
+
+```shell
+[vagrant@swarm-manager ~]$ sudo nsenter --net=/var/run/docker/netns/ingress_sbox
+[root@swarm-manager vagrant]# iptables -nL -t mangle
+Chain PREROUTING (policy ACCEPT)
+target     prot opt source               destination
+MARK       tcp  --  0.0.0.0/0            0.0.0.0/0            tcp dpt:80 MARK set 0x12f
+MARK       tcp  --  0.0.0.0/0            0.0.0.0/0            tcp dpt:8000 MARK set 0x130
+
+Chain INPUT (policy ACCEPT)
+target     prot opt source               destination
+MARK       all  --  0.0.0.0/0            10.255.0.31          MARK set 0x12f
+MARK       all  --  0.0.0.0/0            10.255.0.33          MARK set 0x130
+
+Chain FORWARD (policy ACCEPT)
+target     prot opt source               destination
+
+Chain OUTPUT (policy ACCEPT)
+target     prot opt source               destination
+
+Chain POSTROUTING (policy ACCEPT)
+target     prot opt source               destination
+[root@swarm-manager vagrant]# ipvsadm -l
+IP Virtual Server version 1.2.1 (size=4096)
+Prot LocalAddress:Port Scheduler Flags
+  -> RemoteAddress:Port           Forward Weight ActiveConn InActConn
+FWM  303 rr
+  -> bogon:0                      Masq    1      0          0
+FWM  304 rr
+  -> bogon:0                      Masq    1      0          0
+  -> bogon:0                      Masq    1      0          0
+[root@swarm-manager vagrant]#
+```
+
+### docker stack部署应用
+
+```shell
+docker stack deploy example --compose-file=docker-compose.yml
+docker stack ls
+docker stack services example
+docker service scale example_vote=3
+```
+
+```shell
+[vagrant@swarm-manager ~]$ docker stack ls
+NAME                SERVICES            ORCHESTRATOR
+[vagrant@swarm-manager ~]$ cd labs/example-voting-app/
+[vagrant@swarm-manager example-voting-app]$ ls
+docker-compose2.yml  docker-compose.yml
+[vagrant@swarm-manager example-voting-app]$ docker stack deploy example --compose-file=docker-compose2.yml
+Creating network example_frontend
+Creating network example_backend
+Creating network example_default
+Creating service example_visualizer
+Creating service example_redis
+Creating service example_db
+Creating service example_vote
+Creating service example_result
+Creating service example_worker
+[vagrant@swarm-manager example-voting-app]$ docker stack ls
+NAME                SERVICES            ORCHESTRATOR
+example             6                   Swarm
+[vagrant@swarm-manager example-voting-app]$ docker stack services example
+ID                  NAME                 MODE                REPLICAS            IMAGE                                                                  PORTS
+abfmhjivh2ed        example_result       replicated          1/1                 192.168.33.2/example-voting-app/example-voting-app_result-app:latest   *:5001->80/tcp
+db2k1cqvd73p        example_redis        replicated          2/2                 192.168.33.2/library/redis:latest                                      *:30000->6379/tcp
+fr0m3ixyd1v6        example_worker       replicated          1/1                 192.168.33.2/example-voting-app/example-voting-app_worker:latest
+gctu2otbtugo        example_db           replicated          1/1                 192.168.33.2/library/postgres:9.4      
+k9wgickfbyxf        example_vote         replicated          2/2                 192.168.33.2/example-voting-app/example-voting-app_voting-app:latest   *:5000->80/tcp
+yk6ih4voni6r        example_visualizer   replicated          1/1                 dockersamples/visualizer:stable                                        *:8080->8080/tcp
+[vagrant@swarm-manager example-voting-app]$ docker stack ps example
+ID                  NAME                   IMAGE                                                                  NODE                DESIRED STATE       CURRENT STATE            ERROR               PORTS
+5ndo402bibiz        example_worker.1       192.168.33.2/example-voting-app/example-voting-app_worker:latest       swarm-manager       Running             Running 42 seconds ago
+80wlvvkm2r29        example_result.1       192.168.33.2/example-voting-app/example-voting-app_result-app:latest   swarm-worker2       Running             Running 43 seconds ago
+tkzu0hq7rgxq        example_vote.1         192.168.33.2/example-voting-app/example-voting-app_voting-app:latest   swarm-worker1       Running             Running 44 seconds ago
+dv5wvh0vjqpd        example_db.1           192.168.33.2/library/postgres:9.4                                      swarm-manager       Running             Running 45 seconds ago
+jwjwgu1dwriz        example_redis.1        192.168.33.2/library/redis:latest                                      swarm-worker1       Running             Running 46 seconds ago
+y700zwg8tbs1        example_visualizer.1   dockersamples/visualizer:stable                                        swarm-manager       Running             Running 47 seconds ago
+5qqvixagjkwt        example_vote.2         192.168.33.2/example-voting-app/example-voting-app_voting-app:latest   swarm-worker2       Running             Running 44 seconds ago
+rx29bg6du17e        example_redis.2        192.168.33.2/library/redis:latest                                      swarm-worker2       Running             Running 46 seconds ago
+[vagrant@swarm-manager example-voting-app]$ docker service scale example_vote=3
+example_vote scaled to 3
+overall progress: 3 out of 3 tasks
+1/3: running   [==================================================>]
+2/3: running   [==================================================>]
+3/3: running   [==================================================>]
+verify: Service converged
+[vagrant@swarm-manager example-voting-app]$ docker stack ps example
+ID                  NAME                   IMAGE                                                                  NODE                DESIRED STATE       CURRENT STATE                ERROR               PORTS
+5ndo402bibiz        example_worker.1       192.168.33.2/example-voting-app/example-voting-app_worker:latest       swarm-manager       Running             Running about a minute ago
+80wlvvkm2r29        example_result.1       192.168.33.2/example-voting-app/example-voting-app_result-app:latest   swarm-worker2       Running             Running about a minute ago
+tkzu0hq7rgxq        example_vote.1         192.168.33.2/example-voting-app/example-voting-app_voting-app:latest   swarm-worker1       Running             Running 2 minutes ago
+dv5wvh0vjqpd        example_db.1           192.168.33.2/library/postgres:9.4                                      swarm-manager       Running             Running 2 minutes ago
+jwjwgu1dwriz        example_redis.1        192.168.33.2/library/redis:latest                                      swarm-worker1       Running             Running 2 minutes ago
+y700zwg8tbs1        example_visualizer.1   dockersamples/visualizer:stable                                        swarm-manager       Running             Running 2 minutes ago
+5qqvixagjkwt        example_vote.2         192.168.33.2/example-voting-app/example-voting-app_voting-app:latest   swarm-worker2       Running             Running 2 minutes ago
+rx29bg6du17e        example_redis.2        192.168.33.2/library/redis:latest                                      swarm-worker2       Running             Running 2 minutes ago
+44iuyr2rajzt        example_vote.3         192.168.33.2/example-voting-app/example-voting-app_voting-app:latest   swarm-manager       Running             Running 10 seconds ago
+[vagrant@swarm-manager example-voting-app]$
+```
+
+docker stack部署wordpress
+
+```shell
+[vagrant@swarm-manager ~]$ cd labs/
+[vagrant@swarm-manager labs]$ ls
+wordpress
+[vagrant@swarm-manager labs]$ cd wordpress/
+[vagrant@swarm-manager wordpress]$ ls
+docker-compose.yml
+[vagrant@swarm-manager wordpress]$ docker stack deploy wordpress --compose-file=docker-compose.yml
+services.mysql.deploy.placement.constraints must be a list
+[vagrant@swarm-manager wordpress]$ docker stack deploy wordpress --compose-file=docker-compose.yml
+Creating network wordpress_my-network
+Creating service wordpress_mysql
+Creating service wordpress_web
+[vagrant@swarm-manager wordpress]$ docker stack ls
+NAME                SERVICES            ORCHESTRATOR
+wordpress           2                   Swarm
+[vagrant@swarm-manager wordpress]$ docker stack services wordpress
+ID                  NAME                MODE                REPLICAS            IMAGE               PORTS
+ex31mvi9vhhs        wordpress_mysql     global              0/0                 mysql:5.6
+ezi7bpomhqot        wordpress_web       replicated          1/3                 wordpress:latest    *:8080->80/tcp
+[vagrant@swarm-manager wordpress]$ docker stack ps wordpress
+ID                  NAME                  IMAGE               NODE                DESIRED STATE       CURRENT STATE            ERROR                       PORTS
+k522ptqmy1rx        wordpress_web.1       wordpress:latest    swarm-worker1       Running             Running 19 seconds ago
+65u6v7g8lxyo         \_ wordpress_web.1   wordpress:latest    swarm-worker1       Shutdown            Failed 25 seconds ago    "task: non-zero exit (1)"
+qw9a1r2u0436        wordpress_web.2       wordpress:latest    swarm-manager       Running             Running 18 seconds ago
+e9ffr1s3xdrn         \_ wordpress_web.2   wordpress:latest    swarm-manager       Shutdown            Failed 24 seconds ago    "task: non-zero exit (1)"
+pq6ict85gjfj        wordpress_web.3       wordpress:latest    swarm-worker2       Running             Running 24 seconds ago
+```
+
+### docker secret manager
+
+```shell
+vim password
+docker secret create my-pw password
+docker secret ls
+echo "adminadmin" | docker secret create my-pw2
+docker secret ls
+```
+
+```shell
+docker service create --name client --secret my-pw busybox sh -c "while true; do sleep 3600; done"
+docker service ls
+docker service ps client
+docker ps
+docker exec -it containerId sh
+cd /run/secrets/
+ls
+
+```
+
+```shell
+docker service create --name db --secret my-pw -e MYSQL_ROOT_PASSWORD_FILE=/run/secrets/my-pw mysql:5.6
+docker service ls
+docker service ps db
+docker ps 
+docker exec -it contanierId sh
+ls /run/secrets/
+cat /run/secrets/my-pw
+mysql -u root -p
+```
+
+docker secret  部署wordpress
+
+```shell
+docker stack deploy wordpress -c=docker-compose.yml
+docker stack services wordpress
+```
+
+### docker service 更新
+
+```shell
+docker network create -d overlay demo
+docker network ls
+docker service create --name web --publish 8080:5000 --network demo xiaopeng163/python-flask-demo:1.0
+docker service ps web
+docker service scale web=2
+docker service ps web
+curl 127.0.0.1:8080
+sh -c "while true; do curl 127.0.0.1:8080 && sleep 1; done"
+docker service update --image xiaopeng163/python-flask-demo:2.0 web
+docker service ps web
+docker service update --publish-rm 8080:5000 --publish-add 8088:5000 web
+docker service ls
 ```
 
