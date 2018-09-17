@@ -8,3 +8,7 @@ kubectl cluster-info
 minikube ssh
 ```
 
+oracle的vagrant镜像
+
+https://github.com/oracle/vagrant-boxes
+

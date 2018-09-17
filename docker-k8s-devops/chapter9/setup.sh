@@ -50,17 +50,19 @@ sudo pip install --upgrade pip
 sudo pip install docker-compose
 sudo timedatectl set-timezone Asia/Shanghai
 
-sudo cat >> /etc/yum.repos.d/virtualbox.repo  <<EOF
+#sudo cat >> /etc/yum.repos.d/virtualbox.repo  <<EOF
+#
+#[virtualbox]
+#name=Virtualbox Repository
+#baseurl=https://mirrors.tuna.tsinghua.edu.cn/virtualbox/rpm/el$releasever/
+#gpgcheck=0
+#enabled=1
+#
+#EOF
 
-[virtualbox]
-name=Virtualbox Repository
-baseurl=https://mirrors.tuna.tsinghua.edu.cn/virtualbox/rpm/el$releasever/
-gpgcheck=0
-enabled=1
-
-EOF
-
-sudo yum makecache
-sudo yum install VirtualBox-5.2
+#sudo yum makecache
+#sudo yum install VirtualBox-5.2
 
 #https://blog.csdn.net/hobohero/article/details/54381615
+#http://download.virtualbox.org/virtualbox
+#https://mirrors.tuna.tsinghua.edu.cn/virtualbox
