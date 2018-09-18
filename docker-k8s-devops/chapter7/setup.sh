@@ -9,6 +9,7 @@ sudo tee /etc/docker/daemon.json <<-'EOF'
 {
   "registry-mirrors": [
     "https://registry.docker-cn.com",
+    "https://container-registry.oracle.com",
     "https://dhcl9iu5.mirror.aliyuncs.com",
     "https://docker.mirrors.ustc.edu.cn",
     "http://29bd46d3.m.daocloud.io",
