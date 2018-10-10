@@ -24,7 +24,13 @@ Install with [Chocolatey](https://chocolatey.org/):
 choco install minikube
 
 
-minikube start --registry-mirror=https://registry.docker-cn.com  --bootstrapper localkube
+minikube start  --registry-mirror=https://registry.docker-cn.com  --bootstrapper localkube
+```
+
+
+
+```ssh
+minikube start --vm-driver=none --registry-mirror=https://registry.docker-cn.com
 ```
 
 
