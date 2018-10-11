@@ -109,3 +109,11 @@ nginx     0/1       ContainerCreating   0          2m
 
 ```
 
+
+
+rancher安装kubernetes集群
+
+```shell
+docker run -d -p 80:80 -p 443:443 rancher/rancher:v2.1.0
+```
+

@@ -14,11 +14,19 @@ sudo tee /etc/docker/daemon.json <<-'EOF'
     "http://29bd46d3.m.daocloud.io",
      "http://hub-mirror.c.163.com"
   ],
-  "labels": ["name=chapter9"],
+  "max-concurrent-downloads": 10,
+  "max-concurrent-uploads": 5,
   "insecure-registries": [
     "loclhost:5000",
     "192.168.33.2"
   ],
+  "storage-driver": "overlay2",
+  "storage-opts": ["overlay2.override_kernel_check=true"],
+  "log-driver": "json-file",
+  "log-opts": {
+      "max-size": "100m",
+      "max-file": "3"
+      },
   "debug": true,
   "experimental": true
 }
@@ -31,6 +39,10 @@ net.bridge.bridge-nf-call-ip6tables = 1
 net.bridge.bridge-nf-call-iptables = 1
 net.bridge.bridge-nf-call-arptables = 1
 
+net.ipv4.neigh.default.gc_thresh1=4096
+net.ipv4.neigh.default.gc_thresh2=6144
+net.ipv4.neigh.default.gc_thresh3=8192
+
 EOF
 
 sudo cat >> /usr/lib/sysctl.d/00-system.conf  <<EOF
@@ -39,12 +51,20 @@ net.ipv4.ip_forward=1
 
 EOF
 
+sudo sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
+
+systemctl stop firewalld.service && systemctl disable firewalld.service
+
+sudo ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+sudo echo 'LANG="en_US.UTF-8"' >> /etc/profile;source /etc/profile
+
+
+
 sudo groupadd docker
 sudo gpasswd -a vagrant docker
 sudo yum install -y git vim gcc glibc-static telnet bridge-utils net-tools jq etcd epel-release
 sudo systemctl start docker
 sudo systemctl enable docker
-sudo yum install epel-release -y
 sudo yum install python-pip -y
 sudo pip install --upgrade pip
 sudo pip install docker-compose
