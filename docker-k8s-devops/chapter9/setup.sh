@@ -50,6 +50,16 @@ sudo cat >> /usr/lib/sysctl.d/00-system.conf  <<EOF
 net.ipv4.ip_forward=1
 
 EOF
+sudo cat >> /etc/hosts  <<EOF
+
+192.168.33.200  rke
+192.168.33.201  node1
+192.168.33.202  node2
+192.168.33.203  node3
+
+EOF
+
+sudo source /etc/hosts
 
 sudo sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
 
@@ -62,10 +72,14 @@ sudo echo 'LANG="en_US.UTF-8"' >> /etc/profile;source /etc/profile
 
 sudo groupadd docker
 sudo gpasswd -a vagrant docker
-sudo yum install -y git vim gcc glibc-static telnet bridge-utils net-tools jq etcd epel-release
+sudo yum install -y git vim gcc glibc-static telnet bridge-utils net-tools jq etcd epel-release wget
 sudo systemctl start docker
 sudo systemctl enable docker
 sudo yum install python-pip -y
 sudo pip install --upgrade pip
 sudo pip install docker-compose
 sudo timedatectl set-timezone Asia/Shanghai
+
+wget -c
+curl -Lo kubectl https://www.cnrancher.com/download/kubectl/kubectl_amd64-linux && sudo chmod a+x kubectl && sudo mv kubectl /usr/local/bin/
+
