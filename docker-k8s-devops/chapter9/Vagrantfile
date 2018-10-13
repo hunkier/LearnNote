@@ -2,28 +2,28 @@ Vagrant.require_version ">= 1.6.0"
 
 boxes = [
     {
-        :name => "rke",
+        :name => "master",
         :eth1 => "192.168.33.200",
-        :mem => "3072",
+        :mem => "3074",
         :cpu => "1",
         :fp => "22"
     },
     {
-        :name => "node1",
+        :name => "worker1",
         :eth1 => "192.168.33.201",
-        :mem => "1024",
+        :mem => "3074",
         :cpu => "1",
         :fp => "23"
     },
     {
-        :name => "node2",
+        :name => "worker2",
         :eth1 => "192.168.33.202",
-        :mem => "1024",
+        :mem => "3074",
         :cpu => "1",
         :fp => "24"
     },
     {
-        :name => "node3",
+        :name => "worker3",
         :eth1 => "192.168.33.203",
         :mem => "1024",
         :cpu => "1",

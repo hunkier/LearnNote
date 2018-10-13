@@ -52,10 +52,10 @@ net.ipv4.ip_forward=1
 EOF
 sudo cat >> /etc/hosts  <<EOF
 
-192.168.33.200  rke
-192.168.33.201  node1
-192.168.33.202  node2
-192.168.33.203  node3
+192.168.33.200  master
+192.168.33.201  worker1
+192.168.33.202  worker2
+192.168.33.203  worker3
 
 EOF
 
@@ -80,6 +80,5 @@ sudo pip install --upgrade pip
 sudo pip install docker-compose
 sudo timedatectl set-timezone Asia/Shanghai
 
-wget -c
 curl -Lo kubectl https://www.cnrancher.com/download/kubectl/kubectl_amd64-linux && sudo chmod a+x kubectl && sudo mv kubectl /usr/local/bin/
 
