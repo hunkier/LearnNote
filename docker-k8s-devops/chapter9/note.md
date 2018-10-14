@@ -8,6 +8,25 @@ kubectl cluster-info
 minikube ssh
 ```
 
+kubectl自动补全
+
+```shell
+[vagrant@worker1 deployment]$ source <(kubectl completion zsh)
+
+[vagrant@worker1 deployment]$ source <(kubectl completion bash)
+[vagrant@worker1 deployment]$ kubectl
+alpha          auth           convert        drain          label          proxy          taint
+annotate       autoscale      cordon         edit           logs           replace        top
+api-resources  certificate    cp             exec           options        rollout        uncordon
+api-versions   cluster-info   create         explain        patch          run            version
+apply          completion     delete         expose         plugin         scale          wait
+attach         config         describe       get            port-forward   set
+[vagrant@worker1 deployment]$ kubectl p
+patch         plugin        port-forward  proxy
+[vagrant@worker1 deployment]$ kubectl d
+delete    describe  drain
+```
+
 oracle的vagrant镜像
 
 https://github.com/oracle/vagrant-boxes
@@ -39,7 +58,7 @@ k8s里面有两种用户，一种是User，一种就是service account，User给
 我们看一下是如何把admin权限赋给dashboard的
 
 ```shell
-[vagrant@node1 ~]$ cat dashboard-admin.yaaml
+[vagrant@node1 ~]$ cat dashboard-admin.yaml
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRoleBinding
 metadata:
@@ -352,6 +371,481 @@ Events:
 端口转发
 
 ```shell
-[vagrant@node1 ~]$ kubectl port-forward nginx 8088:80
+[vagrant@worker2 ~]$ kubectl port-forward pod/nginx 8088:80
+Forwarding from 127.0.0.1:8088 -> 80
+Forwarding from [::1]:8088 -> 80
+Handling connection for 8088
+Handling connection for 8088
+```
+
+删除pod
+
+```shell
+[vagrant@worker2 pod-basic]$ kubectl delete -f pod_nginx.yml
+pod "nginx" deleted
+[vagrant@worker2 pod-basic]$ kubectl get pods
+No resources found.
+[vagrant@worker2 pod-basic]$
+```
+
+创建ReplicationController集群
+
+```shell
+[vagrant@worker2 replicas-set]$ cat rc_nginx.yml
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: nginx
+spec:
+  replicas: 3
+  selector:
+    app: nginx
+  template:
+    metadata:
+      name: nginx
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80
+[vagrant@worker2 replicas-set]$ kubectl create -f rc_nginx.yml
+replicationcontroller/nginx created
+[vagrant@worker2 replicas-set]$ kubectl get rc -o wide
+NAME    DESIRED   CURRENT   READY   AGE   CONTAINERS   IMAGES   SELECTOR
+nginx   3         3         3       20s   nginx        nginx    app=nginx
+[vagrant@worker2 replicas-set]$ kubectl get pods
+NAME          READY   STATUS    RESTARTS   AGE
+nginx-k68lr   1/1     Running   0          59s
+nginx-m6mbc   1/1     Running   0          59s
+nginx-s7rcc   1/1     Running   0          59s
+[vagrant@worker2 replicas-set]$
+```
+
+删除pods会自动重新创建
+
+```shell
+[vagrant@worker2 replicas-set]$ kubectl get pods
+NAME          READY   STATUS    RESTARTS   AGE
+nginx-k68lr   1/1     Running   0          59s
+nginx-m6mbc   1/1     Running   0          59s
+nginx-s7rcc   1/1     Running   0          59s
+[vagrant@worker2 replicas-set]$ 
+[vagrant@worker2 replicas-set]$ kubectl delete pods nginx-k68lr
+pod "nginx-k68lr" deleted
+[vagrant@worker2 replicas-set]$ kubectl get pods
+NAME          READY   STATUS    RESTARTS   AGE
+nginx-hgmbr   1/1     Running   0          10s
+nginx-m6mbc   1/1     Running   0          2m
+nginx-s7rcc   1/1     Running   0          2m
+[vagrant@worker2 replicas-set]$ kubectl delete pods nginx-hgmbr
+pod "nginx-hgmbr" deleted
+^[[A[vagrant@worker2 replicas-set]$ kubectl get pods
+NAME          READY   STATUS    RESTARTS   AGE
+nginx-2hwvg   1/1     Running   0          4s
+nginx-m6mbc   1/1     Running   0          3m
+nginx-s7rcc   1/1     Running   0          3m
+[vagrant@worker2 replicas-set]$
+```
+
+集群扩展伸缩
+
+```shell
+[vagrant@worker2 replicas-set]$ kubectl scale --replicas=2 rc/nginx
+replicationcontroller/nginx scaled
+[vagrant@worker2 replicas-set]$ kubectl get pods -o wide
+NAME          READY   STATUS    RESTARTS   AGE   IP           NODE      NOMINATED NODE
+nginx-m6mbc   1/1     Running   0          9m    10.42.2.8    worker2   <none>
+nginx-s7rcc   1/1     Running   0          9m    10.42.1.12   worker1   <none>
+[vagrant@worker2 replicas-set]$ kubectl get rc
+NAME    DESIRED   CURRENT   READY   AGE
+nginx   2         2         2       9m
+[vagrant@worker2 replicas-set]$
+[vagrant@worker2 replicas-set]$ kubectl scale --replicas=1 rc/nginx
+replicationcontroller/nginx scaled
+[vagrant@worker2 replicas-set]$ kubectl get rc
+NAME    DESIRED   CURRENT   READY   AGE
+nginx   1         1         1       10m
+[vagrant@worker2 replicas-set]$ kubectl get pods -o wide
+NAME          READY   STATUS    RESTARTS   AGE   IP          NODE      NOMINATED NODE
+nginx-m6mbc   1/1     Running   0          10m   10.42.2.8   worker2   <none>
+[vagrant@worker2 replicas-set]$ kubectl scale --replicas=5 rc/nginx
+replicationcontroller/nginx scaled
+[vagrant@worker2 replicas-set]$ kubectl get pods -o wide
+NAME          READY   STATUS              RESTARTS   AGE   IP          NODE      NOMINATED NODE
+nginx-hnh2q   0/1     ContainerCreating   0          2s    <none>      worker1   <none>
+nginx-m255k   0/1     ContainerCreating   0          2s    <none>      worker2   <none>
+nginx-m6mbc   1/1     Running             0          10m   10.42.2.8   worker2   <none>
+nginx-p8lbq   0/1     ContainerCreating   0          2s    <none>      worker1   <none>
+nginx-rfcf9   0/1     ContainerCreating   0          2s    <none>      worker2   <none>
+[vagrant@worker2 replicas-set]$ kubectl get pods -o wide
+NAME          READY   STATUS    RESTARTS   AGE   IP           NODE      NOMINATED NODE
+nginx-hnh2q   1/1     Running   0          12s   10.42.1.14   worker1   <none>
+nginx-m255k   1/1     Running   0          12s   10.42.2.12   worker2   <none>
+nginx-m6mbc   1/1     Running   0          10m   10.42.2.8    worker2   <none>
+nginx-p8lbq   1/1     Running   0          12s   10.42.1.13   worker1   <none>
+nginx-rfcf9   1/1     Running   0          12s   10.42.2.13   worker2   <none>
+[vagrant@worker2 replicas-set]$
+```
+
+删除集群
+
+```shell
+[vagrant@worker2 replicas-set]$ kubectl delete -f rc_nginx.yml
+replicationcontroller "nginx" deleted
+[vagrant@worker2 replicas-set]$ kubectl get pods -o wide
+NAME          READY   STATUS        RESTARTS   AGE   IP           NODE      NOMINATED NODE
+nginx-m255k   0/1     Terminating   0          3m    10.42.2.12   worker2   <none>
+nginx-m6mbc   0/1     Terminating   0          13m   10.42.2.8    worker2   <none>
+nginx-p8lbq   0/1     Terminating   0          3m    <none>       worker1   <none>
+nginx-rfcf9   0/1     Terminating   0          3m    <none>       worker2   <none>
+[vagrant@worker2 replicas-set]$ kubectl get pods -o wide
+NAME          READY   STATUS        RESTARTS   AGE   IP           NODE      NOMINATED NODE
+nginx-m255k   0/1     Terminating   0          3m    10.42.2.12   worker2   <none>
+nginx-m6mbc   0/1     Terminating   0          13m   10.42.2.8    worker2   <none>
+nginx-rfcf9   0/1     Terminating   0          3m    <none>       worker2   <none>
+[vagrant@worker2 replicas-set]$ kubectl get pods -o wide
+NAME          READY   STATUS        RESTARTS   AGE   IP           NODE      NOMINATED NODE
+nginx-m255k   0/1     Terminating   0          3m    10.42.2.12   worker2   <none>
+nginx-m6mbc   0/1     Terminating   0          13m   10.42.2.8    worker2   <none>
+nginx-rfcf9   0/1     Terminating   0          3m    <none>       worker2   <none>
+[vagrant@worker2 replicas-set]$ kubectl get pods -o wide
+No resources found.
+[vagrant@worker2 replicas-set]$ kubectl get rc
+No resources found.
+[vagrant@worker2 replicas-set]$
+```
+
+创建ReplicaSet集群
+
+```shell
+[vagrant@worker2 replicas-set]$ cat rs_nginx.yml
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: nginx
+  labels:
+    tier: frontend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      tier: frontend
+  template:
+    metadata:
+      name: nginx
+      labels:
+        tier: frontend
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80
+[vagrant@worker2 replicas-set]$ kubectl create -f rs_nginx.yml
+replicaset.apps/nginx created
+[vagrant@worker2 replicas-set]$ kubectl get rs -o wide
+NAME    DESIRED   CURRENT   READY   AGE   CONTAINERS   IMAGES   SELECTOR
+nginx   3         3         2       27s   nginx        nginx    tier=frontend
+[vagrant@worker2 replicas-set]$ kubectl get pods -o wide
+NAME          READY   STATUS    RESTARTS   AGE   IP           NODE      NOMINATED NODE
+nginx-4l92j   1/1     Running   0          44s   10.42.2.15   worker2   <none>
+nginx-668jz   1/1     Running   0          44s   10.42.1.15   worker1   <none>
+nginx-kgqh2   1/1     Running   0          44s   10.42.2.14   worker2   <none>
+[vagrant@worker2 replicas-set]$
+[vagrant@worker2 replicas-set]$ kubectl scale rs/nginx --replicas=2
+replicaset.extensions/nginx scaled
+[vagrant@worker2 replicas-set]$ kubectl get pods -o wide
+NAME          READY   STATUS    RESTARTS   AGE   IP           NODE      NOMINATED NODE
+nginx-4l92j   1/1     Running   0          3m    10.42.2.15   worker2   <none>
+nginx-kgqh2   1/1     Running   0          3m    10.42.2.14   worker2   <none>
+[vagrant@worker2 replicas-set]$
+
+
+```
+
+deployment
+
+```shell
+[vagrant@worker2 deployment]$ ls
+deployment_nginx.yml
+[vagrant@worker2 deployment]$ cat deployment_nginx.yml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.12.2
+        ports:
+        - containerPort: 80[vagrant@worker2 deployment]$
+[vagrant@worker2 deployment]$
+[vagrant@worker2 deployment]$ kubectl create -f deployment_nginx.yml
+deployment.apps/nginx-deployment created
+[vagrant@worker2 deployment]$ kubectl get pods
+NAME                                READY   STATUS              RESTARTS   AGE
+nginx-4l92j                         1/1     Running             0          6m
+nginx-deployment-6bfd5b66fc-279wp   0/1     ContainerCreating   0          4s
+nginx-deployment-6bfd5b66fc-4cz5r   0/1     ContainerCreating   0          4s
+nginx-deployment-6bfd5b66fc-xvz7v   0/1     ContainerCreating   0          4s
+nginx-kgqh2                         1/1     Running             0          6m
+[vagrant@worker2 deployment]$ kubectl get pods -o wide
+NAME                                READY   STATUS              RESTARTS   AGE   IP           NODE      NOMINATED NODE
+nginx-deployment-6bfd5b66fc-279wp   0/1     ContainerCreating   0          9s    <none>       worker2   <none>
+nginx-deployment-6bfd5b66fc-4cz5r   0/1     ContainerCreating   0          9s    <none>       worker1   <none>
+nginx-deployment-6bfd5b66fc-xvz7v   0/1     ContainerCreating   0          9s    <none>       worker2   <none>
+[vagrant@worker2 deployment]$ kubectl get rs
+NAME                          DESIRED   CURRENT   READY   AGE
+nginx-deployment-6bfd5b66fc   3         3         3       33s
+[vagrant@worker2 deployment]$
+[vagrant@worker2 deployment]$ kubectl get deployment
+NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+nginx-deployment   3         3         3            3           3m
+[vagrant@worker2 deployment]$
+[vagrant@worker2 deployment]$ kubectl get deployment -o wide
+NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES         SELECTOR
+nginx-deployment   3         3         3            3           4m    nginx        nginx:1.12.2   app=nginx
+[vagrant@worker2 deployment]$
+
+```
+
+image版本升级
+
+```shell
+[vagrant@worker2 deployment]$ kubectl set image deployment nginx-deployment nginx=nginx:1.13
+deployment.extensions/nginx-deployment image updated
+[vagrant@worker2 deployment]$ kubectl get deployment -o wide
+NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES       SELECTOR
+nginx-deployment   3         4         1            3           5m    nginx        nginx:1.13   app=nginx
+[vagrant@worker2 deployment]$ kubectl get deployment -o wide
+NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES       SELECTOR
+nginx-deployment   3         4         2            3           6m    nginx        nginx:1.13   app=nginx
+[vagrant@worker2 deployment]$ kubectl get deployment -o wide
+NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES       SELECTOR
+nginx-deployment   3         4         2            3           6m    nginx        nginx:1.13   app=nginx
+[vagrant@worker2 deployment]$ kubectl get deployment -o wide
+NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES       SELECTOR
+nginx-deployment   3         3         3            3           6m    nginx        nginx:1.13   app=nginx
+[vagrant@worker2 deployment]$
+[vagrant@worker2 deployment]$ kubectl get pods -o wide
+NAME                                READY   STATUS    RESTARTS   AGE   IP           NODE      NOMINATED NODE
+nginx-deployment-57b696c78d-2wg7w   1/1     Running   0          2m    10.42.1.17   worker1   <none>
+nginx-deployment-57b696c78d-ljtrz   1/1     Running   0          2m    10.42.2.19   worker2   <none>
+nginx-deployment-57b696c78d-s9cnv   1/1     Running   0          2m    10.42.2.18   worker2   <none>
+[vagrant@worker2 deployment]$ kubectl get rs -o wide
+NAME                          DESIRED   CURRENT   READY   AGE   CONTAINERS   IMAGES         SELECTOR
+nginx-deployment-57b696c78d   3         3         3       3m    nginx        nginx:1.13     app=nginx,pod-template-hash=1362527348
+nginx-deployment-6bfd5b66fc   0         0         0       9m    nginx        nginx:1.12.2   app=nginx,pod-template-hash=2698162297
+[vagrant@worker2 deployment]$ kubectl rollout history deployment nginx-deployment
+deployment.extensions/nginx-deployment
+REVISION  CHANGE-CAUSE
+1         <none>
+2         <none>
+
+[vagrant@worker2 deployment]$
+
+```
+
+回滚到历史版本
+
+```shell
+[vagrant@worker2 deployment]$ kubectl rollout undo deployment nginx-deployment
+deployment.extensions/nginx-deployment
+[vagrant@worker2 deployment]$ 
+[vagrant@worker2 deployment]$ kubectl get deployment -o wide
+NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES         SELECTOR
+nginx-deployment   3         3         3            3           12m   nginx        nginx:1.12.2   app=nginx
+[vagrant@worker2 deployment]$
+[vagrant@worker2 deployment]$ kubectl rollout history deployment nginx-deployment
+deployment.extensions/nginx-deployment
+REVISION  CHANGE-CAUSE
+2         <none>
+3         <none>
+
+[vagrant@worker2 deployment]$
+```
+
+删除deployment
+
+```
+[vagrant@worker1 services]$ kubectl get deploy
+NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+nginx-deployment   3         3         3            0           5h
+[vagrant@worker1 services]$ kubectl delete deployment nginx-deployment
+deployment.extensions "nginx-deployment" deleted
+[vagrant@worker1 services]$
+```
+
+
+
+删除services
+
+```shell
+[vagrant@worker1 deployment]$ kubectl delete services nginx-deployment
+service "nginx-deployment" deleted
+[vagrant@worker1 deployment]$ kubectl expose deployment nginx-deployment --port=80 --target-port=8000  --type=NodePort
+service/nginx-deployment exposed
+[vagrant@worker1 deployment]$ kubectl get svc
+NAME               TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)        AGE
+kubernetes         ClusterIP   10.43.0.1     <none>        443/TCP        1h
+nginx-deployment   NodePort    10.43.91.42   <none>        80:32759/TCP   1m
+[vagrant@worker1 deployment]$
+[vagrant@worker1 deployment]$ kubectl delete services nginx-deployment
+service "nginx-deployment" deleted
+```
+
+
+
+kubectl部署services
+
+```shell
+[vagrant@worker1 labs]$ cd services/
+[vagrant@worker1 services]$ ls
+pod_busybox.yml  pod_nginx.yml  service_nginx.yml
+[vagrant@worker1 services]$ cat pod_busybox.yml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: busybox-pod
+  labels:
+    app: busybox
+spec:
+  containers:
+  - name: busybox-container
+    image: busybox
+    command:
+      - sleep
+      - "360000"[vagrant@worker1 services]$
+[vagrant@worker1 services]$
+[vagrant@worker1 services]$ kubectl create -f pod_busybox.yml
+pod/busybox-pod created
+[vagrant@worker1 services]$ cat pod_nginx.yml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod
+  labels:
+    app: nginx
+spec:
+  containers:
+  - name: nginx-container
+    image: nginx
+    ports:
+    - name: nginx-port
+      containerPort: 80
+[vagrant@worker1 services]$ kubectl get pods -o wide
+NAME                                READY   STATUS             RESTARTS   AGE   IP           NODE      NOMINATED NODE
+busybox-pod                         1/1     Running            0          28s   10.42.2.2    worker2   <none>
+[vagrant@worker1 services]$ kubectl create -f pod_nginx.yml
+pod/nginx-pod created
+[vagrant@worker1 services]$ kubectl get pods -o wide
+NAME                                READY   STATUS              RESTARTS   AGE   IP           NODE      NOMINATED NODE
+busybox-pod                         1/1     Running             0          1m    10.42.2.2    worker2   <none>
+nginx-pod                           0/1     ContainerCreating   0          17s   <none>       worker1   <none>
+[vagrant@worker1 services]$
+```
+
+
+
+
+
+```shell
+[vagrant@worker1 labs]$ cd services/
+[vagrant@worker1 services]$ ls
+deployment_python_http.yml  pod_busybox.yml  pod_nginx.yml  service_nginx.yml
+[vagrant@worker1 services]$ cat deployment_python_http.yml
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: service-test
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: service_test_pod
+  template:
+    metadata:
+      labels:
+        app: service_test_pod
+    spec:
+      containers:
+      - name: simple-http
+        image: python:2.7
+        imagePullPolicy: IfNotPresent
+        command: ["/bin/bash"]
+        args: ["-c", "echo \" <p>Hello from $(hostname)</p>\" > index.html; python -m SimpleHTTPServer 8080"]
+        ports:
+        - name: http
+          containerPort: 8080
+          
+[vagrant@worker1 services]$
+[vagrant@worker1 services]$ kubectl create -f deployment_python_http.yml
+deployment.extensions/service-test created
+[vagrant@worker1 services]$ kubectl get pods -o wide
+NAME                            READY   STATUS    RESTARTS   AGE   IP          NODE      NOMINATED NODE
+service-test-697bb576b7-btxvh   1/1     Running   0          8s    10.42.1.6   worker1   <none>
+service-test-697bb576b7-hn8q2   1/1     Running   0          8s    10.42.2.2   worker2   <none>
+[vagrant@worker1 services]$
+
+[vagrant@worker1 ~]$ curl 10.42.1.6:8080
+ <p>Hello from service-test-697bb576b7-btxvh</p>
+[vagrant@worker1 services]$
+
+[vagrant@worker2 ~]$ curl 10.42.2.2:8080
+ <p>Hello from service-test-697bb576b7-hn8q2</p>
+[vagrant@worker1 services]$
+ 
+
+ 
+```
+
+
+
+导出服务，k8s集群任意worker节点均可访问
+
+```shell
+[vagrant@worker1 services]$ kubectl get deployment
+NAME           DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+service-test   2         2         2            2           5m
+[vagrant@worker1 services]$ kubectl expose deployment service-test
+service/service-test exposed
+[vagrant@worker1 services]$ kubectl get svc
+NAME           TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+kubernetes     ClusterIP   10.43.0.1       <none>        443/TCP    15m
+service-test   ClusterIP   10.43.187.221   <none>        8080/TCP   12s
+[vagrant@worker1 services]$
+
+
+[vagrant@worker1 ~]$  <p>Hello from service-test-697bb576b7-btxvh</p>^C
+[vagrant@worker1 ~]$ curl 10.43.187.221:8080
+ <p>Hello from service-test-697bb576b7-btxvh</p>
+[vagrant@worker1 ~]$ 
+
+[vagrant@worker2 ~]$ curl 10.43.187.221:8080
+ <p>Hello from service-test-697bb576b7-hn8q2</p>
+[vagrant@worker2 ~]$ 
+
+```
+
+
+
+node主机暴露端口
+
+```shell
+[vagrant@worker1 services]$ kubectl expose pods nginx-pod --type=NodePort
 ```
 
