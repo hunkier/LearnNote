@@ -11,9 +11,16 @@ minikube ssh
 kubectl自动补全
 
 ```shell
-[vagrant@worker1 deployment]$ source <(kubectl completion zsh)
+# mac
+$ brew install bash-completion
+$ source $(brew --prefix)/etc/bash_completion
+$ source <(kubectl completion bash)
 
+# linux
+[vagrant@worker1 deployment]$ yum install -y bash-completion
 [vagrant@worker1 deployment]$ source <(kubectl completion bash)
+[vagrant@worker1 deployment]$ echo "source <(kubectl completion bash)" >> ~/.bashrc
+
 [vagrant@worker1 deployment]$ kubectl
 alpha          auth           convert        drain          label          proxy          taint
 annotate       autoscale      cordon         edit           logs           replace        top
