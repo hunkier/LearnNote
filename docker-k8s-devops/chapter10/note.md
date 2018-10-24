@@ -37,7 +37,28 @@ Weave Scope is listening at the following URL(s):
 scope launch 192.168.33.200 192.168.33.2 192.168.33.201 192.168.33.202
 ```
 
+heapster资源监控
 
+```shell
+git https://github.com/kubernetes/heapster
+
+# 在heapster/deploy/kube-config/influxdb/目录下，采用influxdb方式安装
+[vagrant@master ~]$ ls
+grafana.yaml  heapster.yaml  influxdb.yaml  labs
+[vagrant@master ~]$ kubectl c
+certificate   cluster-info  completion    config        convert       cordon        cp            create
+[vagrant@master ~]$ kubectl create -f influxdb.yaml
+deployment.extensions/monitoring-influxdb created
+service/monitoring-influxdb created
+[vagrant@master ~]$ kubectl create -f heapster.yaml
+serviceaccount/heapster created
+deployment.extensions/heapster created
+service/heapster created
+[vagrant@master ~]$ kubectl create -f grafana.yaml
+deployment.extensions/monitoring-grafana created
+service/monitoring-grafana created
+[vagrant@master ~]$
+```
 
 安装wrk压力测试工具
 
