@@ -1,0 +1,29 @@
+plugins {
+    id 'java'
+}
+
+group 'com.hunk'
+version '1.0'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+//    mavenCentral();
+    maven {
+        name 'aliyun'
+        url 'http://maven.aliyun.com/nexus/content/groups/public/'
+    }
+    maven {
+        name 'taobao'
+        url 'http://mvnrepo.tae.taobao.com/content/groups/public/'
+    }
+}
+
+dependencies {
+    compile 'io.netty:netty-all:4.1.30.Final'
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+
+
+}

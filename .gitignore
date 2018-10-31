@@ -7,8 +7,11 @@ target
 target/*
 .idea
 .idea/*
+.gradle
+.gradle/*
 *.iml
 old/JavaEE/javaee.iml
 .vagrant
 .bash_history
 venv
+
