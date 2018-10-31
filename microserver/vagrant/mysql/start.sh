@@ -6,7 +6,7 @@ echo `pwd`
 
 # linux时区
 tzselect
-Z='Asia/Shanghai'; export TZ
+TZ='Asia/Shanghai'; export TZ
 ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
 # 设置时间
