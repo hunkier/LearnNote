@@ -20,6 +20,10 @@ sudo tee /etc/docker/daemon.json <<-'EOF'
     "loclhost:5000",
     "192.168.33.2"
   ],
+  "hosts": [
+        "tcp://0.0.0.0:2376",
+        "unix:///var/run/docker.sock"
+    ],
   "storage-driver": "overlay2",
   "storage-opts": ["overlay2.override_kernel_check=true"],
   "log-driver": "json-file",

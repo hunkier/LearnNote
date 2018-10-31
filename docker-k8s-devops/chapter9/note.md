@@ -856,3 +856,130 @@ node主机暴露端口
 [vagrant@worker1 services]$ kubectl expose pods nginx-pod --type=NodePort
 ```
 
+labels用法
+
+```shell
+[vagrant@master services]$ more pod_nginx.yml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod
+  labels:
+    app: nginx
+spec:
+  containers:
+  - name: nginx-container
+    image: nginx
+    ports:
+    - name: nginx-port
+      containerPort: 80
+
+[vagrant@master services]$ kubectl create -f pod_nginx.yml
+pod/nginx-pod created
+[vagrant@master services]$ kubectl get pods
+NAME        READY   STATUS              RESTARTS   AGE
+nginx-pod   0/1     ContainerCreating   0          7s
+
+
+[vagrant@master services]$ more service_nginx.yml
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  ports:
+  - port: 8080
+    nodePort: 8080
+    targetPort: nginx-port
+    protocol: TCP
+  selector:
+    app: nginx
+  type: NodePort
+[vagrant@master services]$
+
+[vagrant@master services]$ kubectl get pods -o wide
+NAME        READY   STATUS    RESTARTS   AGE   IP          NODE      NOMINATED NODE
+nginx-pod   1/1     Running   0          11m   10.42.2.5   worker2   <none>
+[vagrant@master services]$ kubectl expose pods nginx-pod --type=NodePort
+service/nginx-pod exposed
+[vagrant@master services]$ kubectl get svc -o wide
+NAME         TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)        AGE   SELECTOR
+kubernetes   ClusterIP   10.43.0.1     <none>        443/TCP        8d    <none>
+nginx-pod    NodePort    10.43.51.23   <none>        80:32168/TCP   14s   app=nginx
+[vagrant@master services]$
+
+[vagrant@master services]$ kkubectl get svc
+NAME         TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)        AGE
+kubernetes   ClusterIP   10.43.0.1     <none>        443/TCP        8d
+nginx-pod    NodePort    10.43.51.23   <none>        80:32168/TCP   10m
+[vagrant@master services]$ kubectl delete services nginx-pod
+service "nginx-pod" deleted
+[vagrant@master services]$ kubectl get svc
+NAME         TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+kubernetes   ClusterIP   10.43.0.1    <none>        443/TCP   8d
+[vagrant@master services]$
+
+[vagrant@master services]$ kubectl get pods --show-labels
+NAME        READY   STATUS    RESTARTS   AGE   LABELS
+nginx-pod   1/1     Running   0          25m   app=nginx
+[vagrant@master services]$
+
+
+[vagrant@master services]$ kubectl get pods --show-labels
+NAME        READY   STATUS    RESTARTS   AGE   LABELS
+nginx-pod   1/1     Running   0          25m   app=nginx
+[vagrant@master services]$ more pod_nginx.yml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod
+  labels:
+    app: nginx
+spec:
+  containers:
+  - name: nginx-container
+    image: nginx
+    ports:
+    - name: nginx-port
+      containerPort: 80
+[vagrant@master services]$ more service_nginx.yml
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  ports:
+  - port: 8080
+    nodePort: 8080
+    targetPort: nginx-port
+    protocol: TCP
+  selector:
+    app: nginx
+  type: NodePort
+[vagrant@master services]$ kubectl create -f service_nginx.yml
+The Service "nginx-service" is invalid: spec.ports[0].nodePort: Invalid value: 8080: provided port is not in the valid range. The range of valid ports is 30000-32767
+[vagrant@master services]$ vi service_nginx.yml
+[vagrant@master services]$ kubectl create -f service_nginx.yml
+service/nginx-service created
+[vagrant@master services]$ kubectl get svc
+NAME            TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)           AGE
+kubernetes      ClusterIP   10.43.0.1     <none>        443/TCP           8d
+nginx-service   NodePort    10.43.67.96   <none>        32333:32333/TCP   7s
+[vagrant@master services]$ more service_nginx.yml
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  ports:
+  - port: 32333
+    nodePort: 32333
+    targetPort: nginx-port
+    protocol: TCP
+  selector:
+    app: nginx
+  type: NodePort
+[vagrant@master services]$
+
+```
+
