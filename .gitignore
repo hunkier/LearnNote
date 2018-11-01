@@ -4,6 +4,8 @@
 /web/WEB-INF/classes
 target/
 target
+out
+out/*
 target/*
 .idea
 .idea/*

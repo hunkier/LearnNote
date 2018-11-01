@@ -39,4 +39,6 @@ for(i in [1,2,3,4,5,6,7,8,9]){
 }
 
 // 对Map的循环
-//for(i in ['lili'])
+sum = 0
+for(i in ['lili':1, 'luck':2, 'xiaoming':3]){sum+=i.value}
+println sum
