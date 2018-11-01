@@ -21,7 +21,9 @@ repositories {
 }
 
 dependencies {
-    compile 'io.netty:netty-all:4.1.30.Final'
+    compile (
+            'io.netty:netty-all:4.1.30.Final'
+    )
 
     testCompile group: 'junit', name: 'junit', version: '4.12'
 
