@@ -32,7 +32,6 @@ public class TestHttpServerHandler extends SimpleChannelInboundHandler<HttpObjec
             response.headers().set(HttpHeaderNames.CONTENT_LENGTH, content.readableBytes());
 
             ctx.writeAndFlush(response);
-//            ctx.channel().close();
         }
     }
 
@@ -48,7 +47,11 @@ public class TestHttpServerHandler extends SimpleChannelInboundHandler<HttpObjec
         super.handlerRemoved(ctx);
     }
 
-
+    @Override
+    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+        log.info("channelRead");
+        super.channelRead(ctx, msg);
+    }
 
     @Override
     public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
@@ -74,5 +77,9 @@ public class TestHttpServerHandler extends SimpleChannelInboundHandler<HttpObjec
         super.channelInactive(ctx);
     }
 
-
+    @Override
+    public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
+        log.info("channelReadComplete");
+        super.channelReadComplete(ctx);
+    }
 }
