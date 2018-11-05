@@ -1,0 +1,32 @@
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
+                      https://maven.apache.org/xsd/settings-1.0.0.xsd">
+    <localRepository>/usr/share/maven/ref/repository</localRepository>
+    <mirrors>
+
+
+
+        <mirror>
+            <id>nexus-tae</id>
+            <mirrorOf>*</mirrorOf>
+            <name>Nexus tae</name>
+            <url>http://mvnrepo.tae.taobao.com/content/groups/public/</url>
+        </mirror>
+
+        <mirror>
+            <id>alimaven</id>
+            <name>aliyun maven</name>
+            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+            <mirrorOf>central</mirrorOf>
+        </mirror>
+
+        <mirror>
+            <id>maven2</id>
+            <name>maven2 maven</name>
+            <url>https://repo.maven.apache.org/maven2</url>
+            <mirrorOf>*</mirrorOf>
+        </mirror>
+
+    </mirrors>
+</settings>
