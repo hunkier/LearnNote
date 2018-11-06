@@ -85,4 +85,50 @@ def scriptClouser ={
     println "scriptClouse owner:" + owner // 代表闭包定义处的类或者对象
     println "scriptClouse delegate:" + delegate // 代表任意对象，默认与owner一致
 }
-scriptClouser.call()
+//scriptClouser.call()
+
+// 定义一个内部类
+class Person{
+    def static classClouser = {
+        println "classClouser this:" + this // 代表闭包定义处的类
+        println "classClouser owner:" + owner // 代表闭包定义处的类或者对象
+        println "classClouser delegate:" + delegate // 代表任意对象，默认与owner一致
+    }
+
+    def  static say(){
+        def  classClouser = {
+            println "methodClouse this:" + this // 代表闭包定义处的类
+            println "methodClouse owner:" + owner // 代表闭包定义处的类或者对象
+            println "methodClouse delegate:" + delegate // 代表任意对象，默认与owner一致
+        }
+        classClouser.call()
+    }
+}
+//Person.classClouser.call()
+//Person.say()
+
+// 定义一个内部类
+class Person2{
+    def  classClouser = {
+        println "classClouser this:" + this // 代表闭包定义处的类
+        println "classClouser owner:" + owner // 代表闭包定义处的类或者对象
+        println "classClouser delegate:" + delegate // 代表任意对象，默认与owner一致
+    }
+
+    def   say(){
+        def  classClouser = {
+            println "methodClouse this:" + this // 代表闭包定义处的类
+            println "methodClouse owner:" + owner // 代表闭包定义处的类或者对象
+            println "methodClouse delegate:" + delegate // 代表任意对象，默认与owner一致
+        }
+        classClouser.call()
+    }
+}
+Person2 p = new Person2()
+//p.classClouser.call()
+//p.say()
+
+// 闭包中定义闭包
+def netsClouser = {
+
+}
