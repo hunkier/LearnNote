@@ -2,12 +2,13 @@
 
 # Start mysql
 #chown -R mysql:mysql /var/lib/mysql /var/run/mysqld
-service mysql start
-status=$?
-if [ $status -ne 0 ]; then
-  echo "Failed to start mysql: $status"
-  exit $status
-fi
+#service mysql start
+#status=$?
+#if [ $status -ne 0 ]; then
+#  echo "Failed to start mysql: $status"
+#  exit $status
+#fi
+exec  >/dev/null &
 
 # Start mycat
 cd /usr/local/mycat2/bin

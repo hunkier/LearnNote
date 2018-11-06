@@ -5,7 +5,9 @@ LABEL Author="huangkui <huangkuier@gmail.com>"
 
 ADD jdk-8u191-linux-x64.tar.gz /tmp/
 
-RUN cd /tmp                                                              && \
+RUN  echo "https://mirrors.aliyun.com/alpine/v3.6/main/" > /etc/apk/repositories && \
+     echo "https://mirrors.aliyun.com/alpine/v3.6/community/" >> /etc/apk/repositories && \
+     cd /tmp                                                              && \
     apk add --no-cache --virtual=build-dependencies ca-certificates wget && \
     export GLIBC_VERSION="2.26-r0"                                  && \
     export JAVA_PACKAGE="jdk"                                    && \
@@ -26,7 +28,8 @@ RUN cd /tmp                                                              && \
     mkdir -p /usr/lib/jvm                                                && \
 #    wget -qO-  --no-check-certificate --no-cookies  --header "Cookie: oraclelicense=accept-securebackup-cookie;" ${JAVA_URL}/${JAVA_TGZ} | tar -xzf -  && \
 #     wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u191-b12/2787e4a523244c269598db4e85c51e0c/jdk-8u191-linux-x64.tar.gz | tar -xzf -  && \
-    if [ ${JAVA_PACKAGE} = "server-jre" ]; then mv jdk*/jre /usr/lib/jvm/java-8-oracle; else mv j* /usr/lib/jvm/java-8-oracle; fi && \
+#    if [ ${JAVA_PACKAGE} = "server-jre" ]; then mv jdk*/jre /usr/lib/jvm/java-8-oracle; else mv j* /usr/lib/jvm/java-8-oracle; fi && \
+    mv jdk*/jre /usr/lib/jvm/java-8-oracle && \
     ln -s java-8-oracle $JAVA_HOME                                       && \
     rm -rf $JAVA_HOME/*src.zip                                           && \
     rm -rf \
@@ -133,7 +136,7 @@ ENV MAVEN_CONFIG "$USER_HOME_DIR/.m2"
 COPY mvn-entrypoint.sh /usr/local/bin/mvn-entrypoint.sh
 COPY settings-docker.xml /usr/share/maven/ref/
 
-ENTRYPOINT ["/usr/local/bin/mvn-entrypoint.sh"]
+RUN /usr/local/bin/mvn-entrypoint.sh
 
 # compile mycat2
 WORKDIR /src
@@ -157,66 +160,9 @@ ENV MYSQL_ALLOW_EMPTY_PASSWORD true
 
 ENV LANG C.UTF-8
 
-# install jre
-# add a simple script that can auto-detect the appropriate JAVA_HOME value
-# based on whether the JDK or only the JRE is installed
-RUN apt-get update && apt-get install -y --no-install-recommends \
-		bzip2 \
-		unzip \
-		xz-utils \
-		procps \
-	&& rm -rf /var/lib/apt/lists/*
 
-# Default to UTF-8 file.encoding
-ENV LANG C.UTF-8
 
-# add a simple script that can auto-detect the appropriate JAVA_HOME value
-# based on whether the JDK or only the JRE is installed
-RUN { \
-		echo '#!/bin/sh'; \
-		echo 'set -e'; \
-		echo; \
-		echo 'dirname "$(dirname "$(readlink -f "$(which javac || which java)")")"'; \
-	} > /usr/local/bin/docker-java-home \
-	&& chmod +x /usr/local/bin/docker-java-home
-
-# do some fancy footwork to create a JAVA_HOME that's cross-architecture-safe
-RUN ln -svT "/usr/lib/jvm/java-8-openjdk-$(dpkg --print-architecture)" /docker-java-home
-ENV JAVA_HOME /docker-java-home/jre
-
-ENV JAVA_VERSION 8u181
-ENV JAVA_DEBIAN_VERSION 8u181-b13-2~deb9u1
-
-# see https://bugs.debian.org/775775
-# and https://github.com/docker-library/java/issues/19#issuecomment-70546872
-ENV CA_CERTIFICATES_JAVA_VERSION 20170531+nmu1
-
-RUN set -ex; \
-	\
-# deal with slim variants not having man page directories (which causes "update-alternatives" to fail)
-	if [ ! -d /usr/share/man/man1 ]; then \
-		mkdir -p /usr/share/man/man1; \
-	fi; \
-	\
-	apt-get update; \
-	apt-get install -y --no-install-recommends \
-		openjdk-8-jre-headless="$JAVA_DEBIAN_VERSION" \
-		ca-certificates-java="$CA_CERTIFICATES_JAVA_VERSION" \
-	; \
-	rm -rf /var/lib/apt/lists/*; \
-	\
-# verify that "docker-java-home" returns what we expect
-	[ "$(readlink -f "$JAVA_HOME")" = "$(docker-java-home)" ]; \
-	\
-# update-alternatives so that future installs of other OpenJDK versions don't change /usr/bin/java
-	update-alternatives --get-selections | awk -v home="$(readlink -f "$JAVA_HOME")" 'index($3, home) == 1 { $2 = "manual"; print | "update-alternatives --set-selections" }'; \
-# ... and verify that it actually worked for one of the alternatives we care about
-	update-alternatives --query java | grep -q 'Status: manual'
-
-# see CA_CERTIFICATES_JAVA_VERSION notes above
-# install mycat
-COPY  --from=build /src/mycat2.tar.gz /usr/local/
-RUN cd /usr/local && tar -xzf mycat2.tar.gz
+RUN  mv /src/mycat2.tar.gz /usr/local/ && cd /usr/local && tar -xzf mycat2.tar.gz
 COPY run.sh /usr/local/mycat2/
 RUN mkdir /usr/local/mycat2/logs
 RUN chmod 777 /usr/local/mycat2/run.sh
