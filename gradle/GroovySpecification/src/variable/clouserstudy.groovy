@@ -130,5 +130,32 @@ Person2 p = new Person2()
 
 // 闭包中定义闭包
 def netsClouser = {
-
+    def innerClouser = {
+        println "innerClouser this:" + this // 代表闭包定义处的类
+        println "innerClouser owner:" + owner // 代表闭包定义处的类或者对象
+        println "innerClouser delegate:" + delegate // 代表任意对象，默认与owner一致
+    }
+    innerClouser.delegate = p // 修改默认的delegate
+    innerClouser.call()
 }
+//netsClouser.call()
+
+// 闭包中委托类
+class Student {
+    String name
+    def  pretty = { "My name is ${name}" }
+
+    String toString(){
+        pretty.call()
+    }
+}
+
+class Teacher {
+    String name
+}
+
+def stu = new Student(name: 'hunker')
+def tea = new Teacher(name: 'Qndroid')
+stu.pretty.delegate = tea
+stu.pretty.resolveStrategy = Closure.DELEGATE_FIRST
+println stu.toString()
