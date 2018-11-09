@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
-docker build -t tomcat:8-jre-8u191-alpine .
-docker tag tomcat:8-jre-8u191-alpine 	172.20.8.5:8888/library/tomcat:8-jre-8u191-alpine
-docker tag tomcat:8-jre-8u191-alpine 	172.20.8.5:8888/library/tomcat:latest
-docker push 172.20.8.5:8888/library/tomcat:8-jre-8u191-alpine
-docker push 172.20.8.5:8888/library/tomcat:latest
+reg="172.20.8.5:8888/library"
+image="tomcat:8-jdk-8u191-alpine"
+imageLatest="tomcat:latest"
+docker build -t ${image} .
+docker tag ${image} ${reg}/${image}
+docker tag ${image} ${reg}/${imageLatest}
+docker push ${reg}/${image}
+docker push ${reg}/${imageLatest}
+

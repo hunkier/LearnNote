@@ -108,7 +108,7 @@ RUN  echo "https://mirrors.aliyun.com/alpine/v3.6/main/" > /etc/apk/repositories
     ln -s $JAVA_HOME/bin/* /usr/bin/                                     && \
     rm -rf /tmp/*
 
-ENV JAVA_HOME=/usr/lib/jvm/default-jvm/ \
+ENV JAVA_HOME=/usr/lib/jvm/default-jvm \
     PATH=${PATH}:/usr/lib/jvm/default-jvm/bin
 
 
