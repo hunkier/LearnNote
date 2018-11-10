@@ -1,17 +1,37 @@
 FROM alpine
 MAINTAINER hunkier <huangkuier@gmail.com>
+LABEL Author="hunkier <huangkuier@gmail.com>"
+
 
 ADD jdk-8u191-linux-x64.tar.gz /tmp/
-RUN  sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories && \
-    cd /tmp                                                              && \
-    apk add --no-cache --virtual=build-dependencies ca-certificates curl procps wget && \
-    export JAVA_PACKAGE="server-jre"                                    && \
+
+RUN cd /tmp                                                              && \
+    sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories && \
+    apk add --no-cache --virtual=build-dependencies ca-certificates wget && \
+    export GLIBC_VERSION="2.26-r0"                                  && \
+    export JAVA_PACKAGE="jdk"                                    && \
     export JAVA_UPDATE="191"                                      && \
     export JAVA_BUILD="12"                                        && \
+    export JAVA_DOWNLOAD_PREFIX="/2787e4a523244c269598db4e85c51e0c"                     && \
+    export GLIBC_URL="https://github.com/sgerrand/alpine-pkg-glibc/releases/download/${GLIBC_VERSION}" && \
+    export GLIBC_APK="glibc-${GLIBC_VERSION}.apk"                        && \
+    export GLIBC_BIN_APK="glibc-bin-${GLIBC_VERSION}.apk"                && \
+    export JAVA_URL="http://download.oracle.com/otn-pub/java/jdk/8u${JAVA_UPDATE}-b${JAVA_BUILD}${JAVA_DOWNLOAD_PREFIX}/" && \
+    export JAVA_TGZ="${JAVA_PACKAGE}-8u${JAVA_UPDATE}-linux-x64.tar.gz"  && \
     export JAVA_HOME="/usr/lib/jvm/default-jvm"                          && \
-    mkdir -p /usr/lib/jvm                                                && \
-    if [ ${JAVA_PACKAGE} = "server-jre" ]; then mv jdk*/jre /usr/lib/jvm/java-8-oracle; else mv j* /usr/lib/jvm/java-8-oracle; fi && \
+    wget -q ${GLIBC_URL}/${GLIBC_APK}                                    && \
+    wget -q ${GLIBC_URL}/${GLIBC_BIN_APK}                                && \
+    apk add --no-cache --allow-untrusted ${GLIBC_APK}                    && \
+    apk add --no-cache --allow-untrusted ${GLIBC_BIN_APK}                && \
+    echo 'hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4' >> /etc/nsswitch.conf && \
+    mkdir -p /usr/lib/jvm                                               && \
+#    wget -qO-  --no-check-certificate --no-cookies  --header "Cookie: oraclelicense=accept-securebackup-cookie;" ${JAVA_URL}/${JAVA_TGZ} | tar -xzf -  && \
+#     wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u191-b12/2787e4a523244c269598db4e85c51e0c/jdk-8u191-linux-x64.tar.gz | tar -xzf -  && \
+#    if [ ${JAVA_PACKAGE} = "server-jre" ]; then mv jdk*/jre /usr/lib/jvm/java-8-oracle; else mv j* /usr/lib/jvm/java-8-oracle; fi && \
+    mv jdk1.8.0_191/jre /usr/lib/jvm/java-8-oracle   && \
     ln -s java-8-oracle $JAVA_HOME                                       && \
+    ln -s $JAVA_HOME/bin/* /usr/bin/                                     && \
+	ln -s $JAVA_HOME/include/linux/jni_md.h $JAVA_HOME /jni_md.h        && \
     rm -rf $JAVA_HOME/*src.zip                                           && \
     rm -rf \
             ${JAVA_HOME}/*/javaws \
@@ -25,18 +45,18 @@ RUN  sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositorie
             ${JAVA_HOME}/*/servertool \
             ${JAVA_HOME}/*/tnameserv \
             ${JAVA_HOME}/*/unpack200 \
-            ${JAVA_HOME}/*/*javafx* \
-            ${JAVA_HOME}/*/*jfx* \
+#            ${JAVA_HOME}/*/*javafx* \
+#            ${JAVA_HOME}/*/*jfx* \
             ${JAVA_HOME}/*/amd64/libdecora_sse.so \
             ${JAVA_HOME}/*/amd64/libfxplugins.so \
             ${JAVA_HOME}/*/amd64/libglass.so \
             ${JAVA_HOME}/*/amd64/libgstreamer-lite.so \
-            ${JAVA_HOME}/*/amd64/libjavafx*.so \
-            ${JAVA_HOME}/*/amd64/libjfx*.so \
+#            ${JAVA_HOME}/*/amd64/libjavafx*.so \
+#            ${JAVA_HOME}/*/amd64/libjfx*.so \
             ${JAVA_HOME}/*/amd64/libprism_*.so \
             ${JAVA_HOME}/*/deploy* \
             ${JAVA_HOME}/*/desktop \
-            ${JAVA_HOME}/*/ext/jfxrt.jar \
+#            ${JAVA_HOME}/*/ext/jfxrt.jar \
             ${JAVA_HOME}/*/ext/nashorn.jar \
             ${JAVA_HOME}/*/javaws.jar \
             ${JAVA_HOME}/*/jfr \
@@ -60,18 +80,18 @@ RUN  sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositorie
             ${JAVA_HOME}/*/*/servertool \
             ${JAVA_HOME}/*/*/tnameserv \
             ${JAVA_HOME}/*/*/unpack200 \
-            ${JAVA_HOME}/*/*/*javafx* \
-            ${JAVA_HOME}/*/*/*jfx* \
+#            ${JAVA_HOME}/*/*/*javafx* \
+#            ${JAVA_HOME}/*/*/*jfx* \
             ${JAVA_HOME}/*/*/amd64/libdecora_sse.so \
             ${JAVA_HOME}/*/*/amd64/libfxplugins.so \
             ${JAVA_HOME}/*/*/amd64/libglass.so \
             ${JAVA_HOME}/*/*/amd64/libgstreamer-lite.so \
-            ${JAVA_HOME}/*/*/amd64/libjavafx*.so \
-            ${JAVA_HOME}/*/*/amd64/libjfx*.so \
+#            ${JAVA_HOME}/*/*/amd64/libjavafx*.so \
+#            ${JAVA_HOME}/*/*/amd64/libjfx*.so \
             ${JAVA_HOME}/*/*/amd64/libprism_*.so \
             ${JAVA_HOME}/*/*/deploy* \
             ${JAVA_HOME}/*/*/desktop \
-            ${JAVA_HOME}/*/*/ext/jfxrt.jar \
+#            ${JAVA_HOME}/*/*/ext/jfxrt.jar \
             ${JAVA_HOME}/*/*/ext/nashorn.jar \
             ${JAVA_HOME}/*/*/javaws.jar \
             ${JAVA_HOME}/*/*/jfr \
@@ -85,12 +105,18 @@ RUN  sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositorie
             ${JAVA_HOME}/*/plugin \
             ${JAVA_HOME}/*.txt \
                                                                          && \
+    apk add -U tzdata   procps                                           && \
+    cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime                  && \
+    echo "#!/bin/sh" >> /usr/local/bin/docker-java-home                  && \
+    echo "set -e" >>   /usr/local/bin/docker-java-home                   && \
+    echo " " >>   /usr/local/bin/docker-java-home                        && \
+    echo "dirname "$(dirname "$(readlink -f "$(which javac || which java)")")"" >>   /usr/local/bin/docker-java-home     && \
+    chmod 755 /usr/local/bin/docker-java-home                            && \
     apk del build-dependencies                                           && \
-    ln -s $JAVA_HOME/bin/* /usr/bin/                                     && \
     rm -rf /tmp/*
 
-RUN apk add -U tzdata \
-        && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
-
-ENV JAVA_HOME=/usr/lib/jvm/default-jvm/ \
+ENV JAVA_HOME=/usr/lib/jvm/default-jvm \
     PATH=${PATH}:/usr/lib/jvm/default-jvm/bin
+
+
+
