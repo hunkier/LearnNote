@@ -11,6 +11,33 @@ public class TestServerHandler extends SimpleChannelInboundHandler<MyDataInfo.My
 //        log.info(msg.getName());
 //        log.info(msg.getAge()+"");
 //        log.info(msg.getAddress());
+        MyDataInfo.MyMessage.DataType dataType = msg.getDataType();
+        log.info("Type: " + dataType);
+        switch (dataType){
+            case PersonType:
+                MyDataInfo.Person person = msg.getPerson();
+                log.info(person.getName());
+                log.info(person.getAge()+"");
+                log.info(person.getAddress());
 
+                break;
+
+            case DogType:
+                MyDataInfo.Dog dog = msg.getDog();
+                log.info(dog.getName());
+                log.info(dog.getAge()+"");
+                break;
+
+            case CatType:
+                MyDataInfo.Cat cat = msg.getCat();
+                log.info(cat.getName());
+                log.info(cat.getCity());
+                break;
+
+                default:
+                    log.error("unkonw type!");
+                    break;
+
+        }
     }
 }
