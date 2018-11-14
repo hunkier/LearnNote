@@ -15,3 +15,5 @@ http://plugins.jetbrains.com/pluginManager/?action=download&id=io.protostuff.pro
 git submodule: Git仓库里的一个仓库
 
 git subtree
+
+mac homebrew 包管理
