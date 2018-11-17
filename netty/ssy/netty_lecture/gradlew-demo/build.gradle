@@ -1,0 +1,31 @@
+plugins {
+    id 'java'
+}
+
+group 'com.hunk.gradle'
+version '1.0'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+//    mavenCentral()
+    maven {
+        name 'aliyun'
+        url 'http://maven.aliyun.com/nexus/content/groups/public/'
+    }
+    maven {
+        name 'taobao'
+        url 'http://mvnrepo.tae.taobao.com/content/groups/public/'
+    }
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+// 指定wrapper配置
+task wrapper(type: Wrapper){
+    gradleVersion = '3.4'
+    distributionType = 'all'
+}

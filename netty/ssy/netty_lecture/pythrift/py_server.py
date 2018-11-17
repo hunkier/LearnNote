@@ -18,7 +18,7 @@ try:
     personServiceHandler = PersonServiceImpl()
     processor = PersonService.Processor(personServiceHandler)
 
-    serverSocket = TSocket.TServerSocket(port=8899)
+    serverSocket = TSocket.TServerSocket(host="0.0.0.0",port=8899)
     transportFactory = TTransport.TFramedTransportFactory()
     protocolFactory = TCompactProtocol.TCompactProtocolFactory()
 
