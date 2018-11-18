@@ -52,12 +52,16 @@ protobuf {
             artifact = 'io.grpc:protoc-gen-grpc-java:1.16.1'
         }
     }
+    
+    generateProtoTasks.generatedFilesBaseDir = "$projectDir/src/"
+
     generateProtoTasks {
         all()*.plugins {
-            grpc {}
+            grpc {
+                outputSubDir = 'java'
+            }
         }
     }
-    generatedFilesBaseDir = "$projectDir/src/"
 }
 
 
@@ -68,11 +72,15 @@ sourceSets {
         }
         java {
             srcDir 'src/main/java'
-            srcDir 'src/main/grpc'
         }
     }
 
     test {
         
     }
+}
+
+//编译JAVA文件时采用UTF-8
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
 }

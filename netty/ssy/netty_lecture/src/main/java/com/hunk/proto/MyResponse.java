@@ -70,12 +70,12 @@ private static final long serialVersionUID = 0L;
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return com.hunk.proto.StudfentProto.internal_static_com_hunk_proto_MyResponse_descriptor;
+    return com.hunk.proto.StudentProto.internal_static_com_hunk_proto_MyResponse_descriptor;
   }
 
   protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return com.hunk.proto.StudfentProto.internal_static_com_hunk_proto_MyResponse_fieldAccessorTable
+    return com.hunk.proto.StudentProto.internal_static_com_hunk_proto_MyResponse_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
             com.hunk.proto.MyResponse.class, com.hunk.proto.MyResponse.Builder.class);
   }
@@ -273,12 +273,12 @@ private static final long serialVersionUID = 0L;
       com.hunk.proto.MyResponseOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.hunk.proto.StudfentProto.internal_static_com_hunk_proto_MyResponse_descriptor;
+      return com.hunk.proto.StudentProto.internal_static_com_hunk_proto_MyResponse_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.hunk.proto.StudfentProto.internal_static_com_hunk_proto_MyResponse_fieldAccessorTable
+      return com.hunk.proto.StudentProto.internal_static_com_hunk_proto_MyResponse_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               com.hunk.proto.MyResponse.class, com.hunk.proto.MyResponse.Builder.class);
     }
@@ -307,7 +307,7 @@ private static final long serialVersionUID = 0L;
 
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return com.hunk.proto.StudfentProto.internal_static_com_hunk_proto_MyResponse_descriptor;
+      return com.hunk.proto.StudentProto.internal_static_com_hunk_proto_MyResponse_descriptor;
     }
 
     public com.hunk.proto.MyResponse getDefaultInstanceForType() {
