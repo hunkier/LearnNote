@@ -1,11 +1,10 @@
-var PROTO_FILE_PATH = '../proto/Student.proto';
-var grpc =  require('grpc');
-var grpcService = grpc.load(PROTO_FILE_PATH).com.hunk.proto;
+var service = require('../static_codegen/proto/Student_grpc_pb.js');
+var message = require('../static_codegen/proto/Student_pb.js');
 
+var grpc = require('grpc');
 
 var server = new grpc.Server();
-
-server.addService(grpcService.StudentService.service,{
+server.addService(service.StudentServiceService,{
     getRealNameByUsername: getRealNameByUsername,
     getStudentsByAge: getStudentsByAge,
     getStudentsWrapperByAges: getStudentsWrapperByAges,
@@ -15,11 +14,13 @@ server.bind('localhost:8899', grpc.ServerCredentials.createInsecure());
 server.start();
 
 function getRealNameByUsername(call, callback) {
+    console.log('request: ' + call.request.getUsername())
 
-    console.log("username: " + call.request.username)
-    console.log("call: " + JSON.stringify(call))
+    var myResponse = new message.MyResponse();
+    myResponse.setRealname('赵六');
 
-    callback(null, {realname: '张三'})
+
+    callback(null, myResponse);
 }
 
 function getStudentsByAge() {}

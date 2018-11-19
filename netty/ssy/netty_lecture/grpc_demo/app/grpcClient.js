@@ -1,4 +1,4 @@
-var PROTO_FILE_PATH = 'G:\\Users\\hunk\\IdeaProjects\\LearnNote\\netty\\ssy\\netty_lecture\\src\\main\\proto\\Student.proto';
+var PROTO_FILE_PATH = '../proto/Student.proto';
 var grpc =  require('grpc');
 var grpcService = grpc.load(PROTO_FILE_PATH).com.hunk.proto;
 
