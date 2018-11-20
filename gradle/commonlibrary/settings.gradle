@@ -1,0 +1,4 @@
+rootProject.name = 'commonlibrary'
+
+println '初始化阶段开始执行'
+

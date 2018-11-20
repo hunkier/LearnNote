@@ -1,0 +1,42 @@
+plugins {
+    id 'groovy'
+    id 'java'
+}
+
+group 'com.hunkier'
+version '1.0'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.codehaus.groovy:groovy-all:2.3.11'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+
+/**
+ *  配置阶段开始前的监听回调
+ */
+this.beforeEvaluate {}
+
+/**
+ * 配置阶段完成后的回调
+ */
+this.afterEvaluate {
+    println '配置阶段执行完毕'
+}
+/**
+ * gradle执行完毕后的回调监听
+ */
+this.gradle.buildFinished {
+    println '执行阶段执行完毕'
+}
+
+this.gradle.beforeProject {}
+this.gradle.afterProject {}
+//this.gradle.addBuildListener()
