@@ -3,7 +3,7 @@ package objectorention
 /**
  * 1.groovy中默认都是public
  */
-class Person {
+class Person implements java.io.Serializable{
     String name
     Integer age
 

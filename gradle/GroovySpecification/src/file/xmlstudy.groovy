@@ -123,7 +123,24 @@ xmlBuilder.langs(type: 'current', count: '3', mainstream: 'true'){
 }
 
 //println sw
+def sw2 = new StringWriter()
+def xmlBuilder2 = new MarkupBuilder(sw2)
+def langs = new Langs()
+xmlBuilder2.langs(type: langs.type, count: langs.count
+        , mainstream: langs.mainstream){
+    // 遍历所有的子节点
+    langs.languages.each {
+        lang ->
+            Language(
+                    flavor: lang.flavor,
+                    version: lang.version,
+                     lang.value
+            )
+    }
+}
+println sw2
 
+// 对应根节点
 class Langs {
     String type = 'current'
     int count = 3
@@ -134,7 +151,7 @@ class Langs {
             new Language(flavor: 'dynamic', version: '1.9', value: 'JavaScript'),
     ]
 }
-
+// 对应xml中的languang节点
 class Language {
     String flavor
     String version
