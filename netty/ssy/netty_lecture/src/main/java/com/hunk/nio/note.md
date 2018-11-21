@@ -7,7 +7,7 @@ java.nio中拥有3个核心概念：Selector，Channel与Buffer。在java.nio中
 
 除了数组之外，Buffer还提供了对数据的结构化访问方式，并且可以追踪到系统的读写过程。
 
-Java中的8种原生数据类型都有各自的Buffer类型，如IntBuffer，LongBuffer，ByteBuffer及CharBuffer等。
+Java中的7种原生数据类型都有各自的Buffer类型，如IntBuffer，LongBuffer，ByteBuffer及CharBuffer等，并没有BooleanBuffer类型。
 
 Channel指的是可以向其写入数据或是从中读取数据的对象，它类似java.io中的Stream。
 
@@ -16,4 +16,10 @@ Channel指的是可以向其写入数据或是从中读取数据的对象，它�
 与Stream不同的是，Channel是双向的，一个流只可能是InputStream或是OutputStream，Channel打开后则可以进行读取、写入或是读写。
 
 由于Channel是双向的，因此它能更好地反应出底层操作系统的真实情况；在Linux系统中，底层 操作系统的通道就是双向的。
+
+关于NIO Buffer中的3个重要状态属性的含义：position，limit与capacity。
+
+0 <= mark <= postion <= limit <= capacity
+
+
 
