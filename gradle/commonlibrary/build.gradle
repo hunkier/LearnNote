@@ -3,7 +3,15 @@ plugins {
     id 'java'
 }
 
-group 'com.hunkier'
+/**
+ * 扩展属性
+ *
+ */
+ext {
+    libJunit = "junit:junit:4.12"
+}
+
+group 'cn.hunkier'
 version '1.0'
 
 sourceCompatibility = 1.8
@@ -15,8 +23,10 @@ repositories {
 
 dependencies {
     compile 'org.codehaus.groovy:groovy-all:2.3.11'
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile this.libJunit
 }
+
+
 
 
 /**
@@ -40,3 +50,69 @@ this.gradle.buildFinished {
 this.gradle.beforeProject {}
 this.gradle.afterProject {}
 //this.gradle.addBuildListener()
+
+/**
+ *  project 相关api讲解
+ */
+this.getProjects()
+this.getSubProjects()
+//this.getParentProject()
+this.getRootP()
+
+def getProjects(){
+    println '---------------------'
+    println '----Root Project-----'
+    println '---------------------'
+    this.getAllprojects().eachWithIndex { Project project, int index ->
+        if(index ==0){
+            println "Root project : ${project.name}"
+        }else{
+            println "+--- project : ${project.name}"
+        }
+    }
+}
+
+def getSubProjects(){
+    println '---------------------'
+    println '---- Sub Project-----'
+    println '---------------------'
+    this.getSubprojects().eachWithIndex { Project project, int index ->
+       
+            println "+--- project : ${project.name}"
+        
+    }
+}
+
+def getParentProject(){
+    def name = this.getParent().name
+    println "the parent project name is : ${name}"
+}
+
+def getRootP(){
+    def name = this.getRootProject().name
+    println "the Root project name is : ${name}"
+}
+
+// 单独配置子项目
+project('app'){ Project project ->
+//    println project.name
+    apply plugin : 'eclipse'
+    dependencies {}
+    tasks {}
+}
+
+// 配置当前节点所有的项目和项目下的子项目
+allprojects {
+    group 'cn.hunk'
+    version '1.0.0'
+}
+
+println project('test').group
+
+// 不包括当前节点工程，只包括它的subproject
+subprojects {Project project ->
+    // android的library项目需要上传maven私服
+    if (project.plugins.hasPlugin('com.android.library')){
+        apply from: '../publishToMaven.gradle'
+    }
+}
