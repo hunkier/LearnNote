@@ -21,5 +21,23 @@ Channel指的是可以向其写入数据或是从中读取数据的对象，它�
 
 0 <= mark <= postion <= limit <= capacity
 
+通过NIO读取文件涉及的3个步骤
+
+1.从FileInputStream获取到FileChannel对象
+
+2.创建Buffer
+
+3.将数据从channel读取到Buffer中
+
+
+
+绝对方法与相对方法的含义
+
+1.相对方法：limit值与position值会在操作时被考虑到。
+
+2.绝对方法：完全忽略limit值和position值。
+
+
+
 
 

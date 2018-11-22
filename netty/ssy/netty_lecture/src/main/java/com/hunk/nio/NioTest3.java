@@ -1,10 +1,13 @@
 package com.hunk.nio;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 
+@Slf4j
 public class NioTest3 {
     public static void main(String[] args) throws  Exception{
         File file = new File("out/NioTest3.txt");
