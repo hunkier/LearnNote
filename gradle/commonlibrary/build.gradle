@@ -11,19 +11,30 @@ ext {
     libJunit = "junit:junit:4.12"
 }
 
+/**
+ * 引用外部扩展属性，母module引用一次，所有字module都可以使用
+ */
+apply from:  this.file('common.gradle')
+
 group 'cn.hunkier'
 version '1.0'
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+// 引用common.gradle中定义的java版本
+sourceCompatibility = this.java['javaVersion']
+targetCompatibility = rootProject.ext.java.javaVersion
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    compile 'org.codehaus.groovy:groovy-all:2.3.11'
-    testCompile this.libJunit
+//    compile 'org.codehaus.groovy:groovy-all:2.3.11'
+    compile (
+            rootProject.ext.dependencies.groovyAll
+    )
+    // 引用扩展属性
+//    testCompile this.libJunit
+    testCompile rootProject.ext.dependencies.junit
 }
 
 
@@ -116,3 +127,43 @@ subprojects {Project project ->
         apply from: '../publishToMaven.gradle'
     }
 }
+
+// 定义子项目共有的扩展属性
+subprojects { Project project ->
+    /**
+     * 扩展属性
+     *
+     */
+    ext {
+        libJunit = "junit:junit:4.12"
+    }
+}
+
+/**
+ * 文件操作相关api
+ *
+ */
+println  "the root file name is " + getRootDir().name
+println  "the root file path is " + getRootDir().absolutePath
+println  "the build file path is "+getBuildDir().absolutePath
+println  "the project file path is "+getProjectDir().absolutePath
+
+println 'setting.gradle 文件内容： \r\n'+getContext('settings.gradle')
+
+/**
+ * 获取文件内容
+ * @param path
+ * @return
+ */
+def getContext(String path){
+    try{
+        def file = file(path)
+        // 相对于当前的project工程开始查找
+        return file.text
+    }catch(GradleException e){
+        println 'file not found'
+    }
+    return  null
+}
+
+

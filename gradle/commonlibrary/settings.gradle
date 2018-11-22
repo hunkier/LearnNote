@@ -2,5 +2,10 @@ rootProject.name = 'commonlibrary'
 
 println '初始化阶段开始执行'
 include 'app'
-include 'test'
+//include 'test'
+
+// 根据条件判断是否包含子module，isLoadTest定义在gradle.properties文件中
+if (hasProperty('isLoadTest') ? isLoadTest.toBoolean() : false){
+    include 'test'
+}
 

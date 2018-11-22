@@ -1,0 +1,28 @@
+// 用来存放应用中国所有的配置变量，统一管理，而不再走每个module里都自己写一份，修改起来更加方便
+ext {
+    android = [
+            compileSdkVersion    :  25,
+            buildToolsVersion    :  '25.0.0',
+            applicationId        :  'com.hunk',
+            minSdkVersion        :  16,
+            targetSdkVersion     :  23,
+            versionCode          :  1,
+            versionName          :  '1.0.1',
+            MulteDexEnabled      :  true,
+    ]
+
+    signConfigs = [
+            'storeFile'          : 'hunk.jks',
+            'storePassword'      : '123456',
+            'keyAlias'           : 'hunk',
+            'keyPassword'        : '123456',
+    ]
+
+    java = ['javaVersion' : JavaVersion.VERSION_1_8]
+
+    dependencies = [
+            'libSupportV7'      : 'com.android.support.app',
+            'groovyAll'         : 'org.codehaus.groovy:groovy-all:2.3.11',
+            'junit'         : 'junit:junit:4.12',
+    ]
+}
