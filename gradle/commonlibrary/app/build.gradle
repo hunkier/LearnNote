@@ -38,3 +38,15 @@ copy {
     from file('../settings.gradle')
     into getRootProject().getBuildDir()
 }
+
+// 对文件树进行遍历
+fileTree('build'){ FileTree fileTree->
+    fileTree.visit { FileTreeElement element->
+        println 'the file name is: ' + element.file.name
+        copy {
+            from element.file
+            into getRootProject().getBuildDir().path + '/app'
+        }
+    }
+}
+

@@ -1,3 +1,38 @@
+/**
+ * buildscript 代码块必须在plugins前
+ */
+//all buildscript {} blocks must appear before any plugins {} blocks in the script
+buildscript { ScriptHandler scriptHandler->
+
+     // 配置我们工程的仓库地址
+    scriptHandler.repositories { RepositoryHandler repositoryHandler->
+        //repositoryHandler.jcenter()
+        repositoryHandler.mavenCentral()
+        //repositoryHandler.mavenLocal()
+        //repositoryHandler.ivy {}
+        repositoryHandler.maven {
+            name 'aliyun'
+            url 'http://maven.aliyun.com/nexus/content/groups/public/'
+            credentials { // 私服帐号密码
+                username = 'admin'
+                password = 'admin123'
+            }
+        }
+
+    }
+
+     // 配置我们工程插件依赖地址
+    scriptHandler.dependencies {
+        classpath 'com.android.tools.build:gradle:2.2.2'
+        classpath ('com.tencent.tinker:tinker-patch-gradle-plugin:1.9.1')
+//        classpath 'com.tencent:tinker-patch-gradle-plugin:1.7.7'
+    }
+
+}
+
+
+
+
 plugins {
     id 'groovy'
     id 'java'
@@ -30,13 +65,45 @@ repositories {
 dependencies {
 //    compile 'org.codehaus.groovy:groovy-all:2.3.11'
     compile (
-            rootProject.ext.dependencies.groovyAll
+            // maven第三方依赖
+            rootProject.ext.dependencies.groovyAll,
+            // 本地jar依赖
+            fileTree(includes:['*.jar'], dir: 'libs'),
+            // 项目源码依赖
+            project('app')
     )
-    // 引用扩展属性
+    // 排除依赖冲突
+    compile ('cn.trinea.android.view.autoscrollviewpager:android-auto-scroll-view-pager:1.1.2') {
+        // 以module名排除
+        exclude module: 'support-v4'
+        // 以group组名排除
+        exclude group: 'com.android.support'
+        // 禁止传递依赖, 默认为false
+        transitive false
+
+
+    }
+
+//    provider()
+
+    //可选，用于生成application类
+//    provided('com.tencent.tinker:tinker-android-anno:1.9.1')
+//    provided 'com.tencent.tinker:tinker-android-anno:1.9.1'
+//    provider('com.tencent.tinker:tinker-android-anno:1.9.1')
+    //tinker的核心库
+    compile('com.tencent.tinker:tinker-android-lib:1.9.1') {
+        changing = true // 每次都从服务端拉取
+    }
+ // 引用扩展属性
 //    testCompile this.libJunit
     testCompile rootProject.ext.dependencies.junit
+
+    
 }
 
+
+//apply tinker插件
+//apply plugin: 'com.tencent.tinker.patch'
 
 
 
@@ -165,5 +232,8 @@ def getContext(String path){
     }
     return  null
 }
+
+
+
 
 
