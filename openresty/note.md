@@ -1,0 +1,1 @@
+下载openresty二进制文件，解压后添加到path路径
