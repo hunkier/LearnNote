@@ -1,4 +1,4 @@
-namespace java com.hunk.thrift.message
+namespace java cn.hunkier.thrift.message
 namespace py message.api
 
 service MessageService {

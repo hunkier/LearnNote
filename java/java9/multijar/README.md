@@ -30,8 +30,8 @@ COMMANDS
 
 // this is a java 9 jar command way to do it
 rm -rf *.jar build/* build9/*
-javac -d build --release 8 src/main/java/com/hunk/*.java
-javac -d build9 --release 9 src/main/java-9/com/hunk/*.java
+javac -d build --release 8 src/main/java/cn/hunk/*.java
+javac -d build9 --release 9 src/main/java-9/cn/hunk/*.java
 jar --create --main-class=Application --file multijar.jar -C build . --release 9 -C build9 .
 
 

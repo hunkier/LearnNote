@@ -17,7 +17,7 @@
     <!-- 一、设置本地化对象 -->
     <fmt:setLocale value="${pageContext.request.locale}" />
     <!-- 一、设置工具类 -->
-    <fmt:setBundle basename="com.hunk.learn.listener.i18n.msg" var="bundle" />
+    <fmt:setBundle basename="cn.hunk.learn.listener.i18n.msg" var="bundle" />
     <base href="<%=basePath%>">
     <title><fmt:message key="title" bundle="${bundle}"/> </title>
     <meta http-equiv="pragma" content="no-cache">

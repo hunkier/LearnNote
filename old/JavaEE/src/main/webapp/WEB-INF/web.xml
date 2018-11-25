@@ -14,7 +14,7 @@
 
     <context-param>
         <param-name>resteasy.resources</param-name>
-        <param-value>com.hunk.learn.resteasy.UserService</param-value>
+        <param-value>cn.hunk.learn.resteasy.UserService</param-value>
     </context-param>
 
     <!-- this need same with resteasy servlet url-pattern -->

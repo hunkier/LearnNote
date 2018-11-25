@@ -19,6 +19,6 @@
 
     <!-- 配置mapper映射文件 -->
     <mappers>
-        <mapper resource="com/hunk/learn/mybatis/dao/impl/User.xml"/>
+        <mapper resource="cn/hunk/learn/mybatis/dao/impl/User.xml"/>
     </mappers>
 </configuration>

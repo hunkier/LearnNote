@@ -13,13 +13,13 @@
 
     <tag>
         <name>ShowIpTag</name>
-        <tag-class>com.hunk.learn.tag.ShowIpTag</tag-class>
+        <tag-class>cn.hunk.learn.tag.ShowIpTag</tag-class>
         <body-content>scriptless</body-content>
     </tag>
 
     <tag>
         <name>demoTag</name>
-        <tag-class>com.hunk.learn.tag.DemoTag</tag-class>
+        <tag-class>cn.hunk.learn.tag.DemoTag</tag-class>
         <body-content>scriptless</body-content>
         <!-- 声明属性 -->
         <attribute>
@@ -34,7 +34,7 @@
 
     <tag>
         <name>LoginTag</name>
-        <tag-class>com.hunk.learn.tag.LoginTag</tag-class>
+        <tag-class>cn.hunk.learn.tag.LoginTag</tag-class>
         <body-content>scriptless</body-content>
         <attribute>
             <name>username</name>
@@ -50,7 +50,7 @@
 
     <tag>
         <name>IfTag</name>
-        <tag-class>com.hunk.learn.tag.IfTag</tag-class>
+        <tag-class>cn.hunk.learn.tag.IfTag</tag-class>
         <body-content>scriptless</body-content>
         <attribute>
             <name>test</name>
@@ -61,13 +61,13 @@
 
     <tag>
         <name>ChooseTag</name>
-        <tag-class>com.hunk.learn.tag.ChooseTag</tag-class>
+        <tag-class>cn.hunk.learn.tag.ChooseTag</tag-class>
         <body-content>scriptless</body-content>
     </tag>
 
     <tag>
         <name>WhenTag</name>
-        <tag-class>com.hunk.learn.tag.WhenTag</tag-class>
+        <tag-class>cn.hunk.learn.tag.WhenTag</tag-class>
         <body-content>scriptless</body-content>
         <attribute>
             <name>test</name>
@@ -78,13 +78,13 @@
 
     <tag>
         <name>OtherwiseTag</name>
-        <tag-class>com.hunk.learn.tag.OtherwiseTag</tag-class>
+        <tag-class>cn.hunk.learn.tag.OtherwiseTag</tag-class>
         <body-content>scriptless</body-content>
     </tag>
 
     <tag>
         <name>forEach</name>
-        <tag-class>com.hunk.learn.tag.ForEachTag</tag-class>
+        <tag-class>cn.hunk.learn.tag.ForEachTag</tag-class>
         <body-content>scriptless</body-content>
         <attribute>
             <name>items</name>

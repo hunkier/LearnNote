@@ -1,4 +1,4 @@
-namespace java com.hunk.thrift.user
+namespace java cn.hunkier.thrift.user
 
 struct UserInfo {
     1:i32 id,

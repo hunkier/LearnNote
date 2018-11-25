@@ -13,7 +13,7 @@
 <html>
 <head>
     <%
-        ResourceBundle bundle = ResourceBundle.getBundle("com.hunk.learn.listener.i18n.msg",request.getLocale());
+        ResourceBundle bundle = ResourceBundle.getBundle("cn.hunk.learn.listener.i18n.msg",request.getLocale());
         pageContext.setAttribute("bundle",bundle);
     %>
     <base href="<%=basePath%>">

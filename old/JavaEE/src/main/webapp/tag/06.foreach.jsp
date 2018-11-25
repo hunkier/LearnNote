@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" import="java.util.*" pageEncoding="UTF-8" %>
-<%@ page import="com.hunk.learn.tag.Student" %>
+<%@ page import="cn.hunk.learn.tag.Student" %>
 <%@ taglib prefix="hunk" uri="http://hunk.com.cn" %>
 <%
     String path = request.getContextPath();

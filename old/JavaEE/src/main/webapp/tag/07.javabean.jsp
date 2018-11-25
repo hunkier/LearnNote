@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" import="java.util.*" pageEncoding="UTF-8" %>
-<%@ page import="com.hunk.learn.tag.Student" %>
+<%@ page import="cn.hunk.learn.tag.Student" %>
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
@@ -25,7 +25,7 @@ This is my first jsp page.<br/>
     stu.getName();*/
 %>
 <%--创建对象--%>
-<jsp:useBean id="stu" class="com.hunk.learn.tag.Student"/>
+<jsp:useBean id="stu" class="cn.hunk.learn.tag.Student"/>
 <%--赋值--%>
 <jsp:setProperty name="stu" property="name" value="jacky"/>
 <jsp:getProperty name="stu" property="name"/>
