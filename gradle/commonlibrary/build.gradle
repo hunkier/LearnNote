@@ -59,6 +59,14 @@ sourceCompatibility = this.java['javaVersion']
 targetCompatibility = rootProject.ext.java.javaVersion
 
 repositories {
+    maven {
+        name 'aliyun'
+        url 'http://maven.aliyun.com/nexus/content/groups/public/'
+        credentials { // 私服帐号密码
+            username = 'admin'
+            password = 'admin123'
+        }
+    }
     mavenCentral()
 }
 

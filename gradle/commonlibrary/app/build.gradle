@@ -50,3 +50,29 @@ fileTree('build'){ FileTree fileTree->
     }
 }
 
+// 添加任务
+task(name: 'libscopy'){
+    doLast {
+        // gradle的执行阶段去执行
+        def sourcePath = this.buildDir + '/libs'
+        def desationPath = this.rootProject.buildDir
+        def command = "mv -rf ${sourcePath} ${desationPath}"
+        exec {
+            try{
+                executable 'bash'
+                args '-c', command
+                println 'the command is execute success.'
+            }catch(GradleException e){
+                println 'the command is execute failed.'
+            }
+        }
+    }
+}
+
+task(helloTask {
+    println 'i am helloTask.'
+})
+
+
+
+
