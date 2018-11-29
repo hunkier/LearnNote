@@ -54,6 +54,25 @@ public class NioServer {
                                 Charset charset = Charset.forName("utf-8");
                                 String receivedMessage = String.valueOf(charset.decode(readBuffer));
                                 log.info(client + " : " + receivedMessage);
+
+                                String senderKey = null;
+                                for (Map.Entry<String, SocketChannel> entry : clientMap.entrySet()) {
+                                    if (client == entry.getValue()){
+                                        senderKey = entry.getKey();
+                                        break;
+                                    }
+                                }
+
+                                for (Map.Entry<String, SocketChannel> entry : clientMap.entrySet()) {
+                                    SocketChannel value = entry.getValue();
+                                    ByteBuffer writerBuffer = ByteBuffer.allocate(1024);
+                                    writerBuffer.put((selectionKey + " : "+receivedMessage).getBytes());
+                                    writerBuffer.flip();
+                                    value.write(writerBuffer);
+
+                                }
+
+
                             }
                         }
 
