@@ -27,11 +27,12 @@ RUN cd /tmp                                                              && \
     mkdir -p /usr/lib/jvm                                               && \
 #    wget -qO-  --no-check-certificate --no-cookies  --header "Cookie: oraclelicense=accept-securebackup-cookie;" ${JAVA_URL}/${JAVA_TGZ} | tar -xzf -  && \
 #     wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u191-b12/2787e4a523244c269598db4e85c51e0c/jdk-8u191-linux-x64.tar.gz | tar -xzf -  && \
+#     wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" https://download.oracle.com/otn-pub/java/jdk/8u192-b12/750e1c8617c5452694857ad95c3ee230/jdk-8u192-linux-x64.tar.gz | tar -xzf -  && \
 #    if [ ${JAVA_PACKAGE} = "server-jre" ]; then mv jdk*/jre /usr/lib/jvm/java-8-oracle; else mv j* /usr/lib/jvm/java-8-oracle; fi && \
     mv jdk1.8.0_191 /usr/lib/jvm/java-8-oracle   && \
     ln -s java-8-oracle $JAVA_HOME                                       && \
     ln -s $JAVA_HOME/bin/* /usr/bin/                                     && \
-	ln -s $JAVA_HOME/include/linux/jni_md.h $JAVA_HOME /jni_md.h        && \
+	ln -s $JAVA_HOME/include/linux/jni_md.h $JAVA_HOME/jni_md.h        && \
     rm -rf $JAVA_HOME/*src.zip                                           && \
     rm -rf \
             ${JAVA_HOME}/*/javaws \

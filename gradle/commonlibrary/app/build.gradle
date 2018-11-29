@@ -69,10 +69,131 @@ task(name: 'libscopy'){
     }
 }
 
-task(helloTask {
+// 直接通过task函数去创建
+task(helloTask(group: 'hunkier', description: 'task study') {
     println 'i am helloTask.'
+
+    doFirst {
+        println 'this task group is: ' + group
+    }
+
+    doFirst {}
 })
 
+helloTask.doFirst {
+    println 'the task description is: ' + description
+}
+
+// 通过TaskContainer去创建Task
+this.tasks.create(name: 'helloTask2'){
+    setGroup('hunkier')
+    setDescription('task study')
+    println 'i am helloTask2.'
+}
 
 
+// 计算build执行时长
+def startBuildTime, endBuildTime
+this.afterEvaluate { Project project ->
+    // 保证要找的task已经配置完毕
+    project.tasks.eachWithIndex { Task task, int index ->
+        println "${index} :  ${task.name}"
+        def taskName = task.name
+        task.doFirst {
+            println "${taskName} : "+System.currentTimeMillis()
+        }
+
+    }
+    def preBuildTask = project.tasks.getByName('classes')
+    preBuildTask.doFirst {
+        startBuildTime = System.currentTimeMillis()
+        println 'the start time is: ' + startBuildTime
+    }
+
+    def buildTask = project.tasks.getByName('build')
+    buildTask.doLast {
+        endBuildTime = System.currentTimeMillis()
+        println 'the end time is: ' + endBuildTime
+        println "the build time is: ${endBuildTime - startBuildTime}"
+    }
+
+}
+
+
+
+
+/**
+ * task 依赖
+ */
+
+task taskX{
+    doLast {
+        println 'taskX'
+    }
+}
+task taskY{
+    doLast {
+        println 'taskY'
+    }
+}
+//task taskZ(dependsOn: [taskX, taskY]){
+task taskZ{
+    dependsOn this.tasks.findAll {mTask ->
+        return mTask.name.startsWith('lib')
+    }
+    doLast {
+        println 'taskZ'
+    }
+}
+//taskZ.dependsOn(taskX, taskY)
+// << 表示doLast
+task lib1  {
+    doLast {
+        println 'lib1'
+    }
+}
+task lib2  {
+    doLast {
+        println 'lib2'
+    }
+}
+task nlLib  {
+    doLast {
+        println 'nlLib'
+    }
+}
+
+task handleReleaseFile {
+    def srcFile = file('releases.xml')
+    def destDir = new File(this.buildDir, 'generated/release/')
+    doLast {
+        println '开始解析对应的xml文件'
+        destDir.mkdirs()
+        def releases = new XmlParser().parse(srcFile)
+        releases.release.each {releaseNode ->
+            // 解析每个release节点的内容
+            def name = releaseNode.versionName.text()
+            def versioCode = releaseNode.versioCode.text()
+            def versionInfo = releaseNode.versionInfo.text()
+            // 创建文件并写入节点数据
+            def destFile = new File(destDir, "release-${name}.text")
+            destFile.createNewFile()
+            destFile.withWriter {writer ->
+                writer.write("${name} -> ${versioCode} -> ${versionInfo}")
+            }
+        }
+    }
+}
+
+task handleReleaseFileTest(dependsOn: handleReleaseFile){
+//task handleReleaseFileTest{
+    def dir = fileTree(new File(this.buildDir, 'generated/release/'))
+    println dir
+    doLast {
+        dir.each {
+            println 'the file  is: ' + it
+        }
+        println '输出完成...'
+    }
+}
 
