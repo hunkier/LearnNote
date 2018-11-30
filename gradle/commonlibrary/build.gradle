@@ -183,7 +183,13 @@ def getRootP(){
 project('app'){ Project project ->
 //    println project.name
     apply plugin : 'eclipse'
-    dependencies {}
+    apply plugin : 'java'
+    apply plugin : 'groovy'
+    dependencies {
+        compile 'org.codehaus.groovy:groovy-all:2.3.11'
+        compile 'org.codehaus.groovy:groovy-xml:2.4.4'
+    }
+
     tasks {}
 }
 
@@ -234,6 +240,7 @@ def getContext(String path){
     try{
         def file = file(path)
         // 相对于当前的project工程开始查找
+       
         return file.text
     }catch(GradleException e){
         println 'file not found'

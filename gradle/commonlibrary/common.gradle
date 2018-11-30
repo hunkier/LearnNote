@@ -22,8 +22,8 @@ ext {
 
     dependencies = [
             'libSupportV7'      : 'com.android.support.app',
-            'groovyAll'         : 'org.codehaus.groovy:groovy-all:2.3.11',
-            'junit'         : 'junit:junit:4.12',
+            'groovyAll'         : 'org.codehaus.groovy:groovy-all:2.4.15',
+            'junit'             : 'junit:junit:4.12',
     ]
 }
 

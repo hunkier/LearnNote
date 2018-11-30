@@ -1,3 +1,5 @@
+import groovy.xml.MarkupBuilder
+
 plugins {
     id 'groovy'
     id 'java'
@@ -15,7 +17,8 @@ repositories {
 }
 
 dependencies {
-    compile 'org.codehaus.groovy:groovy-all:2.3.11'
+//    compile 'org.codehaus.groovy:groovy-all:4.10.2'
+    compile 'org.codehaus.groovy:groovy-all:2.4.15'
 //    testCompile group: 'junit', name: 'junit', version: '4.12'
     // 引用子项目的扩展属性
     testCompile this.libJunit
@@ -119,8 +122,80 @@ this.afterEvaluate { Project project ->
 
 }
 
+/**
+ * task输入输出讲解
+ */
+ext {
+    versionName = '1.0.0'
+    versionCode = '100'
+    versionInfo = 'App的第一个版本，上线了一些基础的核心功能'
+    destFile =file( 'releases.xml')
+//    destFile =new File(this.buildDir, 'releases.xml')
+    if(destFile!=null && !destFile.exists()){
+        destFile.createNewFile()
+    }
+}
 
+task writeTask {
+    // 为task指定输入
+    inputs.property('versionCode', this.ext.versionCode)
+    inputs.property('versionName', this.ext.versionName)
+    inputs.property('versionInfo', this.ext.versionInfo)
+    // 为task指定输出
+    outputs.file destFile
+    doLast {
+        def data = inputs.getProperties()
+        File file = outputs.getFiles().getSingleFile()
+        // 将map转化为实体对象
+        def versionMsg = new VersionMsg(data)
+        // 将实体对象转化为xml格式数据
+        def sw = new StringWriter()
+         def xmlBuilder = new MarkupBuilder(sw)
+        if (file.text !=null && file.size() <=0){
+            // 文件中没有内容
+            xmlBuilder.release {
+                release {
+                    versionCode( versionMsg.versionCode)
+                    versionName( versionMsg.versionName)
+                    versionInfo( versionMsg.versionInfo)
+                }
+            }
+            file.withWriter {writer -> writer.append(sw.toString())}
+        }else{
+            // 已有版本信息
+            xmlBuilder.release {
+                versionCode( versionMsg.versionCode)
+                versionName( versionMsg.versionName)
+                versionInfo( versionMsg.versionInfo)
+            }
 
+            // 将生成的xml数据插入到根节点结束前
+            def lines = file.readLines()
+            def lengths = lines.size() -1
+            file.withWriter('UTF-8') {writer ->
+                lines.eachWithIndex { String line, int index ->
+                    if (index !=lengths){
+                        writer.append(line + '\r\n')
+                    }else if(index == lengths){
+                        writer.append('\r\n' + sw.toString() + '\r\n')
+                        writer.append(lines.get(lengths))
+                    }
+                }
+            }
+        }
+    }
+}
+task readTask {
+    inputs.file destFile
+    doLast{
+
+    }
+}
+class VersionMsg{
+    String versionCode;
+    String versionName;
+    String versionInfo;
+}
 
 /**
  * task 依赖
@@ -173,13 +248,13 @@ task handleReleaseFile {
         releases.release.each {releaseNode ->
             // 解析每个release节点的内容
             def name = releaseNode.versionName.text()
-            def versioCode = releaseNode.versioCode.text()
+            def versionCode = releaseNode.versionCode.text()
             def versionInfo = releaseNode.versionInfo.text()
             // 创建文件并写入节点数据
             def destFile = new File(destDir, "release-${name}.text")
             destFile.createNewFile()
-            destFile.withWriter {writer ->
-                writer.write("${name} -> ${versioCode} -> ${versionInfo}")
+            destFile.withWriter('UTF-8') {writer ->
+                writer.write("${name} -> ${versionCode} -> ${versionInfo}")
             }
         }
     }
