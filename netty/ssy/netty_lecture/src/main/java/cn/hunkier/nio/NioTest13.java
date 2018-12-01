@@ -32,6 +32,12 @@ public class NioTest13 {
         FileChannel outputFileChannel = outputRandomAccessFile.getChannel();
         MappedByteBuffer inputData = inputFileChannel.map(FileChannel.MapMode.READ_ONLY, 0, inputLength);
 
+        log.info("-----------------------------------");
+        Charset.availableCharsets().forEach((k, v)->{
+            log.info(k + ", " + v);
+        });
+        log.info("-----------------------------------");
+
         Charset charset = Charset.forName("utf-8");
         CharsetDecoder decoder = charset.newDecoder();
         CharsetEncoder encoder = charset.newEncoder();
