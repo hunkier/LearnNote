@@ -5,6 +5,9 @@ plugins {
     id 'java'
 }
 
+apply from : this.rootProject.file('publishToMaven.gradle')
+//apply from : this.rootProject.file('releaseinfo.gradle')
+
 group 'cn.hunkier'
 version '1.0'
 
@@ -188,9 +191,18 @@ task writeTask {
 task readTask {
     inputs.file destFile
     doLast{
-
+        def file = inputs.files.singleFile
+        println file.text
     }
 }
+
+task taskTest{
+    dependsOn readTask,writeTask
+    doLast{
+        println '输入输出任务结束'
+    }
+}
+
 class VersionMsg{
     String versionCode;
     String versionName;
@@ -272,3 +284,24 @@ task handleReleaseFileTest(dependsOn: handleReleaseFile){
     }
 }
 
+/**
+ * 执行顺序指定
+ */
+task taskM{
+    doLast {
+        println 'taskM'
+    }
+}
+task taskN{
+    mustRunAfter taskM
+    doLast {
+        println 'taskN'
+    }
+}
+task taskO{
+    mustRunAfter taskN
+    shouldRunAfter taskM
+    doLast {
+        println 'taskO'
+    }
+}

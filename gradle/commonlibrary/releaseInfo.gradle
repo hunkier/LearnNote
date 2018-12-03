@@ -1,0 +1,101 @@
+import groovy.xml.MarkupBuilder
+
+/**
+ * 描述： 版本发布文档自动维护脚步
+ * 流程描述： 1、请求本次版本相关信息
+ *          2、将版本信息解析出来
+ *          3、将解析出的数据生成xml格式数据
+ *          4、写入到以后的文档数据中
+ */
+ext {
+    versionName = rootProject.ext.android.versionName
+    versionCode = rootProject.ext.android.versionCode
+    versionInfo = 'App的第二个版本，上线了一些最基础核心的功能.'
+    destFile = file('releases.xml')
+    if (destFile != null && !destFile.exists()){
+        destFile.createNewFile()
+    }
+}
+
+/**
+ * 在项目编译完成后执行
+ */
+this.project.afterEvaluate {
+    def buidTask = project.tasks.getByName('build')
+    if (buildTask == null ){
+        throw GradleException('the build task is not found')
+    }
+    buildTask.doLast {
+        writeTask.execute()
+    }
+}
+
+task writeTask {
+    // 为task指定输入
+    inputs.property('versionCode', this.ext.versionCode)
+    inputs.property('versionName', this.ext.versionName)
+    inputs.property('versionInfo', this.ext.versionInfo)
+    // 为task指定输出
+    outputs.file destFile
+    doLast {
+        def data = inputs.getProperties()
+        File file = outputs.getFiles().getSingleFile()
+        // 将map转化为实体对象
+        def versionMsg = new VersionMsg(data)
+        // 将实体对象转化为xml格式数据
+        def sw = new StringWriter()
+        def xmlBuilder = new MarkupBuilder(sw)
+        if (file.text !=null && file.size() <=0){
+            // 文件中没有内容
+            xmlBuilder.release {
+                release {
+                    versionCode( versionMsg.versionCode)
+                    versionName( versionMsg.versionName)
+                    versionInfo( versionMsg.versionInfo)
+                }
+            }
+            file.withWriter {writer -> writer.append(sw.toString())}
+        }else{
+            // 已有版本信息
+            xmlBuilder.release {
+                versionCode( versionMsg.versionCode)
+                versionName( versionMsg.versionName)
+                versionInfo( versionMsg.versionInfo)
+            }
+
+            // 将生成的xml数据插入到根节点结束前
+            def lines = file.readLines()
+            def lengths = lines.size() -1
+            file.withWriter('UTF-8') {writer ->
+                lines.eachWithIndex { String line, int index ->
+                    if (index !=lengths){
+                        writer.append(line + '\r\n')
+                    }else if(index == lengths){
+                        writer.append('\r\n' + sw.toString() + '\r\n')
+                        writer.append(lines.get(lengths))
+                    }
+                }
+            }
+        }
+    }
+}
+task readTask {
+    inputs.file destFile
+    doLast{
+        def file = inputs.files.singleFile
+        println file.text
+    }
+}
+
+task taskTest{
+    dependsOn readTask,writeTask
+    doLast{
+        println '输入输出任务结束'
+    }
+}
+
+class VersionMsg{
+    String versionCode;
+    String versionName;
+    String versionInfo;
+}
