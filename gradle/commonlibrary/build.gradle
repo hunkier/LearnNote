@@ -51,6 +51,9 @@ ext {
  */
 apply from:  this.file('common.gradle')
 
+// 引用自定义插件
+apply plugin: 'cn.hunkier.gradle.study'
+
 group 'cn.hunkier'
 version '1.0'
 
@@ -195,7 +198,7 @@ project('app'){ Project project ->
 
 // 配置当前节点所有的项目和项目下的子项目
 allprojects {
-    group 'cn.hunk'
+    group 'cn.hunkier'
     version '1.0.0'
 }
 

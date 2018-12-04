@@ -1,0 +1,37 @@
+plugins {
+    id 'groovy'
+    id 'java-gradle-plugin'
+}
+
+group 'cn.hunkier'
+version '1.0.0'
+
+repositories {
+    maven {
+        name 'aliyun'
+        url 'http://maven.aliyun.com/nexus/content/groups/public/'
+        credentials { // 私服帐号密码
+            username = 'admin'
+            password = 'admin123'
+        }
+    }
+    mavenCentral()
+}
+
+dependencies {
+    compile gradleApi()
+    compile  'org.codehaus.groovy:groovy-all:2.4.15'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+sourceSets {
+    main {
+        groovy {
+            srcDir 'src/main/groovy'
+        }
+
+        resources {
+            srcDir 'src/main/resources'
+        }
+    }
+}

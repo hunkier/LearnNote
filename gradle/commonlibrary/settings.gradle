@@ -8,4 +8,5 @@ include 'app'
 if (hasProperty('isLoadTest') ? isLoadTest.toBoolean() : false){
     include 'test'
 }
+include 'gradle-plugin'
 

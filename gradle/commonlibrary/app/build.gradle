@@ -1,8 +1,25 @@
 import groovy.xml.MarkupBuilder
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+        google() // here
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.2.1'
+    }
+}
+//allprojects {
+//    repositories {
+//        google() // and here
+//        jcenter()
+//    }
+//}
 
 plugins {
     id 'groovy'
     id 'java'
+//    id 'android'
 }
 
 apply from : this.rootProject.file('publishToMaven.gradle')
@@ -16,8 +33,40 @@ sourceCompatibility = rootProject.ext.java['javaVersion']
 targetCompatibility = rootProject.ext.java.javaVersion
 
 repositories {
+    maven {
+        name 'aliyun'
+        url 'http://maven.aliyun.com/nexus/content/groups/public/'
+        credentials { // 私服帐号密码
+            username = 'admin'
+            password = 'admin123'
+        }
+    }
     mavenCentral()
 }
+/*
+android{
+    sourceSets {
+        main {
+            res.srcDirs = [
+                    'src/main/res',
+                    'src/main/res-ad',
+                    'src/main/res-player'
+            ]
+        } 
+    }
+}
+
+
+this.android.sourceSets {
+    main {
+        res.srcDirs = [
+                'src/main/res',
+                'src/main/res-ad',
+                'src/main/res-player'
+        ]
+    }
+}
+*/
 
 dependencies {
 //    compile 'org.codehaus.groovy:groovy-all:4.10.2'
