@@ -24,7 +24,8 @@ plugins {
 
 apply from : this.rootProject.file('publishToMaven.gradle')
 //apply from : this.rootProject.file('releaseinfo.gradle')
-
+// 引用自定义插件
+apply plugin: 'cn.hunkier.gradle.study'
 group 'cn.hunkier'
 version '1.0'
 
@@ -76,6 +77,16 @@ dependencies {
     testCompile this.libJunit
     // 应用父项目的扩展属性
     testCompile this.rootProject.libJunit
+}
+
+/**
+ * 为自定义插件传递参数
+ */
+hunkierReleaseInfo {
+    versionCode = rootProject.ext.android.versionCode
+    versionName = rootProject.ext.android.versionName
+    versionInfo = '测试自定义插件'
+    fileName = 'releases.xml'
 }
 
 this.getParentProject()

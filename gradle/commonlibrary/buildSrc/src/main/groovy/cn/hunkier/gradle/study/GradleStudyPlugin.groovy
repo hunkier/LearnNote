@@ -13,6 +13,7 @@ class  GradleStudyPlugin implements Plugin<Project>{
      */
     @Override
     void apply(Project project) {
-        println 'Helllo Plugin...' + project.name
+//        println 'Helllo Plugin...' + project.name
+        project.extensions.create('hunkierReleaseInfo', ReleaseInfoExtension)
     }
 }
