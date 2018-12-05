@@ -18,7 +18,10 @@ public class NewIOClient {
 
         long startTime = System.currentTimeMillis();
 
-        fileChannel.transferTo(0, )
+        long total = fileChannel.size();
+        fileChannel.transferTo(0, total, socketChannel);
+        log.info("发送总字节数： " + total + ", 耗时： " + (System.currentTimeMillis() - startTime));
 
+        fileChannel.close();
     }
 }

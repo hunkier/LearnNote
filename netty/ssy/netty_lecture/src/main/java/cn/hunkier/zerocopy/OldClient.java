@@ -25,5 +25,6 @@ public class OldClient {
 
         log.info("发送总字节数： " + total + ", 耗时： " + (System.currentTimeMillis() - startTime));
         dataOutputStream.close();
+        socket.close();
     }
 }
