@@ -7,6 +7,8 @@ import java.util.List;
 
 public class Test {
     public static void main(String[] args) {
+
+
         System.out.println(Math.pow(10,0));
         System.out.println(getNarcissisticNumbers(0));
         System.out.println(getNarcissisticNumbers(1));
