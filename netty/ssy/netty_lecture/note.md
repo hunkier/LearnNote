@@ -75,6 +75,11 @@ JDK所提供的Future只能通过手工的方式检查执行结果，而这个�
 
 
 
+结论：
+
+1. ChannelHandlerContext与ChannelHandler之间的关联关系是永远都不会发生改变的，因此对其进行缓存是没有任何问题的。
+2. 对于与Channel的同名的方法来说，ChannelHandlerContext的方法将会产生更短的事件流，所以我们应该在可能的情况下利用这个特性提升应用性能。
+
 
 
 
