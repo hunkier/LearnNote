@@ -80,7 +80,34 @@ JDK所提供的Future只能通过手工的方式检查执行结果，而这个�
 1. ChannelHandlerContext与ChannelHandler之间的关联关系是永远都不会发生改变的，因此对其进行缓存是没有任何问题的。
 2. 对于与Channel的同名的方法来说，ChannelHandlerContext的方法将会产生更短的事件流，所以我们应该在可能的情况下利用这个特性提升应用性能。
 
+=============
 
+使用NIO进行文件读取所涉及的步骤：
+
+1. 从FileInputStream对象获取到Channel对象。
+2. 创建Buffer。
+3. 将数据从Channel中读取到Buffer对象中。
+
+0 <= mark <= postion <= limit <= capacity
+
+flip()方法。
+
+1. 将limit值设置为当前position。
+2. 将position设为0。
+
+clear()方法。
+
+1. 将limit值设为capacity。
+2. 将position值设为0。
+
+compact()方法。
+
+1. 将所有未读的数据复制到buffer起始位置处。
+2. 将postion设为最后一个未读元素的后面。
+3. 将limit设为capacity。
+4. 现在buffer就准备好了，但是不会覆盖未读的数据。
+
+**Java NIO中，关于DirectBuffer，HeapBuffer的疑问？** https://www.zhihu.com/question/57374068
 
 
 
