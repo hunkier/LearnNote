@@ -140,7 +140,19 @@ Direct Buffer (直接缓冲区)
 
 Netty通过提供内存池来解决这个问题。直接缓冲区并不支持通过字节数组的方式来访问数据。
 
+重点：对于后端的业务消息的编解码来说，推荐使用HeapByteBuf；对于I/O通信线程在读写缓冲区时，推荐使用DirectByteBuf。
 
+Composite Buffer (复合缓冲区)
+
+JDK的ByteBuffer与Netty的ByteBuf之间的差异比对：
+
+1. Netty的ByteBuf采用了读写索引分离的策略（readerIndex与writerIndex），一个初始化（里面尚未有任何数据）的ByteBuf的readerIndex与writerIndex值都为0.
+2. 当读索引与写索引处于同一位置时，如果我们继续读取，那么就会抛出IndexOutOfBoundsException。
+3. 对于ByteBuf的任何读写操作都会分别单独维护读索引和写索引。maxCapacity最大容量默认的限制就是Integer.MAX_VALUE。
+
+JDK的ByteBuffer的缺点：
+
+1. 
 
 
 
