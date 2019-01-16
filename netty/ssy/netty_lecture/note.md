@@ -152,7 +152,24 @@ JDK的ByteBuffer与Netty的ByteBuf之间的差异比对：
 
 JDK的ByteBuffer的缺点：
 
-1. 
+1.  final byte[] hb； 这是JDK的ByteBuffer对象中用于存储数据的对象说明；可以看到，其字节数组是被声明为final的也就是长度是固定不变的。一旦分配好后不能动态扩容与收缩；而且当待存储的数据字节很大时就很有可能出现IndexOutOfBoundsException。如果要预防这个异常，那就要在存储之前完全确定好待存储的字节大小。如果ByteBuffer的空间不足，我们只有一种解决方案：创建一个全新的ByteBuffer对象，然后在将之前的ByteBuffer中的数据复制过去，这一切操作都需要由开发者自己来手动完成。
+2.  ByteBuffer只使用一个postion指针来标识位置信息，在进行读写切换时就需要调用flip方法或是rewind方法，使用起来很不方便。
+
+Netty的ByteBuf的优点：
+
+1. 存储字节的数组是动态的，其最大值默认是Integer.MAX_VALUE 。这里的动态性是体现在write方法中的，write方法在执行时会判断buffer容量，如果不足则自动扩容。
+2. ByteBuf的读写索引时完全分开的，使用起来就很方便。
+
+自旋锁。
+
+AtomicIntegerFieldUpdater要点总结：
+
+1. 更新器更新的必须是int类型变量，不能是其包装类型。
+2. 更新器更新的必须是volatile类型变量，确保线程之间共享变量时的立即可见性。
+3. 变量不能是static的，必须要是实例变量。因为Unsafe.objectFieldOffset()方法不支持静态变量(CAS操作本质上通过对象实例的偏移量来直接进行赋值)。
+4. 更新器只能修改它可以范围内的变量，因为更新器是通过反射来得到这个变量，如果变量不可见就会报错。
+
+如果要更新的变量时包装类型，那么可以使用AtomicReferenceFieldUpdater来进行更新。
 
 
 
