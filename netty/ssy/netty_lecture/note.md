@@ -173,7 +173,7 @@ AtomicIntegerFieldUpdater要点总结：
 
 
 
-Netty处理器重要概念：
+##### Netty处理器重要概念：
 
 1. Netty的处理器可以分为两类：入站处理器与出站处理器。
 2. 入站处理器的顶层时ChannelInboundHandler，出站处理器的顶层时ChannelOutboundHandler。
@@ -185,7 +185,7 @@ Netty处理器重要概念：
 
 
 
-TCP粘包与拆包。
+##### TCP粘包与拆包。
 
 关于Netty编解码器的重要结论：
 
