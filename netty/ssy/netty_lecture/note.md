@@ -109,6 +109,89 @@ compact()方法。
 
 **Java NIO中，关于DirectBuffer，HeapBuffer的疑问？** https://www.zhihu.com/question/57374068
 
+注意：通过索引来访问Byte时并不会改变真实的读索引与写索引；我们可以通过Bytes的readIndex()与writerIndex()方法分别直接修改读索引与写索引。
+
+
+
+Netty BytesBuf所提供的3种缓冲区类型：
+
+1. heap buffer。
+
+2. direct buffer。
+3. composite buffer。
+
+
+
+Head Buffer (堆缓冲区)
+
+这是最常用的类型，ByteBuf将数据存储到JVM的堆空间中，并且将实际的数据存放到byte array中来实现。
+
+优点：由于数据是存储在JVM中，因此可以快速的创建与快速释放，并且它提供了直接访问内部字节数组的方法。
+
+缺点：每次读写数据时，都需要先将数据复制到直接缓冲区再进行网络传输。
+
+Direct Buffer (直接缓冲区)
+
+在堆之外直接分配内存空间，直接缓冲区并不会占用堆得容量空间，因为它是由操作系统在本地内存进行的数据分配。
+
+优点：在使用Socket进行数据传递时，性能非常好，因为数据直接位于操作系统的本地内存中，所以不需要从JVM将数据复制到直接缓冲区中，性能很好。
+
+缺点：因为Direct Buffer是直接在操作系统内存中，所以内存空间的分配与释放要比堆空间更加复杂，而且速度要慢一些。
+
+Netty通过提供内存池来解决这个问题。直接缓冲区并不支持通过字节数组的方式来访问数据。
+
+重点：对于后端的业务消息的编解码来说，推荐使用HeapByteBuf；对于I/O通信线程在读写缓冲区时，推荐使用DirectByteBuf。
+
+Composite Buffer (复合缓冲区)
+
+JDK的ByteBuffer与Netty的ByteBuf之间的差异比对：
+
+1. Netty的ByteBuf采用了读写索引分离的策略（readerIndex与writerIndex），一个初始化（里面尚未有任何数据）的ByteBuf的readerIndex与writerIndex值都为0.
+2. 当读索引与写索引处于同一位置时，如果我们继续读取，那么就会抛出IndexOutOfBoundsException。
+3. 对于ByteBuf的任何读写操作都会分别单独维护读索引和写索引。maxCapacity最大容量默认的限制就是Integer.MAX_VALUE。
+
+JDK的ByteBuffer的缺点：
+
+1.  final byte[] hb； 这是JDK的ByteBuffer对象中用于存储数据的对象说明；可以看到，其字节数组是被声明为final的也就是长度是固定不变的。一旦分配好后不能动态扩容与收缩；而且当待存储的数据字节很大时就很有可能出现IndexOutOfBoundsException。如果要预防这个异常，那就要在存储之前完全确定好待存储的字节大小。如果ByteBuffer的空间不足，我们只有一种解决方案：创建一个全新的ByteBuffer对象，然后在将之前的ByteBuffer中的数据复制过去，这一切操作都需要由开发者自己来手动完成。
+2.  ByteBuffer只使用一个postion指针来标识位置信息，在进行读写切换时就需要调用flip方法或是rewind方法，使用起来很不方便。
+
+Netty的ByteBuf的优点：
+
+1. 存储字节的数组是动态的，其最大值默认是Integer.MAX_VALUE 。这里的动态性是体现在write方法中的，write方法在执行时会判断buffer容量，如果不足则自动扩容。
+2. ByteBuf的读写索引时完全分开的，使用起来就很方便。
+
+自旋锁。
+
+AtomicIntegerFieldUpdater要点总结：
+
+1. 更新器更新的必须是int类型变量，不能是其包装类型。
+2. 更新器更新的必须是volatile类型变量，确保线程之间共享变量时的立即可见性。
+3. 变量不能是static的，必须要是实例变量。因为Unsafe.objectFieldOffset()方法不支持静态变量(CAS操作本质上通过对象实例的偏移量来直接进行赋值)。
+4. 更新器只能修改它可以范围内的变量，因为更新器是通过反射来得到这个变量，如果变量不可见就会报错。
+
+如果要更新的变量时包装类型，那么可以使用AtomicReferenceFieldUpdater来进行更新。
+
+
+
+##### Netty处理器重要概念：
+
+1. Netty的处理器可以分为两类：入站处理器与出站处理器。
+2. 入站处理器的顶层时ChannelInboundHandler，出站处理器的顶层时ChannelOutboundHandler。
+3. 数据处理时常用的各种编解码器本质上都是处理器。
+4. 编码器：无论我们向网络中写入的数据是什么类型(int、char、String、二进制)，数据在网络中传递时，其都是以字节流的形式呈现的；将数据由原本的形式转换为字节流的操作称为编码(encode)，将数据转换为它原本的格式或是其他格式的操作称为解码(decode)，编解码统一称为codec。
+5. 编码：本质上是一种出站处理器，因此，编码一定是一种ChannelOutboundHandler。
+6. 解码：本质上是一种入站处理器；因此解码一定是一种ChannelInboundHandler。
+7. 在Netty中，编码器通常以XXXEncoder；解码器通常以XXXDecoder命名。
+
+
+
+##### TCP粘包与拆包。
+
+关于Netty编解码器的重要结论：
+
+1. 无论是编码器还是解码器，其所接受的消息类型必须要与待处理的参数类型一致，否则该编码器或解码器并不会执行。
+2. 在解码器进行数据解码时，一定要记得判断缓冲（ByteBuf）中的数据是否足够，否则将会产生一些问题。
+
 
 
 
