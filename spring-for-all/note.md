@@ -303,3 +303,309 @@ public class ConnectionLogFilter  extends FilterEventAdapter {
 * datasource，数据源相关的辅助类
 * object，将基本的 JDBC 操作封装成对象
 * support，错误码等其他辅助工具
+
+## 常用的 Bean 注解
+
+通过注解定义 Bean
+
+* @Component
+* @Repository
+* @Service
+* @Controller
+* @RestController
+
+## 简单的 JDBC 操作
+
+### JdbcTemplate
+
+* query
+* queryForObject
+* queryForList
+* update
+* execute
+
+```
+Talk is cheap，show me the code。
+									-Linux Torvalds
+```
+
+## SQL 批处理
+
+## JdbcTemplate
+
+* batchUpdate
+* BatchPreparedStatementSetter
+
+### NameParameterJdbcTemplate
+
+* batchUpdate
+* SqlParameterSourceUtils.createBatch
+
+
+
+
+
+
+
+# 了解 Spring 的抽象
+
+## 事务抽象
+
+## Spring 的事务抽象
+
+### 一致的事务模型
+
+* JDBC/Hibernate/myBatis
+* DataSource/JTA
+
+## 事务抽象的核心接口
+
+### PlatformTransactionManager
+
+* DataSourceTransactionManager
+* HibernateTransactionManager
+* JtaTransactionManager
+
+### TransactionDefinition
+
+* Propagation
+* Isolation
+* Timeout
+* Read-only status
+
+```java
+void commit(TransactionStatus status) throws TransactionException;
+void roolback(Transactionstatus status)throws TransactionException;
+TransactionStatus getTransaction(@Nullable TransactionDefinition definition)throw TransactionException;
+```
+
+
+
+## 事务传播特性
+
+| 传播性                    | 值   | 描述                                   |
+| ------------------------- | ---- | -------------------------------------- |
+| PROPAGETION_REQUIRED      | 0    | 当前有事务就用当前的，没有就用新的     |
+| PROPAGETION_SUPPORTS      | 1    | 事务可有可无，不是必须的               |
+| PROPAGETION_MANDTORY      | 2    | 当前一定要有事务，不然就抛异常         |
+| PROPAGETION_REQUIRES_NEW  | 3    | 无论当前是否有事务，都起个新的事务     |
+| PROPAGETION_NOT_SUPPORTED | 4    | 不支持事务，按非事务方式运行           |
+| PROPAGETION_NEVER         | 5    | 不支持事务，如果有事务则抛出异常       |
+| PROPAGETION_NESTED        | 6    | 当前有事务就在当前事务里面再起一个事务 |
+
+## 事务隔离特性
+
+| 隔离性                     | 值   | 脏读 | 不可重复读 | 幻读 |
+| -------------------------- | ---- | ---- | ---------- | ---- |
+| ISOLATION_READ_UNCOMMITTED | 1    | ✅    | ✅          | ✅    |
+| ISOLATION_READ_COMMITTED   | 2    | ❌    | ✅          | ✅    |
+| ISOLATION_REPEATABLE_READ  | 3    | ❌    | ❌          | ✅    |
+| ISOLATION_SERIALIZABLE     | 4    | ❌    | ❌          | ❌    |
+
+## 事务的本质
+
+* ### Spring 的声明式事务本质上是通过 AOP 来增强了类的功能
+
+* ### Spring 的 AOP 本质上就是为类做了一个代理
+
+* 看似在调用自己的的类，实际用的是增强后的代理类
+
+* ### 问题的解法
+
+* 访问增强的代理类的方法，而非直接访问自身的方法
+
+## 编程式事务
+
+### TransactionTemplate
+
+* TransactionCallback
+* TransactionCallBackWithoutResult
+
+### PlatformTRansactionManager
+
+* 可以传入 TransactionDefinition 进行定义
+
+```java
+
+@SpringBootApplication
+@Slf4j
+public class ProgrammticTransactionDemoApplication implements CommandLineRunner {
+
+    @Autowired
+    private TransactionTemplate transactionTemplate;
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    public static void main(String[] args) {
+        SpringApplication.run(ProgrammticTransactionDemoApplication.class, args);
+    }
+
+    @Override
+    public void run(String... args) throws Exception {
+        log.info("COUNT BEFORE TRANSACTION: {}", getCount());
+        transactionTemplate.execute(new TransactionCallbackWithoutResult() {
+            @Override
+            protected void doInTransactionWithoutResult(TransactionStatus status) {
+                jdbcTemplate.execute("INSERT  INTO FOO (ID, BAR) VALUES (1, 'aaa')");
+                log.info("COUNT IN TRANSACTION: {}", getCount());
+                status.setRollbackOnly();
+            }
+        });
+        log.info("COUNT AFTER TRANSACTION: {}", getCount());
+    }
+
+    private long getCount(){
+        return (long) jdbcTemplate.queryForList("SELECT  COUNT(*) AS CNT FROM FOO" ).get(0).get("CNT");
+    }
+}
+```
+
+### 基于注解的配置方式
+
+#### 开启事务注解的方式
+
+* @EnableTransactionManagement
+* <tx:annotation-driven />
+
+#### 一些配置
+
+* proxyTargetClass
+* mode
+* order
+
+## @Transactional
+
+* transactionManager
+* propagation
+* isolation
+* timeout
+* readOnly
+* 怎么判断回滚
+
+## Spring 的 JDBC 异常抽象
+
+### Spring 会将数据操作的异常转换为 DataAccessException，无论使用何种数据访问方式，都能使用一样的异常
+
+
+
+### Spring 是怎么认识那些错误码的
+
+#### 通过 SQLErrorCodeSQLExceptionTranslator 解析错误码
+
+#### ErrorCode 定义
+
+* org/springframework/jdbc/support/sql-error-codes.xml
+* Classpath 下的 sql-error-codes.xml
+
+### 定制错误码解析逻辑
+
+```xml
+
+	<bean id="H2" class="org.springframework.jdbc.support.SQLErrorCodes">
+    <property name="badSqlGrammarCodes">
+        <value>42000,42001,42101,42102,42111,42112,42121,42122,42132</value>
+    </property>
+    <property name="duplicateKeyCodes">
+        <value>23001,23505</value>
+    </property>
+    <property name="dataIntegrityViolationCodes">
+        <value>22001,22003,22012,22018,22025,23000,23002,23003,23502,23503,23506,23507,23513</value>
+    </property>
+    <property name="dataAccessResourceFailureCodes">
+        <value>90046,90100,90117,90121,90126</value>
+    </property>
+    <property name="cannotAcquireLockCodes">
+        <value>50200</value>
+    </property>
+    <property name="customTranslations">
+        <bean class="org.springframework.jdbc.support.CustomSQLErrorCodesTranslation">
+            <property name="errorCodes" value="23001,23505"/>
+            <property name="exceptionClass"
+                      value="cn.hunkier.spring.data.sqlerrorcodedemo.CustomDuplicateKeyException"/>
+        </bean>
+    </property>
+</bean>
+```
+
+```java
+public class CustomDuplicateKeyException extends DuplicateKeyException {
+    public CustomDuplicateKeyException(String msg) {
+        super(msg);
+    }
+
+    public CustomDuplicateKeyException(String msg, Throwable cause) {
+        super(msg, cause);
+    }
+}
+
+```
+
+```java
+
+@RunWith(SpringRunner.class)
+@SpringBootTest
+public class SqlErrorCodeDemoApplicationTests {
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
+
+	@Test(expected = CustomDuplicateKeyException.class)
+	public void testThrowingCustomException(){
+		final String sql = "INSERT INTO FOO (ID, BAR) VALUES (1, 'A')";
+		jdbcTemplate.execute(sql);
+		jdbcTemplate.execute(sql);
+	}
+
+}
+```
+
+
+
+### 一些常用的注解
+
+#### Java Config 相关注解
+
+* @Configuration
+* @ImportResource
+* @ComponentScan
+* @Bean
+* @ConfigurationProperties
+
+#### 定义相关注解
+
+* @Component / @Respository / @Service
+* @Controller / @ RestController
+* @RequestMapping
+
+#### 注入相关注解
+
+* @Autowired / @Qualifier / @Resource
+* @Value
+
+#### Actuator 提供的一些好用的 EndPoint
+
+
+
+| URL               | 作用                  |
+| ----------------- | --------------------- |
+| /actuator/health  | 健康检查              |
+| /actuator/mapping | 查看 Web 的 URL 映射  |
+| /actuator/beans   | 查看容器中的所有 Bean |
+| /actuator/env     | 查看环境信息          |
+
+### 如何解禁 Endpoint
+
+#### 默认
+
+* /actuator/health  和 /actuator/info 可 Web 访问
+
+#### 解禁所有 Endpoint
+
+* 在 application.properties / application.yaml 中添加
+
+```properties
+management.endpointis.web.exposure.include=*
+```
+
+**生产环境需谨慎**
+
