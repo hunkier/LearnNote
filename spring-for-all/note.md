@@ -291,6 +291,19 @@ public class ConnectionLogFilter  extends FilterEventAdapter {
 
 ```
 
+### 慢 SQL 日志
+
+#### 系统属性配置
+
+* druid.stat.logSlowSql=true
+* druid.stat.slowSqlMillis=3000
+
+#### Spring Boot
+
+* spring.datasource.druid.filter.stat.enabled=true
+* spring.datasource.druid.filter.stat.log-slow-sql=true
+* spring.datasource.druid.filter.stat.slow-sql-millis=3000
+
 
 
 
@@ -392,6 +405,19 @@ TransactionStatus getTransaction(@Nullable TransactionDefinition definition)thro
 | PROPAGETION_NOT_SUPPORTED | 4    | 不支持事务，按非事务方式运行           |
 | PROPAGETION_NEVER         | 5    | 不支持事务，如果有事务则抛出异常       |
 | PROPAGETION_NESTED        | 6    | 当前有事务就在当前事务里面再起一个事务 |
+
+### REQUIRES_NEW v.s. NESTED
+
+#### REQUIRES_NEW, 始终启动一个新的事务
+
+* 两个事务没有关联
+
+#### NESTED ，在原事务内启动一个内嵌事务
+
+* 两个事务有关联
+* 外部事务回滚，内嵌事务也会回滚
+
+
 
 ## 事务隔离特性
 
@@ -608,4 +634,3 @@ management.endpointis.web.exposure.include=*
 ```
 
 **生产环境需谨慎**
-
