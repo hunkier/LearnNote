@@ -304,7 +304,12 @@ public class ConnectionLogFilter  extends FilterEventAdapter {
 * spring.datasource.druid.filter.stat.log-slow-sql=true
 * spring.datasource.druid.filter.stat.slow-sql-millis=3000
 
+#### 一些注意事项
 
+* 没特殊情况下，不要在生产环境打开监控的 Servlet
+* 没有连接泄漏的情况下，不要开启 removeAbandoned
+* testXxx 的使用需要注意
+* 务必配置合理的超时时间
 
 
 
@@ -634,3 +639,123 @@ management.endpointis.web.exposure.include=*
 ```
 
 **生产环境需谨慎**
+
+
+
+
+
+## Hibernate
+
+* 一款开源的对象关系映射 (Object / Relational Mapping) 框架
+* 将开发者从 95% 的常见数据持久化工作中解放出来
+* 屏蔽了底层数据库的各种细节
+
+### Java Persisitence  API
+
+#### JPA 为对象关系映射提供了一种基于 POJO 的持久化模型
+
+* 简化数据持久化代码的开发工作
+* 为 Java 社区屏蔽了不同持久化 API 的差异
+
+## Spring Data
+
+#### 在保留底层存储特性的同时，提供相对一致的、基于 Spring 的编程模型
+
+#### 主要模块
+
+* Spring Data Commons
+* Spring Data JDBC
+* Spring Data JPS
+* Spring Data Redis
+* …...
+
+```xml
+<dependencyManagement>
+	<dependencies>
+  	<dependency>
+    	<groupId>org.springframework.data</groupId>
+      <artifactId>spring-data-releasetrain</artifactId>
+      <version>Lovelace-SR4</version>
+      <type>pom</type>
+    </dependency>
+  </dependencies>
+</dependencyManagement>
+```
+
+```xml
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-data-jpa</artifactId>
+</dependency>
+```
+
+### 常用 JPA 注解
+
+#### 实体
+
+* @Entity、@MappedSupperclass
+* @Table(name)
+
+#### 主键
+
+* @Id
+* @GeneratedValue(strategy，generator)
+* @SequenceGenerator(name，sequenceName)
+
+```java
+@Entity(name="Product")
+public static class Product {
+  @Id
+  @GeneratedValue(
+  	strategy=GenerationType.SEQUENCE,
+    generator="sequence-generator"
+  )
+  @SequenceGenerator(
+  	name="sequence-generator",
+    sequenceName="product_sequence"
+  )
+  private Long id;
+  
+  @Column(name="product_name")
+  private String name;
+}
+```
+
+#### 映射
+
+* @Column(name, nullable, length, insertable, updatable)
+* @JoinTable(name)、@JoinColum(name)
+
+#### 关系
+
+* @OneToOne、@OneToMany、@ManyToOne、@ManyToMany
+* @OrderBy
+
+## Project Lombok
+
+### Project Lombok 能够自动嵌入 IDE 和构建工具，提升开发效率
+
+#### 常用功能
+
+* @Getter / @Setter
+* @ToString
+* @NoArgsConstructor / @RequiredArgsConstructor / @AllArgsConstructor
+* @Data
+* @Builder
+* Slf4j / @CommonsLog / @Log4j2
+
+# 线上咖啡馆实战项目
+
+## SpringBucks
+
+### 通过一个完整的例子演示 Spring 全家桶各主要成员的用法
+
+### 项目中的实体对象
+
+#### 实体
+
+* 咖啡、订单、顾客、服务员、咖啡师
+
+#### 订单状态
+
+* 初始、已支付、制作中、制作完毕、已取货
