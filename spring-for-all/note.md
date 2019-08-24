@@ -731,6 +731,396 @@ public static class Product {
 * @OneToOne、@OneToMany、@ManyToOne、@ManyToMany
 * @OrderBy
 
+## Repository Bean 是如何创建的
+
+#### JpaRepositoriesRegistrar
+
+* 激活了 @EnableJapRepositories
+* 返回了 JpaRepositoryConfigExtension
+
+```java
+package org.springframework.data.jpa.repository.config;
+
+/**
+ * {@link ImportBeanDefinitionRegistrar} to enable {@link EnableJpaRepositories} annotation.
+ *
+ * @author Oliver Gierke
+ */
+class JpaRepositoriesRegistrar extends RepositoryBeanDefinitionRegistrarSupport {
+
+```
+
+
+
+#### RepositoryBeanDefinitionRegistrarSupport.registerBeanDefinitions
+
+* 注册 Repository Bean (类型是 JpaRepositoryFactoryBean)
+
+```java
+
+package org.springframework.data.repository.config;
+/**
+ * Base class to implement {@link ImportBeanDefinitionRegistrar}s to enable repository
+ *
+ * @author Oliver Gierke
+ */
+public abstract class RepositoryBeanDefinitionRegistrarSupport
+		implements ImportBeanDefinitionRegistrar, ResourceLoaderAware, EnvironmentAware {
+
+  
+	/*
+	 * (non-Javadoc)
+	 * @see org.springframework.context.annotation.ImportBeanDefinitionRegistrar#registerBeanDefinitions(org.springframework.core.type.AnnotationMetadata, org.springframework.beans.factory.support.BeanDefinitionRegistry)
+	 */
+	public void registerBeanDefinitions(AnnotationMetadata annotationMetadata, BeanDefinitionRegistry registry) {
+
+		Assert.notNull(annotationMetadata, "AnnotationMetadata must not be null!");
+		Assert.notNull(registry, "BeanDefinitionRegistry must not be null!");
+		Assert.notNull(resourceLoader, "ResourceLoader must not be null!");
+
+		// Guard against calls for sub-classes
+		if (annotationMetadata.getAnnotationAttributes(getAnnotation().getName()) == null) {
+			return;
+		}
+
+		AnnotationRepositoryConfigurationSource configurationSource = new AnnotationRepositoryConfigurationSource(
+				annotationMetadata, getAnnotation(), resourceLoader, environment, registry);
+
+		RepositoryConfigurationExtension extension = getExtension();
+		RepositoryConfigurationUtils.exposeRegistration(extension, registry, configurationSource);
+
+		RepositoryConfigurationDelegate delegate = new RepositoryConfigurationDelegate(configurationSource, resourceLoader,
+				environment);
+
+		delegate.registerRepositoriesIn(registry, extension);
+	}
+
+}
+```
+
+
+
+#### RepositoryConfigurationExtensionSupport.getRepositoryConfigurations
+
+* 取得 Repository 配置
+
+```java
+package org.springframework.data.repository.config;
+/**
+ * Base implementation of {@link RepositoryConfigurationExtension} to ease the implementation of the interface. Will
+ * default the default named query location based on a module prefix provided by implementors (see
+ * {@link #getModulePrefix()}). Stubs out the post-processing methods as they might not be needed by default.
+ *
+ * @author Oliver Gierke
+ * @author Mark Paluch
+ * @author Christoph Strobl
+ */
+public abstract class RepositoryConfigurationExtensionSupport implements RepositoryConfigurationExtension {
+
+  
+	/*
+	 * (non-Javadoc)
+	 * @see org.springframework.data.repository.config.RepositoryConfigurationExtension#getRepositoryConfigurations(org.springframework.data.repository.config.RepositoryConfigurationSource, org.springframework.core.io.ResourceLoader, boolean)
+	 */
+	public <T extends RepositoryConfigurationSource> Collection<RepositoryConfiguration<T>> getRepositoryConfigurations(
+			T configSource, ResourceLoader loader, boolean strictMatchesOnly) {
+
+		Assert.notNull(configSource, "ConfigSource must not be null!");
+		Assert.notNull(loader, "Loader must not be null!");
+
+		Set<RepositoryConfiguration<T>> result = new HashSet<>();
+
+		for (BeanDefinition candidate : configSource.getCandidates(loader)) {
+
+			RepositoryConfiguration<T> configuration = getRepositoryConfiguration(candidate, configSource);
+			Class<?> repositoryInterface = loadRepositoryInterface(configuration,
+					getConfigurationInspectionClassLoader(loader));
+
+			if (repositoryInterface == null) {
+				result.add(configuration);
+				continue;
+			}
+
+			RepositoryMetadata metadata = AbstractRepositoryMetadata.getMetadata(repositoryInterface);
+
+			boolean qualifiedForImplementation = !strictMatchesOnly || configSource.usesExplicitFilters()
+					|| isStrictRepositoryCandidate(metadata);
+
+			if (qualifiedForImplementation && useRepositoryConfiguration(metadata)) {
+				result.add(configuration);
+			}
+		}
+
+		return result;
+	}
+}
+```
+
+
+
+#### JpaRepositoryFactory.getTargetRepository
+
+* 创建了 Repository
+
+```java
+package org.springframework.data.jpa.repository.support;
+
+/**
+ * JPA specific generic repository factory.
+ *
+ * @author Oliver Gierke
+ * @author Mark Paluch
+ * @author Christoph Strobl
+ * @author Jens Schauder
+ * @author Stefan Fussenegger
+ */
+public class JpaRepositoryFactory extends RepositoryFactorySupport {
+
+  
+	/**
+	 * Callback to create a {@link JpaRepository} instance with the given {@link EntityManager}
+	 *
+	 * @param information will never be {@literal null}.
+	 * @param entityManager will never be {@literal null}.
+	 * @return
+	 */
+	protected JpaRepositoryImplementation<?, ?> getTargetRepository(RepositoryInformation information,
+			EntityManager entityManager) {
+
+		JpaEntityInformation<?, Serializable> entityInformation = getEntityInformation(information.getDomainType());
+		Object repository = getTargetRepositoryViaReflection(information, entityInformation, entityManager);
+
+		Assert.isInstanceOf(JpaRepositoryImplementation.class, repository);
+
+		return (JpaRepositoryImplementation<?, ?>) repository;
+	}
+}
+```
+
+
+
+### 接口中的方法是如何被解释的
+
+#### RepositoryFactorySupport.getRepository 添加了 Advice
+
+* DefaultMethodInvokingMethodInterceptor
+* QueryExecutorMethodInterceptor
+
+```java
+package org.springframework.data.repository.core.support;
+/**
+ * Factory bean to create instances of a given repository interface. Creates a proxy implementing the configured
+ * repository interface and apply an advice handing the control to the {@code QueryExecuterMethodInterceptor}. Query
+ * detection strategy can be configured by setting {@link QueryLookupStrategy.Key}.
+ *
+ * @author Oliver Gierke
+ * @author Mark Paluch
+ * @author Christoph Strobl
+ * @author Jens Schauder
+ */
+@Slf4j
+public abstract class RepositoryFactorySupport implements BeanClassLoaderAware, BeanFactoryAware {
+  /**
+	 * Returns a repository instance for the given interface backed by an instance providing implementation logic for
+	 * custom logic.
+	 *
+	 * @param repositoryInterface must not be {@literal null}.
+	 * @param fragments must not be {@literal null}.
+	 * @return
+	 * @since 2.0
+	 */
+	@SuppressWarnings({ "unchecked" })
+	public <T> T getRepository(Class<T> repositoryInterface, RepositoryFragments fragments) {
+
+		if (LOG.isDebugEnabled()) {
+			LOG.debug("Initializing repository instance for {}…", repositoryInterface.getName());
+		}
+
+		Assert.notNull(repositoryInterface, "Repository interface must not be null!");
+		Assert.notNull(fragments, "RepositoryFragments must not be null!");
+
+		RepositoryMetadata metadata = getRepositoryMetadata(repositoryInterface);
+		RepositoryComposition composition = getRepositoryComposition(metadata, fragments);
+		RepositoryInformation information = getRepositoryInformation(metadata, composition);
+
+		validate(information, composition);
+
+		Object target = getTargetRepository(information);
+
+		// Create proxy
+		ProxyFactory result = new ProxyFactory();
+		result.setTarget(target);
+		result.setInterfaces(repositoryInterface, Repository.class, TransactionalProxy.class);
+
+		if (MethodInvocationValidator.supports(repositoryInterface)) {
+			result.addAdvice(new MethodInvocationValidator());
+		}
+
+		result.addAdvice(SurroundingTransactionDetectorMethodInterceptor.INSTANCE);
+		result.addAdvisor(ExposeInvocationInterceptor.ADVISOR);
+
+		postProcessors.forEach(processor -> processor.postProcess(result, information));
+
+		result.addAdvice(new DefaultMethodInvokingMethodInterceptor());
+
+		ProjectionFactory projectionFactory = getProjectionFactory(classLoader, beanFactory);
+		result.addAdvice(new QueryExecutorMethodInterceptor(information, projectionFactory));
+
+		composition = composition.append(RepositoryFragment.implemented(target));
+		result.addAdvice(new ImplementationMethodExecutionInterceptor(composition));
+
+		T repository = (T) result.getProxy(classLoader);
+
+		if (LOG.isDebugEnabled()) {
+			LOG.debug("Finished creation of repository instance for {}.", repositoryInterface.getName());
+		}
+
+		return repository;
+	}
+}
+
+/**
+	 * This {@code MethodInterceptor} intercepts calls to methods of the custom implementation and delegates the to it if
+	 * configured. Furthermore it resolves method calls to finders and triggers execution of them. You can rely on having
+	 * a custom repository implementation instance set if this returns true.
+	 *
+	 * @author Oliver Gierke
+	 */
+	public class QueryExecutorMethodInterceptor implements MethodInterceptor {
+    /*
+		 * (non-Javadoc)
+		 * @see org.aopalliance.intercept.MethodInterceptor#invoke(org.aopalliance.intercept.MethodInvocation)
+		 */
+		@Override
+		@Nullable
+		public Object invoke(@SuppressWarnings("null") MethodInvocation invocation) throws Throwable {
+
+			Method method = invocation.getMethod();
+
+			return QueryExecutionConverters //
+					.getExecutionAdapter(method.getReturnType()) //
+					.apply(() -> resultHandler.postProcessInvocationResult(doInvoke(invocation), method));
+		}
+
+		@Nullable
+		private Object doInvoke(MethodInvocation invocation) throws Throwable {
+
+			Method method = invocation.getMethod();
+			Object[] arguments = invocation.getArguments();
+
+			if (hasQueryFor(method)) {
+				return queries.get(method).execute(arguments);
+			}
+
+			return invocation.proceed();
+		}
+  }
+```
+
+
+
+#### AbstractJpaQuery.excute 执行具体的查询
+
+#### 语法解析在 Part 中
+
+```java
+package org.springframework.data.repository.query.parser;
+/**
+ * A single part of a method name that has to be transformed into a query part. The actual transformation is defined by
+ * a {@link Type} that is determined from inspecting the given part. The query part can then be looked up via
+ * {@link #getProperty()}.
+ *
+ * @author Oliver Gierke
+ * @author Martin Baumgartner
+ */
+@EqualsAndHashCode
+public class Part {
+
+	private static final Pattern IGNORE_CASE = Pattern.compile("Ignor(ing|e)Case");
+
+	private final PropertyPath propertyPath;
+	private final Part.Type type;
+
+	private IgnoreCaseType ignoreCase = IgnoreCaseType.NEVER;
+
+```
+
+
+
+## MyBatis
+
+### 认识 MyBatis
+
+#### MyBatis (https://github.com/mybatis/mybatis-3)
+
+* 一款优秀的持久化层框架
+* 支持定制化 SQL、存储过程和高级映射
+
+#### 在 Spring 中使用 MyBatis
+
+* MyBatis Spring Adapter (https://github.com/mybatis/spring)
+* MyBatis Spring-Boot-Starter (https://github.com/mybatis/spring-boot-starter)
+
+#### 简单配置
+
+* mybatis.mapper-locations = classpath*:mapper/**/\*/\*.xml
+* Mybatis.type-aliases-package = 类型别名的包名
+* mybatis.type-handlers-package = TypeHander 扫描包名
+* mybatis.configuration.map-underscore-to-camel-case = true
+
+### Mapper 的定义与扫描
+
+* @MapperScan 配置扫描位置
+* @Mapper 定义接口
+* 映射的定义 —  XML 与注解
+
+### 让 MyBatis 更好用的那些工具
+
+#### MyBatis Generator
+
+### 认识 MyBatis Generator
+
+#### Mybatis Generator (http://www.mybatis.org/generator/)
+
+* MyBatis 代码生成器
+* 根据数据库表生成相关代码
+* POJO
+* Mapper 接口
+* SQL Map XML
+
+### 运行 MyBatisGenerator
+
+#### 命令行
+
+* java -jar mybatis-generator-core-x.x.x.jar -configfile generatorConfig.xml
+
+#### Maven Plugin (mybatis-generator-maven-plugin)
+
+* mvn mybatis-generator:generate
+* ${basedir}/src/main/resources/generatorConfig.xml
+
+#### Eclipse Plugin
+
+#### Java 程序
+
+#### Ant Task
+
+
+
+### 配置 MyBatis Generator
+
+#### generatorConfiguration
+
+#### context
+
+* jdbcConection
+* javaModelGenerator
+* sqlMapGenerator
+* javaClientGenerator (ANNOTATEDMAPPER / XMLAPPER / MIXEDMAPPER )
+* table
+
+
+
 ## Project Lombok
 
 ### Project Lombok 能够自动嵌入 IDE 和构建工具，提升开发效率

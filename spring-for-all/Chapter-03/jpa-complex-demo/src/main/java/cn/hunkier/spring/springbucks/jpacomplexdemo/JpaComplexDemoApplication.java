@@ -17,6 +17,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
 import java.util.Arrays;
@@ -43,6 +44,7 @@ public class JpaComplexDemoApplication implements ApplicationRunner {
 	}
 
 	@Override
+	@Transactional
 	public void run(ApplicationArguments args) throws Exception {
 		initOrders();
 		findOrders();
@@ -88,6 +90,7 @@ public class JpaComplexDemoApplication implements ApplicationRunner {
 		log.info("findTop3ByOrderByUpdateTimeDescIdAsc: {}", getJoinedOrderId(list));
 
 		// 不开启事务会因为没 Session 而报 LazyInitializationException
+		// 在主动调用方法上加 @Transactional，表明方法内是一个事务
 		list.forEach(o->{
 			log.info("Order {}", o.getId());
 			o.getItems().forEach((i -> log.info(" Item {} ", i)));
