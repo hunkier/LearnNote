@@ -73,7 +73,7 @@
 * 排除 Spring Boot 的自动配置
 
    	1. DataSourceAutoConfiguratoin
-      	
+    
       ```java
       @SpringBootApplication (exclude = {
               DataSourceAutoConfiguration.class,
@@ -85,9 +85,9 @@
           
       }
       ```
+    
       
-      
-      
+    
       ```java
        @Bean
           @ConfigurationProperties("foo.datasource")
@@ -108,7 +108,7 @@
               return new DataSourceTransactionManager(fooDataSource);
           }
       ```
-      
+    
       ```java
         @Bean
           @ConfigurationProperties("bar.datasource")
@@ -129,9 +129,9 @@
               return new DataSourceTransactionManager(barDataSource);
           }
       ```
+    
       
-      
-      
+    
       2. DataSourceTransactionManagerAutoConfiguration
          	3. JdbcTemplateAutoConfiguration
 
@@ -1118,6 +1118,34 @@ public class Part {
 * sqlMapGenerator
 * javaClientGenerator (ANNOTATEDMAPPER / XMLAPPER / MIXEDMAPPER )
 * table
+
+
+
+### 生成时可以使用的插件
+
+#### 内置插件都在 org.mybatis.generator.plugins 包中
+
+* FluentBuilderMethodsPlugin
+* ToStringPlugin
+* SerializablePlugin
+* RowBoundsPlugin
+* ......
+
+
+
+### 使用生成的对象
+
+* 简单操作，直接使用生成的 xxxMapper 的方法
+* 复杂查询，使用生成的 xxxExample 对象
+
+### 认识 MyBatis PageHelper
+
+#### MyBatis PageHeple （https://pagehelper.github.io)
+
+* 支持多种数据库
+* 支持多种分页方式
+* SpringBoot 支持 （https://github.com/pagehelper/pagehelper-spring-boot)
+* pagehelper-spring-boot-starter
 
 
 
