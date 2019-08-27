@@ -1162,6 +1162,12 @@ public class Part {
 * @Builder
 * Slf4j / @CommonsLog / @Log4j2
 
+# Docker 
+
+#### 国内镜像加速
+
+* https://registry.docker-cn.com
+
 # 线上咖啡馆实战项目
 
 ## SpringBucks
