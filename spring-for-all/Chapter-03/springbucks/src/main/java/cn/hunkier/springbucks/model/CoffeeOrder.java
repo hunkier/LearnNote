@@ -20,20 +20,16 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors
-public class CoffeeOrder implements Serializable {
+public class CoffeeOrder extends BaseEntity implements Serializable {
 // geektime-spring-samples
-    @Id
-    @GeneratedValue
-    private Long id;
+
     private String customer;
     @ManyToMany
     @JoinTable(name = "T_ORDER_COFFEE")
+    @OrderBy("id")
     private List<Coffee> items;
+    @Enumerated
     @Column(nullable = false)
-    private Integer state;
-    @Column(updatable = false)
-    @CreationTimestamp
-    private Date createTime;
-    @UpdateTimestamp
-    private Date updateTime;
+    private OrderState state;
+
 }
