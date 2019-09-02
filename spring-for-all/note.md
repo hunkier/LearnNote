@@ -1164,9 +1164,143 @@ public class Part {
 
 # Docker 
 
+### 不同人眼中的 Docker
+
+#### 开发眼中的 Docker
+
+* 简化了重复搭建开发环境的工作
+
+#### 运维眼中的 Docker
+
+* 交付系统更为流畅
+* 伸缩性更好
+
+### Docker 常用命令
+
+#### 镜像相关
+
+* docker pull <image>
+* Docker search <iamge>
+
+#### 容器相关
+
+* dockker run
+* docker start/stop  <容器名>
+* docker ps   <容器名>
+* docker logs   <容器名>
+
+### Docker run 的常用选项
+
+#### docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
+
+#### 选项说明
+
+* -d，后台运行容器
+* -e，设置环境变量
+* -expose / -p 宿主端口:容器端口
+* --name，指定容器名称
+* --link，链接不同容器
+* -v 宿主目录:容器目录，挂载磁盘卷
+
+### 国内 Docker 镜像配置
+
+#### 官方 Docker Hub
+
+* https://hub.docker.com
+
+#### 官方镜像
+
+* 镜像 https://www.docker-cn.com/registry-mirror
+* 下载 https://www.docker-cn.com/get-docker
+
+#### 阿里云镜像
+
+* https://dev.aliyun.com
+
 #### 国内镜像加速
 
 * https://registry.docker-cn.com
+
+### 通过 Docker 启动 MongDB
+
+#### 官方指引
+
+* https://hub.docker.com/_/mongo
+
+#### 获取镜像
+
+* docker pull mongo
+
+#### 运行 MongoDB 镜像
+
+```shell
+docker run --name mongo -p 27017:27017 -v ~/docker-data/mongo:/data/db -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=admin -d mongo
+```
+
+### 通过 Docker 启动 MongoDB
+
+#### 登录到 MongoDB 容器中
+
+```bash
+docker exec -it mongo bash
+```
+
+#### 通过 Shell 连接到 MongoDB
+
+```bash
+mongo -u admin -p admin
+```
+
+### Spring 对 MongoDB 的支持
+
+#### MongoDB 是一款开源的文档型数据库
+
+* https://www.mongodb.com
+
+#### Spring 对 MongoDB 的支持
+
+* Spring Data MongoDB
+* MongoTemplate
+* Repository 支持
+
+### Spring Data MongoDB 的基本用法
+
+#### 注解
+
+* @Document
+* @Id
+
+#### MongoTemplate
+
+* save / remove
+* Criteria / Query / Update
+
+### 初始化 MongoDB 的库及权限
+
+#### 创建库
+
+```bash
+use springbucks;
+```
+
+#### 创建用户
+
+```json
+db.createUser(
+  {
+  "user": "springbucks",
+   "pwd": "springbucks",
+    "roles": [
+      {
+        "role": "readWrite",
+        "db": "springbucks"
+      }
+    ]
+}
+)
+```
+
+
 
 # 线上咖啡馆实战项目
 
