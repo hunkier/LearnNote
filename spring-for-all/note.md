@@ -1300,6 +1300,221 @@ db.createUser(
 )
 ```
 
+### Spring Data MongDB 的 Repository
+
+@EnableMongoRepositories
+
+##### 对应接口
+
+* MongoRepository<T, ID>
+* PagingAndSortingRepository<T,ID>
+* CrudRepository<T,ID>
+
+## 在 Spring 中访问 Redis
+
+### Spring 对 Redis 的支持
+
+#### Redis 是一款开源的内存 KV 存储，支持多种数据结构
+
+* https://redis.io
+
+#### Spring 对 Redis 的支持
+
+* Spring Data Redis
+* 支持的客户端 Jedis / Lettuce
+* RedisTemplate
+* Repository 支持
+
+### Jedis 客户端的简单实用
+
+* Jedis 不是线程安全的
+* 通过 JedisPool 获得 Jedis 实例
+* 直接使用 Jedis 中的方法
+
+### Jedis 客户端的简单实用
+
+```java
+@Bean
+@ConfigurationProperties("redis")
+public JedisPoolConfig jedisPoolConfig() {
+  return new JedisPoolConfig();
+}
+
+@Bean(destroyMethod = "close")
+public JedisPool jedisPool(@Value("${redis.host}") String host) {
+  return new JedisPool(jedisPoolConfig(), host);
+}
+```
+
+#### 通过 Docker 启动 Redis
+
+##### 官方指引
+
+* https://hub.docker.com/_/redis
+
+##### 获取镜像
+
+* docker pull redis
+
+##### 启动 Redis
+
+* docker run --name redis -d -p 6379:6379 redis
+
+### Redis 的哨兵与集群模式
+
+#### Redis 的哨兵模式
+
+##### Redis Sentinel 是 Redis 的一种高可用方案
+
+* 监控、通知、自动故障转移、服务发现
+
+##### JedisSentinePool
+
+
+
+#### Redis 的集群模式
+
+##### Redis Cluster
+
+* 数据自动分片 (分成 16384 个 Hash Slot) 
+* 在部分节点失效时有一定的可用性
+
+##### JedisCluster
+
+* Jedis 只从 Master 读写数据，如果想要自动读写分离，可以定制
+
+## 了解 Spring 的缓存抽象
+
+#### Spring 的缓存抽象
+
+##### 为不同的缓存提供一层抽象
+
+* 为 Java 方法增加缓存，缓存执行结果
+* 支持 ConcurrentMap、Ehcache、Caffeine、JCache (JSR-107)
+* 接口
+* org.springframework.cache.Cache
+* org.springframework.cache.CacheManager
+
+#### 基于注解的缓存
+
+##### @EnableCaching
+
+* @Cacheable
+* @CacheEvict
+* @CachePut
+* @Caching
+* @CacheConfig
+
+#### 通过 Spring Boot 配置 Redis 缓存
+
+```xml
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-start-cache</artifactId>
+</dependency>
+
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-data-redis</artifactId>
+</dependency>
+```
+
+```properties
+spring.cache.type=redis
+spring.cache.cache-names=coffee
+spring.cache.redis.time-to-live=5000
+spring.cache.redis.cache-null-values=false
+
+spring.redis.host=localhost
+```
+
+##### 通过 Spring Boot 配置 Redis 缓存
+
+```java
+@Slf4j
+@Service
+@CacheConfig(cacheNames = "coffee")
+public class CoffeeService {
+  @Autowired
+  private CoffeeRepository coffeeRepository;
+  
+  @Cacheable
+  public List<Coffee> findAllCoffee() {
+    return coffeeRepository.findAll();
+  }
+  
+  @CacheEvict
+  public void reloadCoffee() {
+    
+  }
+}
+```
+
+### Redis 在 Spring 中的其他用法
+
+#### 配置连接工厂
+
+* LettuceConnectionFactory 与 JedisConectionFactory
+* RedisStandaloneConfiguration
+* RedisSentinelConfiguration
+* RedisClusterConfiguration
+
+#### 读写分离
+
+##### Lettuce 内置支持读写分离
+
+* 只读主、只读从
+* 优先读主、优先读从
+
+LettuceClientConfiguration
+
+LettucePoolingClientConfiguration
+
+LettuceClientConfigurationBuilderCustomizer
+
+
+
+#### RedisTemplate
+
+##### RedisTemplate<K, V>
+
+* opsForXxx()
+
+##### StringRedisTemplate
+
+
+
+#### Redis Tepository
+
+##### 实体注解
+
+* @RedisHash
+* @Id
+* @Indexed
+
+#### 处理不同类型数据源的 Repository
+
+##### 如何区分这些 Repository
+
+* 根据实体的注解
+* 根据继承的接口类型
+* 扫描不同的包
+
+#### SpringBucks 进度小结
+
+* 使用不同类型的数据库存储咖啡信息
+* 结合 JPA 与 Redis 来优化咖啡信息的存储
+
+##### 第四章小结
+
+* 了解 Docker 在本地的基本用法
+* 了解 Spring Data MongoDB 的基本用法
+* 了解 Spring Data Redis 的基本用法
+* 了解 Redis 的几种运行模式
+* 了解了 Spring 的缓存抽象
+
+
+
 
 
 # 线上咖啡馆实战项目
