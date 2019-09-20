@@ -1,0 +1,1058 @@
+{
+  "+SetupCrackByDM-中国香港特别行政区": {
+    "auth": {
+      "fallbackProxy": {
+        "password": "yTQvTrDaZKuvM/t6d3YSTLZ/r8kpSrV63ObbD5IQHOo=",
+        "username": ".sv@2304255;cn."
+      }
+    },
+    "bypassList": [
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "127.0.0.1"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "10.*"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "192.168.*"
+      }
+    ],
+    "color": "#d63",
+    "fallbackProxy": {
+      "host": "dyn-103-75-117-88-e329-2328ff.fourqt.com",
+      "port": 443,
+      "scheme": "https"
+    },
+    "name": "SetupCrackByDM-中国香港特别行政区",
+    "profileType": "FixedProfile",
+    "revision": "03757edf-33e7-4d6d-ae78-dd9927c14242"
+  },
+  "+SetupCrackByDM-丹麦": {
+    "auth": {
+      "fallbackProxy": {
+        "password": "yTQvTrDaZKuvM/t6d3YSTLZ/r8kpSrV63ObbD5IQHOo=",
+        "username": ".sv@2304255;cn."
+      }
+    },
+    "bypassList": [
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "127.0.0.1"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "10.*"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "192.168.*"
+      }
+    ],
+    "color": "#d63",
+    "fallbackProxy": {
+      "host": "dyn-185-186-79-131-7162-2328ff.fourqt.com",
+      "port": 443,
+      "scheme": "https"
+    },
+    "name": "SetupCrackByDM-丹麦",
+    "profileType": "FixedProfile",
+    "revision": "aa4c0e60-d497-478a-bdb2-ac8ff464baf5"
+  },
+  "+SetupCrackByDM-乌克兰": {
+    "auth": {
+      "fallbackProxy": {
+        "password": "yTQvTrDaZKuvM/t6d3YSTLZ/r8kpSrV63ObbD5IQHOo=",
+        "username": ".sv@2304255;cn."
+      }
+    },
+    "bypassList": [
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "127.0.0.1"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "10.*"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "192.168.*"
+      }
+    ],
+    "color": "#d63",
+    "fallbackProxy": {
+      "host": "dyn-91-207-60-26-1283-2328ff.fourqt.com",
+      "port": 443,
+      "scheme": "https"
+    },
+    "name": "SetupCrackByDM-乌克兰",
+    "profileType": "FixedProfile",
+    "revision": "0c81084c-bb16-43b2-a112-73bfa9a09f68"
+  },
+  "+SetupCrackByDM-以色列": {
+    "auth": {
+      "fallbackProxy": {
+        "password": "yTQvTrDaZKuvM/t6d3YSTLZ/r8kpSrV63ObbD5IQHOo=",
+        "username": ".sv@2304255;cn."
+      }
+    },
+    "bypassList": [
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "127.0.0.1"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "10.*"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "192.168.*"
+      }
+    ],
+    "color": "#d63",
+    "fallbackProxy": {
+      "host": "dyn-212-115-111-236-93e8-2328ff.fourqt.com",
+      "port": 443,
+      "scheme": "https"
+    },
+    "name": "SetupCrackByDM-以色列",
+    "profileType": "FixedProfile",
+    "revision": "b35c72e4-0737-44ad-96e8-a8a136e59bf0"
+  },
+  "+SetupCrackByDM-俄罗斯": {
+    "auth": {
+      "fallbackProxy": {
+        "password": "yTQvTrDaZKuvM/t6d3YSTLZ/r8kpSrV63ObbD5IQHOo=",
+        "username": ".sv@2304255;cn."
+      }
+    },
+    "bypassList": [
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "127.0.0.1"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "10.*"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "192.168.*"
+      }
+    ],
+    "color": "#d63",
+    "fallbackProxy": {
+      "host": "dyn-185-22-173-191-af47-2328ff.fourqt.com",
+      "port": 443,
+      "scheme": "https"
+    },
+    "name": "SetupCrackByDM-俄罗斯",
+    "profileType": "FixedProfile",
+    "revision": "de6acdc9-b489-4ce9-942a-a1ca420ba9f0"
+  },
+  "+SetupCrackByDM-保加利亚": {
+    "auth": {
+      "fallbackProxy": {
+        "password": "yTQvTrDaZKuvM/t6d3YSTLZ/r8kpSrV63ObbD5IQHOo=",
+        "username": ".sv@2304255;cn."
+      }
+    },
+    "bypassList": [
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "127.0.0.1"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "10.*"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "192.168.*"
+      }
+    ],
+    "color": "#d63",
+    "fallbackProxy": {
+      "host": "dyn-193-9-115-59-a8b7-2328ff.fourqt.com",
+      "port": 443,
+      "scheme": "https"
+    },
+    "name": "SetupCrackByDM-保加利亚",
+    "profileType": "FixedProfile",
+    "revision": "67bacfb2-4918-41c8-82d8-104de5f698a1"
+  },
+  "+SetupCrackByDM-加拿大": {
+    "auth": {
+      "fallbackProxy": {
+        "password": "yTQvTrDaZKuvM/t6d3YSTLZ/r8kpSrV63ObbD5IQHOo=",
+        "username": ".sv@2304255;cn."
+      }
+    },
+    "bypassList": [
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "127.0.0.1"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "10.*"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "192.168.*"
+      }
+    ],
+    "color": "#d63",
+    "fallbackProxy": {
+      "host": "dyn-165-227-46-18-7f40-2328ff.fourqt.com",
+      "port": 443,
+      "scheme": "https"
+    },
+    "name": "SetupCrackByDM-加拿大",
+    "profileType": "FixedProfile",
+    "revision": "c484ba90-d210-406a-b561-2e25d5cac7d6"
+  },
+  "+SetupCrackByDM-南非": {
+    "auth": {
+      "fallbackProxy": {
+        "password": "yTQvTrDaZKuvM/t6d3YSTLZ/r8kpSrV63ObbD5IQHOo=",
+        "username": ".sv@2304255;cn."
+      }
+    },
+    "bypassList": [
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "127.0.0.1"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "10.*"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "192.168.*"
+      }
+    ],
+    "color": "#d63",
+    "fallbackProxy": {
+      "host": "dyn-197-189-202-17-f208-2328ff.fourqt.com",
+      "port": 443,
+      "scheme": "https"
+    },
+    "name": "SetupCrackByDM-南非",
+    "profileType": "FixedProfile",
+    "revision": "d5ccb2d6-d578-421c-a251-669aed94aeff"
+  },
+  "+SetupCrackByDM-印度": {
+    "auth": {
+      "fallbackProxy": {
+        "password": "yTQvTrDaZKuvM/t6d3YSTLZ/r8kpSrV63ObbD5IQHOo=",
+        "username": ".sv@2304255;cn."
+      }
+    },
+    "bypassList": [
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "127.0.0.1"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "10.*"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "192.168.*"
+      }
+    ],
+    "color": "#d63",
+    "fallbackProxy": {
+      "host": "dyn-68-183-93-247-8765-2328ff.fourqt.com",
+      "port": 443,
+      "scheme": "https"
+    },
+    "name": "SetupCrackByDM-印度",
+    "profileType": "FixedProfile",
+    "revision": "d42289b5-9f3f-4cd1-991a-28cbb47f46fc"
+  },
+  "+SetupCrackByDM-土耳其": {
+    "auth": {
+      "fallbackProxy": {
+        "password": "yTQvTrDaZKuvM/t6d3YSTLZ/r8kpSrV63ObbD5IQHOo=",
+        "username": ".sv@2304255;cn."
+      }
+    },
+    "bypassList": [
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "127.0.0.1"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "10.*"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "192.168.*"
+      }
+    ],
+    "color": "#d63",
+    "fallbackProxy": {
+      "host": "dyn-185-123-101-120-edcf-2328ff.fourqt.com",
+      "port": 443,
+      "scheme": "https"
+    },
+    "name": "SetupCrackByDM-土耳其",
+    "profileType": "FixedProfile",
+    "revision": "1b470365-8bc0-494f-9517-09d102eeb283"
+  },
+  "+SetupCrackByDM-奥地利": {
+    "auth": {
+      "fallbackProxy": {
+        "password": "yTQvTrDaZKuvM/t6d3YSTLZ/r8kpSrV63ObbD5IQHOo=",
+        "username": ".sv@2304255;cn."
+      }
+    },
+    "bypassList": [
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "127.0.0.1"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "10.*"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "192.168.*"
+      }
+    ],
+    "color": "#d63",
+    "fallbackProxy": {
+      "host": "dyn-217-64-127-91-b283-2328ff.fourqt.com",
+      "port": 443,
+      "scheme": "https"
+    },
+    "name": "SetupCrackByDM-奥地利",
+    "profileType": "FixedProfile",
+    "revision": "acfb99f9-a408-479d-9575-5a0d0d03bf38"
+  },
+  "+SetupCrackByDM-希腊": {
+    "auth": {
+      "fallbackProxy": {
+        "password": "yTQvTrDaZKuvM/t6d3YSTLZ/r8kpSrV63ObbD5IQHOo=",
+        "username": ".sv@2304255;cn."
+      }
+    },
+    "bypassList": [
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "127.0.0.1"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "10.*"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "192.168.*"
+      }
+    ],
+    "color": "#d63",
+    "fallbackProxy": {
+      "host": "dyn-154-57-3-182-7b44-2328ff.fourqt.com",
+      "port": 443,
+      "scheme": "https"
+    },
+    "name": "SetupCrackByDM-希腊",
+    "profileType": "FixedProfile",
+    "revision": "1c252f66-de41-4622-8ed8-647d7cffb2d3"
+  },
+  "+SetupCrackByDM-德国": {
+    "auth": {
+      "fallbackProxy": {
+        "password": "yTQvTrDaZKuvM/t6d3YSTLZ/r8kpSrV63ObbD5IQHOo=",
+        "username": ".sv@2304255;cn."
+      }
+    },
+    "bypassList": [
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "127.0.0.1"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "10.*"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "192.168.*"
+      }
+    ],
+    "color": "#d63",
+    "fallbackProxy": {
+      "host": "dyn-165-22-93-4-5482-2328ff.fourqt.com",
+      "port": 443,
+      "scheme": "https"
+    },
+    "name": "SetupCrackByDM-德国",
+    "profileType": "FixedProfile",
+    "revision": "d95dc109-1886-456b-a242-a64649ef528b"
+  },
+  "+SetupCrackByDM-意大利": {
+    "auth": {
+      "fallbackProxy": {
+        "password": "yTQvTrDaZKuvM/t6d3YSTLZ/r8kpSrV63ObbD5IQHOo=",
+        "username": ".sv@2304255;cn."
+      }
+    },
+    "bypassList": [
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "127.0.0.1"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "10.*"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "192.168.*"
+      }
+    ],
+    "color": "#d63",
+    "fallbackProxy": {
+      "host": "dyn-176-126-83-98-a850-2328ff.fourqt.com",
+      "port": 443,
+      "scheme": "https"
+    },
+    "name": "SetupCrackByDM-意大利",
+    "profileType": "FixedProfile",
+    "revision": "818092d5-f47a-4fad-a6f4-31e7fab0c4c8"
+  },
+  "+SetupCrackByDM-挪威": {
+    "auth": {
+      "fallbackProxy": {
+        "password": "yTQvTrDaZKuvM/t6d3YSTLZ/r8kpSrV63ObbD5IQHOo=",
+        "username": ".sv@2304255;cn."
+      }
+    },
+    "bypassList": [
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "127.0.0.1"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "10.*"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "192.168.*"
+      }
+    ],
+    "color": "#d63",
+    "fallbackProxy": {
+      "host": "dyn-185-181-63-34-1d4f-2328ff.fourqt.com",
+      "port": 443,
+      "scheme": "https"
+    },
+    "name": "SetupCrackByDM-挪威",
+    "profileType": "FixedProfile",
+    "revision": "7128ee7d-8cc2-49e7-ac91-a5d9031082a5"
+  },
+  "+SetupCrackByDM-捷克共和国": {
+    "auth": {
+      "fallbackProxy": {
+        "password": "yTQvTrDaZKuvM/t6d3YSTLZ/r8kpSrV63ObbD5IQHOo=",
+        "username": ".sv@2304255;cn."
+      }
+    },
+    "bypassList": [
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "127.0.0.1"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "10.*"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "192.168.*"
+      }
+    ],
+    "color": "#d63",
+    "fallbackProxy": {
+      "host": "dyn-80-211-214-72-8a09-2328ff.fourqt.com",
+      "port": 443,
+      "scheme": "https"
+    },
+    "name": "SetupCrackByDM-捷克共和国",
+    "profileType": "FixedProfile",
+    "revision": "0bbc148b-e103-48f8-b0a7-ee27450bfb18"
+  },
+  "+SetupCrackByDM-斯洛伐克": {
+    "auth": {
+      "fallbackProxy": {
+        "password": "yTQvTrDaZKuvM/t6d3YSTLZ/r8kpSrV63ObbD5IQHOo=",
+        "username": ".sv@2304255;cn."
+      }
+    },
+    "bypassList": [
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "127.0.0.1"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "10.*"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "192.168.*"
+      }
+    ],
+    "color": "#d63",
+    "fallbackProxy": {
+      "host": "dyn-212-57-38-58-7576-2328ff.fourqt.com",
+      "port": 443,
+      "scheme": "https"
+    },
+    "name": "SetupCrackByDM-斯洛伐克",
+    "profileType": "FixedProfile",
+    "revision": "de7e1108-d43d-468c-b833-41f385ad6015"
+  },
+  "+SetupCrackByDM-新加坡": {
+    "auth": {
+      "fallbackProxy": {
+        "password": "yTQvTrDaZKuvM/t6d3YSTLZ/r8kpSrV63ObbD5IQHOo=",
+        "username": ".sv@2304255;cn."
+      }
+    },
+    "bypassList": [
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "127.0.0.1"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "10.*"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "192.168.*"
+      }
+    ],
+    "color": "#d63",
+    "fallbackProxy": {
+      "host": "dyn-209-97-165-23-74da-2328ff.fourqt.com",
+      "port": 443,
+      "scheme": "https"
+    },
+    "name": "SetupCrackByDM-新加坡",
+    "profileType": "FixedProfile",
+    "revision": "06e0df51-cf8a-45c5-876f-a05bcc5d3edb"
+  },
+  "+SetupCrackByDM-日本": {
+    "auth": {
+      "fallbackProxy": {
+        "password": "yTQvTrDaZKuvM/t6d3YSTLZ/r8kpSrV63ObbD5IQHOo=",
+        "username": ".sv@2304255;cn."
+      }
+    },
+    "bypassList": [
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "127.0.0.1"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "10.*"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "192.168.*"
+      }
+    ],
+    "color": "#d63",
+    "fallbackProxy": {
+      "host": "dyn-149-28-28-233-49a-2328ff.fourqt.com",
+      "port": 443,
+      "scheme": "https"
+    },
+    "name": "SetupCrackByDM-日本",
+    "profileType": "FixedProfile",
+    "revision": "894bcfb7-1645-454d-bd59-481a46c69ca6"
+  },
+  "+SetupCrackByDM-比利时": {
+    "auth": {
+      "fallbackProxy": {
+        "password": "yTQvTrDaZKuvM/t6d3YSTLZ/r8kpSrV63ObbD5IQHOo=",
+        "username": ".sv@2304255;cn."
+      }
+    },
+    "bypassList": [
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "127.0.0.1"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "10.*"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "192.168.*"
+      }
+    ],
+    "color": "#d63",
+    "fallbackProxy": {
+      "host": "dyn-185-104-186-157-ca69-2328ff.fourqt.com",
+      "port": 443,
+      "scheme": "https"
+    },
+    "name": "SetupCrackByDM-比利时",
+    "profileType": "FixedProfile",
+    "revision": "348c5d2e-347b-4013-9cf3-c7e2bf5b7f34"
+  },
+  "+SetupCrackByDM-法国": {
+    "auth": {
+      "fallbackProxy": {
+        "password": "yTQvTrDaZKuvM/t6d3YSTLZ/r8kpSrV63ObbD5IQHOo=",
+        "username": ".sv@2304255;cn."
+      }
+    },
+    "bypassList": [
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "127.0.0.1"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "10.*"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "192.168.*"
+      }
+    ],
+    "color": "#d63",
+    "fallbackProxy": {
+      "host": "dyn-199-247-10-68-6940-2328ff.fourqt.com",
+      "port": 443,
+      "scheme": "https"
+    },
+    "name": "SetupCrackByDM-法国",
+    "profileType": "FixedProfile",
+    "revision": "3748cb0b-80eb-4eb1-a224-b773f71eda55"
+  },
+  "+SetupCrackByDM-波兰": {
+    "auth": {
+      "fallbackProxy": {
+        "password": "yTQvTrDaZKuvM/t6d3YSTLZ/r8kpSrV63ObbD5IQHOo=",
+        "username": ".sv@2304255;cn."
+      }
+    },
+    "bypassList": [
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "127.0.0.1"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "10.*"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "192.168.*"
+      }
+    ],
+    "color": "#d63",
+    "fallbackProxy": {
+      "host": "dyn-51-68-142-140-7eaf-2328ff.fourqt.com",
+      "port": 443,
+      "scheme": "https"
+    },
+    "name": "SetupCrackByDM-波兰",
+    "profileType": "FixedProfile",
+    "revision": "f9452cb0-25bc-466b-8404-a0f2d1875ffe"
+  },
+  "+SetupCrackByDM-澳大利亚": {
+    "auth": {
+      "fallbackProxy": {
+        "password": "yTQvTrDaZKuvM/t6d3YSTLZ/r8kpSrV63ObbD5IQHOo=",
+        "username": ".sv@2304255;cn."
+      }
+    },
+    "bypassList": [
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "127.0.0.1"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "10.*"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "192.168.*"
+      }
+    ],
+    "color": "#d63",
+    "fallbackProxy": {
+      "host": "dyn-149-28-186-228-733d-2328ff.fourqt.com",
+      "port": 443,
+      "scheme": "https"
+    },
+    "name": "SetupCrackByDM-澳大利亚",
+    "profileType": "FixedProfile",
+    "revision": "1f5c660f-8483-4a62-8da5-fe0687b305ab"
+  },
+  "+SetupCrackByDM-瑞典": {
+    "auth": {
+      "fallbackProxy": {
+        "password": "yTQvTrDaZKuvM/t6d3YSTLZ/r8kpSrV63ObbD5IQHOo=",
+        "username": ".sv@2304255;cn."
+      }
+    },
+    "bypassList": [
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "127.0.0.1"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "10.*"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "192.168.*"
+      }
+    ],
+    "color": "#d63",
+    "fallbackProxy": {
+      "host": "dyn-185-186-78-19-8438-2328ff.fourqt.com",
+      "port": 443,
+      "scheme": "https"
+    },
+    "name": "SetupCrackByDM-瑞典",
+    "profileType": "FixedProfile",
+    "revision": "b955caae-8830-4a4c-99b2-346b363b7b22"
+  },
+  "+SetupCrackByDM-瑞士": {
+    "auth": {
+      "fallbackProxy": {
+        "password": "yTQvTrDaZKuvM/t6d3YSTLZ/r8kpSrV63ObbD5IQHOo=",
+        "username": ".sv@2304255;cn."
+      }
+    },
+    "bypassList": [
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "127.0.0.1"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "10.*"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "192.168.*"
+      }
+    ],
+    "color": "#d63",
+    "fallbackProxy": {
+      "host": "dyn-176-10-116-129-aa65-2328ff.fourqt.com",
+      "port": 443,
+      "scheme": "https"
+    },
+    "name": "SetupCrackByDM-瑞士",
+    "profileType": "FixedProfile",
+    "revision": "44bec868-c5f7-45cb-98a8-9d76b8136e06"
+  },
+  "+SetupCrackByDM-立陶宛": {
+    "auth": {
+      "fallbackProxy": {
+        "password": "yTQvTrDaZKuvM/t6d3YSTLZ/r8kpSrV63ObbD5IQHOo=",
+        "username": ".sv@2304255;cn."
+      }
+    },
+    "bypassList": [
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "127.0.0.1"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "10.*"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "192.168.*"
+      }
+    ],
+    "color": "#d63",
+    "fallbackProxy": {
+      "host": "dyn-80-209-233-95-c334-2328ff.fourqt.com",
+      "port": 443,
+      "scheme": "https"
+    },
+    "name": "SetupCrackByDM-立陶宛",
+    "profileType": "FixedProfile",
+    "revision": "3528f7a9-4ad1-412f-b20b-0ca844d3b972"
+  },
+  "+SetupCrackByDM-罗马尼亚": {
+    "auth": {
+      "fallbackProxy": {
+        "password": "yTQvTrDaZKuvM/t6d3YSTLZ/r8kpSrV63ObbD5IQHOo=",
+        "username": ".sv@2304255;cn."
+      }
+    },
+    "bypassList": [
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "127.0.0.1"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "10.*"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "192.168.*"
+      }
+    ],
+    "color": "#d63",
+    "fallbackProxy": {
+      "host": "dyn-193-176-85-181-23f5-2328ff.fourqt.com",
+      "port": 443,
+      "scheme": "https"
+    },
+    "name": "SetupCrackByDM-罗马尼亚",
+    "profileType": "FixedProfile",
+    "revision": "91b9aae0-3b79-4303-82db-a50fa4c42bad"
+  },
+  "+SetupCrackByDM-美国": {
+    "auth": {
+      "fallbackProxy": {
+        "password": "yTQvTrDaZKuvM/t6d3YSTLZ/r8kpSrV63ObbD5IQHOo=",
+        "username": ".sv@2304255;cn."
+      }
+    },
+    "bypassList": [
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "127.0.0.1"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "10.*"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "192.168.*"
+      }
+    ],
+    "color": "#d63",
+    "fallbackProxy": {
+      "host": "dyn-165-227-99-248-425d-2328ff.fourqt.com",
+      "port": 443,
+      "scheme": "https"
+    },
+    "name": "SetupCrackByDM-美国",
+    "profileType": "FixedProfile",
+    "revision": "98789536-81fb-42ac-85a7-cd75236ae922"
+  },
+  "+SetupCrackByDM-芬兰": {
+    "auth": {
+      "fallbackProxy": {
+        "password": "yTQvTrDaZKuvM/t6d3YSTLZ/r8kpSrV63ObbD5IQHOo=",
+        "username": ".sv@2304255;cn."
+      }
+    },
+    "bypassList": [
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "127.0.0.1"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "10.*"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "192.168.*"
+      }
+    ],
+    "color": "#d63",
+    "fallbackProxy": {
+      "host": "dyn-94-237-8-239-1a3e-2328ff.fourqt.com",
+      "port": 443,
+      "scheme": "https"
+    },
+    "name": "SetupCrackByDM-芬兰",
+    "profileType": "FixedProfile",
+    "revision": "3d267cbd-51a1-4975-8f04-198dd8df0834"
+  },
+  "+SetupCrackByDM-英国": {
+    "auth": {
+      "fallbackProxy": {
+        "password": "yTQvTrDaZKuvM/t6d3YSTLZ/r8kpSrV63ObbD5IQHOo=",
+        "username": ".sv@2304255;cn."
+      }
+    },
+    "bypassList": [
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "127.0.0.1"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "10.*"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "192.168.*"
+      }
+    ],
+    "color": "#d63",
+    "fallbackProxy": {
+      "host": "dyn-51-89-139-83-679f-2328ff.fourqt.com",
+      "port": 443,
+      "scheme": "https"
+    },
+    "name": "SetupCrackByDM-英国",
+    "profileType": "FixedProfile",
+    "revision": "1cebccdc-4fe6-4d72-9852-32eaa70bbb2d"
+  },
+  "+SetupCrackByDM-荷兰": {
+    "auth": {
+      "fallbackProxy": {
+        "password": "yTQvTrDaZKuvM/t6d3YSTLZ/r8kpSrV63ObbD5IQHOo=",
+        "username": ".sv@2304255;cn."
+      }
+    },
+    "bypassList": [
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "127.0.0.1"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "10.*"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "192.168.*"
+      }
+    ],
+    "color": "#d63",
+    "fallbackProxy": {
+      "host": "dyn-178-62-222-175-381f-2328ff.fourqt.com",
+      "port": 443,
+      "scheme": "https"
+    },
+    "name": "SetupCrackByDM-荷兰",
+    "profileType": "FixedProfile",
+    "revision": "9714e208-ae07-4845-bfb2-1132f91fb052"
+  },
+  "+SetupCrackByDM-西班牙": {
+    "auth": {
+      "fallbackProxy": {
+        "password": "yTQvTrDaZKuvM/t6d3YSTLZ/r8kpSrV63ObbD5IQHOo=",
+        "username": ".sv@2304255;cn."
+      }
+    },
+    "bypassList": [
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "127.0.0.1"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "10.*"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "192.168.*"
+      }
+    ],
+    "color": "#d63",
+    "fallbackProxy": {
+      "host": "dyn-37-143-130-126-a96b-2328ff.fourqt.com",
+      "port": 443,
+      "scheme": "https"
+    },
+    "name": "SetupCrackByDM-西班牙",
+    "profileType": "FixedProfile",
+    "revision": "14f483c9-ad4f-42af-aba4-eb1740479c57"
+  },
+  "+SetupCrackByDM-阿拉伯联合酋长国": {
+    "auth": {
+      "fallbackProxy": {
+        "password": "yTQvTrDaZKuvM/t6d3YSTLZ/r8kpSrV63ObbD5IQHOo=",
+        "username": ".sv@2304255;cn."
+      }
+    },
+    "bypassList": [
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "127.0.0.1"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "10.*"
+      },
+      {
+        "conditionType": "BypassCondition",
+        "pattern": "192.168.*"
+      }
+    ],
+    "color": "#d63",
+    "fallbackProxy": {
+      "host": "dyn-45-9-249-221-9217-2328ff.fourqt.com",
+      "port": 443,
+      "scheme": "https"
+    },
+    "name": "SetupCrackByDM-阿拉伯联合酋长国",
+    "profileType": "FixedProfile",
+    "revision": "9d38e4c3-a0b0-4d0f-8976-8d47db749f6f"
+  },
+  "+__ruleListOf_auto switch": {
+    "color": "#99dd99",
+    "defaultProfileName": "direct",
+    "format": "AutoProxy",
+    "lastUpdate": "2019-07-18T06:14:34.778Z",
+    "matchProfileName": "SetupCrackByDM-中国香港特别行政区",
+    "name": "__ruleListOf_auto switch",
+    "profileType": "RuleListProfile",
+    "revision": "16b53e71dfb",
+    "ruleList": "\n",
+    "sourceUrl": "https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt"
+  },
+  "+auto switch": {
+    "color": "#99dd99",
+    "defaultProfileName": "__ruleListOf_auto switch",
+    "name": "auto switch",
+    "profileType": "SwitchProfile",
+    "revision": "16c03b78f75",
+    "rules": []
+  },
+  "-addConditionsToBottom": false,
+  "-confirmDeletion": true,
+  "-downloadInterval": 1440,
+  "-enableQuickSwitch": false,
+  "-monitorWebRequests": true,
+  "-quickSwitchProfiles": [],
+  "-refreshOnProfileChange": true,
+  "-revertProxyChanges": true,
+  "-showConditionTypes": 0,
+  "-showExternalProfile": true,
+  "-showInspectMenu": true,
+  "-startupProfileName": "auto switch",
+  "schemaVersion": 2
+}
