@@ -1692,7 +1692,150 @@ Alibaba Druid
 
 
 
-##### Spring 的婴
+##### Spring 的应用程序上下文
+
+
+
+##### Spring 的应用程序上下文
+
+###### 关于上下文常用的接口
+
+* BeanFactory
+  * DefaultListableBeanFactory
+* ApplicationContext
+  * ClassPathXmlApplicationContext
+  * FileSystemXmlApplicationContext
+  * AnnotationConfigApplicationContext
+* WebApplicationContext
+
+##### Web 上下文层次
+
+
+
+### Spring MVC 中的各种机制
+
+
+
+
+
+#### Sprng  MVC 的请求处理流程
+
+
+
+##### 一个请求的大致处理流程
+
+###### 绑定一些 Attribute
+
+* WebApplicationContext / LocalResolver / ThemeResolver
+
+###### 处理 Multipart
+
+* 如果是，则将请求转为 MultipartHttpServletRequest
+
+###### Handler 处理
+
+* 如果找到对应 Handler ，执行 Controller 及前后置处理器逻辑
+
+###### 处理返回的 Model，呈现视图
+
+
+
+### 如何定义处理方法
+
+##### 定义映射关系
+
+###### @Controller
+
+@RequestMapping
+
+* path / method 指定映射路径与方法
+* params / headers 限定映射范围
+* consumes / produces 限定请求与响应格式
+
+###### 一些快捷方式
+
+* @RestController
+* @GetMapping / @PostMapping /  @PutMapping  /  @DeleteMapping / @PatchMapping
+
+
+
+
+
+
+
+#### 定义处理方法
+
+* @RequestBody  / @ResponsBody  /  @ResponseStatus
+* @PathVariable  /   @RequestParam  /  @RequestHeader
+* HttpEntity  /  ResponseEntity
+
+##### 详细参数
+
+* https://docs.spring.io/spring/docs/5.1.5.RELEASE/spring-framework-reference/web.html#mvc-ann-arguments
+
+##### 详细返回
+
+* https://docs.spring.io/spring/docs/5.1.5.RELEASE/spring-framework-reference/web.html#mvc-ann-return-types
+
+
+
+#### 方法示例
+
+
+
+
+
+#### 方法示例
+
+
+
+
+
+
+
+#### 方法示例
+
+
+
+
+
+#### 定义类型转换
+
+##### 自己实现 WebMvcConfigurer
+
+* Spring Boot 在 WebMvcAutoConfiguratoin 中实现一个
+* 添加自己定义的 Converter
+* 添加自定义的 Formatter
+
+
+
+##### 定义效验
+
+* 通过 Validator 对绑定结果进行效验
+  * Hibernate  Validator
+* @Valid 注解
+* BindingResult
+
+
+
+#### Multipart 上传
+
+* 配置 MultipartResolver
+  * Spring  Boot 自动配置 MultipartAutoConfiguration
+* 支持类型 multipart / form-data
+* MultipartFile 类型
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
