@@ -1827,13 +1827,120 @@ Alibaba Druid
 
 
 
+### Spring  MVC 中的各种机制
+
+#### 视图解析的实现基础
+
+##### ViewResolver 与 View 接口
+
+* AbstractCachingViewResolver
+* UrlBaseedViewResolver
+* FreeMarkerViewResolver
+* ContentNegotiatingViewResolver
+* InternalResourceViewResolver
+
+
+
+##### DispatcherServlet 中的视图解析逻辑
+
+* initStrategies()
+  * initViewResolvers() 初始化了对应 ViewResolver
+* doDispatch()
+  * processDispatchResult()
+    * 没有返回视图的话，尝试 RequestToViewNameTranslator
+    * resolveViewName() 解析 View 对象
+
+
+
+###### 使用 @ResponseBody 的情况
+
+* 在 HandlerAdapter.handle() 中完成了Response 输出
+  * RequestMappingHandlerAdapter.invokeHandlerMethod()
+    * HandlerMethodReturnValueHandlerComposite.handleReturnValue()
+      * RequestResponseBodyMethodPrecessor.handleReturnValue()
 
 
 
 
 
+#### 重定向
+
+##### 两种不同的重定向前缀
+
+* redirect：
+* forward：
 
 
+
+### Spring MVC 支持的视图
+
+#### 支持的视图列表
+
+* https://docs.spring.io/spring/docs/5.1.5.RELEASE/spring-framework-reference/web.html#mvc-view
+* Jackson-based    JSON / XML
+* Thymeleaf  &  FreeMarker
+
+##### 配置 MessageConverter
+
+* 通过 WebMvcConfigurer 的 configureMessageCoverters()
+  * Spring Boot 自动查找 HttpMessageConverters 进行注册
+
+```java
+public class WebConfiguration implements WebMvcConfigurer {
+  @Override
+  public void configureMessageConverters(List<HttpMessageConverter<?>> converters){
+    Jackson2ObjecctMapperBuilder builder = new Jackson2ObjectMapperBuilder()
+      .indentOutput(true)
+      .dateFormat(new SimpleDateFormat("yyyy-MM-dd"))
+      .modulesToInstall(new ParameterNamesModule());
+    converters.add(new MappingJackson2HttpMessageConverter(builder.build()));
+    converters.add(new MappingJackson2XmlHttpMessageConverter(builder.createXmlMapper(true).build()));
+  }
+}
+```
+
+
+
+##### Spring Boot 对 Jackson 的支持
+
+* JacksonAutoConfiguration
+  * Spring Boot 通过 @JsonComponent 注册 JSON 序列化组件
+  * Jackson2ObjectMapperBuilderCustomizer
+* JacksonHttpMessageConvertersConfiguration
+  * 增加 Jackson-dataformat-xml 以支持 XML 序列化
+
+
+
+“Thymeleaf is a modern server-side java template engine for both web and standalone environment.”
+
+—— https://www.thymeleaf.org/
+
+
+
+### 使用 Thymeleaf
+
+#### 添加 Thymeleaf 依赖
+
+* org.springframework.boot:spring-boot-starter-thymelear
+
+#### Spring Boot 的自动配置
+
+* ThymeleafAutoConfiguration
+  * ThymeleafViewResolver
+
+
+
+#### Thymeleaf 的一些默认配置
+
+* spring.thymeleaf.cache=true
+* spring.thymeleaf.check-template=true
+* spring.thymeleaf.check-template-location=true
+* spring.thymeleaf.enabled=true
+* spring.thymeleaf.encoding=UTF-8
+* spring.thymeleaf.mode=HTML
+* spring.thymeleaf.servlet.content-type=text/html
+* spring.thymeleaf.prefix=classpath:/templates/
+* spring.thymeleaf.suffix=html
 
 
 
