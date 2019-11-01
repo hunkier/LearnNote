@@ -1,0 +1,35 @@
+{
+  "+auto switch": {
+    "color": "#99dd99",
+    "defaultProfileName": "__ruleListOf_auto switch",
+    "name": "auto switch",
+    "profileType": "SwitchProfile",
+    "rules": [],
+    "revision": "16937f2184a"
+  },
+  "-addConditionsToBottom": false,
+  "-confirmDeletion": true,
+  "-downloadInterval": 1440,
+  "-enableQuickSwitch": false,
+  "-monitorWebRequests": true,
+  "-quickSwitchProfiles": [],
+  "-refreshOnProfileChange": true,
+  "-revertProxyChanges": true,
+  "-showExternalProfile": true,
+  "-showInspectMenu": true,
+  "-startupProfileName": "auto switch",
+  "schemaVersion": 2,
+  "-showConditionTypes": 0,
+  "+__ruleListOf_auto switch": {
+    "name": "__ruleListOf_auto switch",
+    "defaultProfileName": "direct",
+    "profileType": "RuleListProfile",
+    "color": "#99dd99",
+    "format": "AutoProxy",
+    "matchProfileName": "中国香港特别行政区",
+    "ruleList": "",
+    "revision": "16b53e71dfb",
+    "sourceUrl": "https://www.ssrtool.com/static/pac.txt",
+    "lastUpdate": "2019-07-14T19:40:46.794Z"
+  }
+}

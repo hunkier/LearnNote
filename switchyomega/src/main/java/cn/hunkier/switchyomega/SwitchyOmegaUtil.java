@@ -53,12 +53,14 @@ public class SwitchyOmegaUtil {
     public static void main(String[] args) throws Exception {
 
 
-        final JSONObject base_JsonObject = getSwitchyOmegaConfigure(null);
-
+/*
+    final JSONObject base_JsonObject = getSwitchyOmegaConfigure(null);
 //        System.out.println(base_JsonObject.toJSONString());
         final File file = new File("target/backup.json");
 //        System.out.println(file.getAbsolutePath());
         FileUtil.writeString(base_JsonObject.toJSONString(), file, HTTP.UTF_8);
+*/
+
 
 /*
 
@@ -67,8 +69,7 @@ public class SwitchyOmegaUtil {
         FileUtil.writeString(getServerInfo(), file, HTTP.UTF_8);
 */
 
-//        final String gfwlist = sendPost("https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt", null);
-//        System.out.println(gfwlist);
+
     }
 
 
@@ -86,10 +87,12 @@ public class SwitchyOmegaUtil {
 
         // System.out.println("username:" + jsonObject.getString("s_login"));
         // System.out.println("password:" + jsonObject.getString("s_token"));
-
-//        String baseJson = "{\"+auto switch\":{\"color\":\"#99dd99\",\"defaultProfileName\":\"direct\",\"name\":\"auto switch\",\"profileType\":\"SwitchProfile\",\"rules\":[{\"condition\":{\"conditionType\":\"HostWildcardCondition\",\"pattern\":\"internal.example.com\"},\"profileName\":\"direct\"}],\"revision\":\"16937f2184a\"},\"-addConditionsToBottom\":false,\"-confirmDeletion\":true,\"-downloadInterval\":1440,\"-enableQuickSwitch\":false,\"-monitorWebRequests\":true,\"-quickSwitchProfiles\":[],\"-refreshOnProfileChange\":true,\"-revertProxyChanges\":true,\"-showExternalProfile\":true,\"-showInspectMenu\":true,\"-startupProfileName\":\"\",\"schemaVersion\":2,\"-showConditionTypes\":0}";
-//        String baseJson = "{\"+auto switch\":{\"color\":\"#99dd99\",\"defaultProfileName\":\"__ruleListOf_auto switch\",\"name\":\"auto switch\",\"profileType\":\"SwitchProfile\",\"rules\":[],\"revision\":\"16937f2184a\"},\"-addConditionsToBottom\":false,\"-confirmDeletion\":true,\"-downloadInterval\":1440,\"-enableQuickSwitch\":false,\"-monitorWebRequests\":true,\"-quickSwitchProfiles\":[],\"-refreshOnProfileChange\":true,\"-revertProxyChanges\":true,\"-showExternalProfile\":true,\"-showInspectMenu\":true,\"-startupProfileName\":\"auto switch\",\"schemaVersion\":2,\"-showConditionTypes\":0,\"+__ruleListOf_auto switch\":{\"name\":\"__ruleListOf_auto switch\",\"defaultProfileName\":\"direct\",\"profileType\":\"RuleListProfile\",\"color\":\"#99dd99\",\"format\":\"AutoProxy\",\"matchProfileName\":\"SetupCrackByDM-美国\",\"ruleList\":\"\", \"revision\":\"16b53e71dfb\",\"sourceUrl\":\"https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt\",\"lastUpdate\":\"2019-07-14T19:40:46.794Z\"}}";
-        String baseJson = "{\"+auto switch\":{\"color\":\"#99dd99\",\"defaultProfileName\":\"__ruleListOf_auto switch\",\"name\":\"auto switch\",\"profileType\":\"SwitchProfile\",\"rules\":[],\"revision\":\"16937f2184a\"},\"-addConditionsToBottom\":false,\"-confirmDeletion\":true,\"-downloadInterval\":1440,\"-enableQuickSwitch\":false,\"-monitorWebRequests\":true,\"-quickSwitchProfiles\":[],\"-refreshOnProfileChange\":true,\"-revertProxyChanges\":true,\"-showExternalProfile\":true,\"-showInspectMenu\":true,\"-startupProfileName\":\"auto switch\",\"schemaVersion\":2,\"-showConditionTypes\":0,\"+__ruleListOf_auto switch\":{\"name\":\"__ruleListOf_auto switch\",\"defaultProfileName\":\"direct\",\"profileType\":\"RuleListProfile\",\"color\":\"#99dd99\",\"format\":\"AutoProxy\",\"matchProfileName\":\"中国香港特别行政区\",\"ruleList\":\"\", \"revision\":\"16b53e71dfb\",\"sourceUrl\":\"https://www.ssrtool.com/static/pac.txt\",\"lastUpdate\":\"2019-07-14T19:40:46.794Z\"}}";
+        String baseJson = null;
+        try {
+            baseJson = FileUtil.readString(ResourceUtils.getURL("classpath:base.json"),"UTF-8");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         JSONObject base_JsonObject = JSONObject.parseObject(baseJson);
 
         List<String> matchProfileNames = new ArrayList<>();
@@ -151,7 +154,6 @@ public class SwitchyOmegaUtil {
 
         final JSONObject autoSwitchRule = base_JsonObject.getJSONObject("+__ruleListOf_auto switch");
         String matchProfileName = matchProfileNames.get(0);
-        System.out.println(JSON.toJSONString(matchProfileNames));
         autoSwitchRule.put("matchProfileName",matchProfileName);
         if (null==ruleList) {
             try {
