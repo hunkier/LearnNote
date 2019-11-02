@@ -157,7 +157,7 @@ public class SwitchyOmegaUtil {
         autoSwitchRule.put("matchProfileName",matchProfileName);
         if (null==ruleList) {
             try {
-                final URL url = ResourceUtils.getURL("classpath:gfwlist.txt");
+                final URL url = ResourceUtils.getURL("classpath:pac.txt");
                 ruleList = FileUtil.readString(url,"UTF-8");
                 log.info(url.getPath());
 //                log.info(ruleList);

@@ -1,15 +1,20 @@
 package cn.hunkier.switchyomega.controller;
 
 import cn.hunkier.switchyomega.SwitchyOmegaUtil;
+import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.joda.time.DateTime;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.FileNotFoundException;
+import java.net.URL;
+
 @Slf4j
 @RestController
 public class IndexController {
@@ -40,5 +45,11 @@ public class IndexController {
     public Object proxy(@RequestParam(required = false)String country){
         String result =  SwitchyOmegaUtil.getProxyConfigure(country);
         return  result;
+    }
+    @GetMapping("/pac.txt")
+    public Object pac() throws FileNotFoundException {
+        final URL url = ResourceUtils.getURL("classpath:pac.txt");
+       String  ruleList = FileUtil.readString(url,"UTF-8");
+        return  ruleList;
     }
 }

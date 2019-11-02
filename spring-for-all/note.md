@@ -1946,6 +1946,32 @@ public class WebConfiguration implements WebMvcConfigurer {
 
 
 
+### 静态资源与缓存
+
+#### Spring Boot 中的静态资源配置
+
+##### 核心逻辑
+
+* WebMvcConfigurer.addResourceHandlers()
+
+##### 常用配置
+
+* spring.mvc.static-path-pattern=/**
+* Spring.resources.static-locations=classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
+
+#### Spring Boot 中的缓存配置
+
+##### 常用配置 （默认时间单位都是秒）
+
+* ResourceProperties.Cache
+* spring.resources.cache.cachecontrol.max-age=时间
+* spring.resources.cache.cachecontrol.no-cache=true/false
+* spring.resources.cache.cachecontrol.s-max-age=时间
+
+
+
+
+
 
 
 
