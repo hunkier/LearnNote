@@ -1921,7 +1921,7 @@ public class WebConfiguration implements WebMvcConfigurer {
 
 #### 添加 Thymeleaf 依赖
 
-* org.springframework.boot:spring-boot-starter-thymelear
+* org.springframework.boot:spring-boot-starter-thymeleaf
 
 #### Spring Boot 的自动配置
 
