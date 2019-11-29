@@ -96,6 +96,7 @@ public class SwitchyOmegaUtil {
         JSONObject base_JsonObject = JSONObject.parseObject(baseJson);
 
         List<String> matchProfileNames = new ArrayList<>();
+        String matchProfileName = null;
         for (Map.Entry<String, String> string : retMap.entrySet()) {
             String serverProfileName = string.getValue().toString().split("#")[1];
             String serverType = string.getValue().toString().split("#")[2];
@@ -104,6 +105,7 @@ public class SwitchyOmegaUtil {
             if (StrUtil.isNotBlank(country) && !StrUtil.containsAny(serverProfileName,country)){
                 continue;
             }
+
             JSONObject serverProfileName_JSON = new JSONObject();
             {
 
@@ -150,10 +152,13 @@ public class SwitchyOmegaUtil {
 
             serverProfileName_JSON.put("name",serverProfileName);
             base_JsonObject.put("+" + serverProfileName, serverProfileName_JSON);
+            if (null == matchProfileName){
+                matchProfileName = serverProfileName;
+            }
         }
 
         final JSONObject autoSwitchRule = base_JsonObject.getJSONObject("+__ruleListOf_auto switch");
-        String matchProfileName = matchProfileNames.get(0);
+
         autoSwitchRule.put("matchProfileName",matchProfileName);
         if (null==ruleList) {
             try {
