@@ -26,8 +26,8 @@ public class IndexController {
         String basePath = request.getScheme() + "://"+ request.getServerName() + ":" + request.getServerPort()+ path + "/";
         return "hello ! This is a SwitchyOmega configure server!\n </br> " +
                 "Use: "+basePath+"switchyOmega.json?c=中国  use for chrome/firefox plugin SwitchyOmega https://github.com/FelisCatus/SwitchyOmega/releases \n </br> " +
-                "Use: "+basePath+"server.json   use for linux terminal\n </br> " +
-                "Use: "+basePath+"proxy.json  use for ios shadowrocket \n </br> ";
+                "Use: "+basePath+"server.json   use for ios shadowrocket \n </br> " +
+                "Use: "+basePath+"proxy.json  use for linux terminal \n </br> ";
 
     }
 
