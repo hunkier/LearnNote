@@ -1,9 +1,11 @@
 /*
- * Copyright (C) 2019 SSRTOOL.COM
+ * Copyright (C) 2019 SSRTOOL
+ * Website: https://ssrtool.us
  * Website: https://www.ssrtool.com   https://www.ssrtool.com/static/pac.txt
  * Website: https://www.ssrtool.com/static/pac.txt
  * Website: https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt
-* Last Updated: 2019-11-29 00:00:02
+ * Update Link: https://ssrtool.us/static/pac.txt
+ * Last Updated: 2019-12-12 00:00:01
  */
 var direct = "__DIRECT__";
 if (direct == "__DIR" + "ECT__") direct = "DIRECT;";

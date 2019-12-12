@@ -66,7 +66,7 @@ public class SwitchyOmegaUtil {
 
         final File file = new File("target/backup.json");
         System.out.println(file.getAbsolutePath());
-        FileUtil.writeString(getServerInfo(), file, HTTP.UTF_8);
+        FileUtil.writeString(getServerInfo(update), file, HTTP.UTF_8);
 */
 
 
@@ -77,9 +77,9 @@ public class SwitchyOmegaUtil {
 
 
 
-    public static JSONObject getSwitchyOmegaConfigure(String country){
+    public static JSONObject getSwitchyOmegaConfigure(String country, String update){
         Map<String,Integer> servers = new HashMap<>();
-        String json = getServerInfo();
+        String json = getServerInfo(update);
 //        System.out.println(json);
         JSONObject jsonObject = JSON.parseObject(json);
 //        JSONObject json_data = JSON.parseObject(jsonObject.getString("data"));
@@ -193,8 +193,8 @@ public class SwitchyOmegaUtil {
         return  serverProfileName;
     }
 
-    public static String getServerConfigure(String country){
-        final String json = getServerInfo();
+    public static String getServerConfigure(String country, String update){
+        final String json = getServerInfo(update);
         final JSONObject jsonObject = JSON.parseObject(json);
         final Map<String, String> serverMapInfo = getServerMapInfo(jsonObject);
         final String login = jsonObject.getString("s_login");
@@ -234,8 +234,8 @@ public class SwitchyOmegaUtil {
         return result.toString();
     }
 
-    public static String getProxyConfigure(String country){
-        final String json = getServerInfo();
+    public static String getProxyConfigure(String country, String update){
+        final String json = getServerInfo(update);
         final JSONObject jsonObject = JSON.parseObject(json);
         final Map<String, String> serverMapInfo = getServerMapInfo(jsonObject);
         final String login = jsonObject.getString("s_login");
@@ -296,8 +296,8 @@ public class SwitchyOmegaUtil {
         return retMap;
     }
 
-    private static String getServerInfo(){
-        if (StrUtil.isNotBlank(result) && lastTime.plusSeconds(60*10).isAfterNow()) {
+    private static String getServerInfo(String update){
+        if (StrUtil.isNotBlank(result) && lastTime.plusSeconds(60*10).isAfterNow() && StrUtil.isBlank(update)) {
             log.info("read data from cache, last update time: " + lastTime.toString("yyyy-MM-dd HH:mm:ss"));
             return  result;
         }

@@ -25,25 +25,34 @@ public class IndexController {
         String path = request.getContextPath();
         String basePath = request.getScheme() + "://"+ request.getServerName() + ":" + request.getServerPort()+ path + "/";
         return "hello ! This is a SwitchyOmega configure server!\n </br> " +
-                "Use: "+basePath+"switchyOmega.json  \n </br> " +
-                "Use: "+basePath+"server.json  \n </br> " +
-                "Use: "+basePath+"proxy.json  \n </br> ";
+                "Use: "+basePath+"switchyOmega.json?c=中国  use for chrome/firefox plugin SwitchyOmega https://github.com/FelisCatus/SwitchyOmega/releases \n </br> " +
+                "Use: "+basePath+"server.json   use for linux terminal\n </br> " +
+                "Use: "+basePath+"proxy.json  use for ios shadowrocket \n </br> ";
 
     }
 
     @GetMapping("/switchyOmega.json")
-    public Object switchyOmega(@RequestParam(required = false)String country){
-        final JSONObject jsonConfigure = SwitchyOmegaUtil.getSwitchyOmegaConfigure(country);
+    public Object switchyOmega(
+            @RequestParam(name = "c",required = false)String country
+            ,@RequestParam(name = "u",required = false)String update
+    ){
+        final JSONObject jsonConfigure = SwitchyOmegaUtil.getSwitchyOmegaConfigure(country,update);
         return  jsonConfigure;
     }
     @GetMapping("/server.json")
-    public Object server(@RequestParam(required = false)String country){
-        String serverConfigure = SwitchyOmegaUtil.getServerConfigure(country);
+    public Object server(
+            @RequestParam(name = "c",required = false)String country
+            ,@RequestParam(name = "u",required = false)String update
+    ){
+        String serverConfigure = SwitchyOmegaUtil.getServerConfigure(country,update);
         return  serverConfigure;
     }
     @GetMapping("/proxy.json")
-    public Object proxy(@RequestParam(required = false)String country){
-        String result =  SwitchyOmegaUtil.getProxyConfigure(country);
+    public Object proxy(
+            @RequestParam(name = "c",required = false)String country
+            ,@RequestParam(name = "u",required = false)String update
+    ){
+        String result =  SwitchyOmegaUtil.getProxyConfigure(country,update);
         return  result;
     }
     @GetMapping("/pac.txt")
