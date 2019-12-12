@@ -95,13 +95,12 @@ public class SwitchyOmegaUtil {
         }
         JSONObject base_JsonObject = JSONObject.parseObject(baseJson);
 
-        List<String> matchProfileNames = new ArrayList<>();
         String matchProfileName = null;
         for (Map.Entry<String, String> string : retMap.entrySet()) {
             String serverProfileName = string.getValue().toString().split("#")[1];
             String serverType = string.getValue().toString().split("#")[2];
             serverProfileName += ("-"+serverType);
-            serverProfileName = getServerProfileName(serverProfileName, servers, matchProfileNames);
+            serverProfileName = getServerProfileName(serverProfileName, servers);
             if (StrUtil.isNotBlank(country) && !StrUtil.containsAny(serverProfileName,country)){
                 continue;
             }
@@ -175,7 +174,7 @@ public class SwitchyOmegaUtil {
         return  base_JsonObject;
     }
 
-    private static String getServerProfileName(String serverProfileName, Map<String,Integer> servers, List<String> matchProfileNames){
+    private static String getServerProfileName(String serverProfileName, Map<String,Integer> servers){
         Integer count = servers.get(serverProfileName);
         if (null==count){
             count = 1 ;
@@ -187,9 +186,6 @@ public class SwitchyOmegaUtil {
 
             serverProfileName += ("-"+count);
         }
-        if (StrUtil.containsAny(serverProfileName,"特别行政区")){
-            matchProfileNames.add(serverProfileName);
-        }
         return  serverProfileName;
     }
 
@@ -200,7 +196,6 @@ public class SwitchyOmegaUtil {
         final String login = jsonObject.getString("s_login");
         final String token = jsonObject.getString("s_token");
         final Map<String,Integer> servers = new HashMap<>();
-        final List<String> matchProfileNames = new ArrayList<>();
         final StringBuilder result = new StringBuilder();
         for (Map.Entry<String, String> string : serverMapInfo.entrySet()) {
             final String host = string.getKey();
@@ -208,7 +203,7 @@ public class SwitchyOmegaUtil {
             String serverProfileName = string.getValue().toString().split("#")[1];
             String serverType = string.getValue().toString().split("#")[2];
             serverProfileName += ("-"+serverType);
-            serverProfileName = getServerProfileName(serverProfileName, servers, matchProfileNames);
+            serverProfileName = getServerProfileName(serverProfileName, servers);
             if (StrUtil.isNotBlank(country) && !StrUtil.containsAny(serverProfileName,country)){
                 continue;
             }
@@ -229,6 +224,8 @@ public class SwitchyOmegaUtil {
             .append("\r")
             .append("\n")
             .append("\r\n")
+            .append("\r\n")
+//            .append("</br>")
                     ;
         }
         return result.toString();
@@ -241,7 +238,6 @@ public class SwitchyOmegaUtil {
         final String login = jsonObject.getString("s_login");
         final String token = jsonObject.getString("s_token");
         final Map<String,Integer> servers = new HashMap<>();
-        final List<String> matchProfileNames = new ArrayList<>();
         final StringBuilder result = new StringBuilder();
         for (Map.Entry<String, String> string : serverMapInfo.entrySet()) {
             final String host = string.getKey();
@@ -249,7 +245,7 @@ public class SwitchyOmegaUtil {
             String serverProfileName = string.getValue().toString().split("#")[1];
             String serverType = string.getValue().toString().split("#")[2];
             serverProfileName += ("-"+serverType);
-            serverProfileName = getServerProfileName(serverProfileName, servers, matchProfileNames);
+            serverProfileName = getServerProfileName(serverProfileName, servers);
             if (StrUtil.isNotBlank(country) && !StrUtil.containsAny(serverProfileName,country)){
                 continue;
             }
@@ -267,9 +263,12 @@ public class SwitchyOmegaUtil {
                     .append(":")
                     .append(port)
                     .append("\r")
+                    .append("\r")
+                    .append("\n")
                     .append("\n")
                     .append("\r\n")
-                    .append("</br>")
+                    .append("\r\n")
+//                    .append("</br>")
             ;
         }
         return result.toString();

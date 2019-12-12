@@ -6,32 +6,50 @@ import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.joda.time.DateTime;
+import org.springframework.stereotype.Controller;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.FileNotFoundException;
 import java.net.URL;
 
 @Slf4j
-@RestController
+//@RestController
+@Controller
 public class IndexController {
 
 
     @GetMapping("/")
-    public String index(HttpServletRequest request){
+
+//    @ResponseBody
+    public String index(HttpServletRequest request, HttpServletResponse response)throws  Exception{
         String path = request.getContextPath();
         String basePath = request.getScheme() + "://"+ request.getServerName() + ":" + request.getServerPort()+ path + "/";
-        return "hello ! This is a SwitchyOmega configure server!\n </br> " +
-                "Use: "+basePath+"switchyOmega.json?c=中国  use for chrome/firefox plugin SwitchyOmega https://github.com/FelisCatus/SwitchyOmega/releases \n </br> " +
-                "Use: "+basePath+"server.json   use for ios shadowrocket \n </br> " +
-                "Use: "+basePath+"proxy.json  use for linux terminal \n </br> ";
+        String res =  "hello ! This is a SwitchyOmega configure server!\n " +
+//                "<br/>" +
+                "Use: "+basePath+"switchyOmega.json?c=中国  use for chrome/firefox plugin SwitchyOmega https://github.com/FelisCatus/SwitchyOmega/releases \n  " +
+//                "</br>" +
+                "Use: "+basePath+"server   use for ios shadowrocket \n  " +
+//                "</br>" +
+                "Use: "+basePath+"proxy  use for linux terminal \n  " +
+//                "</br>" +
+                "pac.txt: "+basePath+"pac.txt \n  "
+//                +"</br>"
+                ;
+
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().println(res);
+        return null;
 
     }
 
     @GetMapping("/switchyOmega.json")
+    @ResponseBody
     public Object switchyOmega(
             @RequestParam(name = "c",required = false)String country
             ,@RequestParam(name = "u",required = false)String update
@@ -39,26 +57,31 @@ public class IndexController {
         final JSONObject jsonConfigure = SwitchyOmegaUtil.getSwitchyOmegaConfigure(country,update);
         return  jsonConfigure;
     }
-    @GetMapping("/server.json")
-    public Object server(
+    @GetMapping("/server")
+    public void server(
             @RequestParam(name = "c",required = false)String country
             ,@RequestParam(name = "u",required = false)String update
-    ){
+            ,HttpServletResponse response
+    )throws  Exception{
         String serverConfigure = SwitchyOmegaUtil.getServerConfigure(country,update);
-        return  serverConfigure;
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().println(serverConfigure);
     }
-    @GetMapping("/proxy.json")
-    public Object proxy(
+    @GetMapping("/proxy")
+    public void proxy(
             @RequestParam(name = "c",required = false)String country
             ,@RequestParam(name = "u",required = false)String update
-    ){
+            ,HttpServletResponse response
+    )throws  Exception{
         String result =  SwitchyOmegaUtil.getProxyConfigure(country,update);
-        return  result;
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().println(result);
     }
     @GetMapping("/pac.txt")
-    public Object pac() throws FileNotFoundException {
+    public void pac(HttpServletResponse response) throws Exception {
         final URL url = ResourceUtils.getURL("classpath:pac.txt");
        String  ruleList = FileUtil.readString(url,"UTF-8");
-        return  ruleList;
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().println(ruleList);
     }
 }
