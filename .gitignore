@@ -17,3 +17,4 @@ old/JavaEE/javaee.iml
 .bash_history
 venv
 
+.DS_Store

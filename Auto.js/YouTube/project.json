@@ -1,0 +1,10 @@
+{
+    "name": "YouTube Upload",
+    "main": "main.js",
+    "ignore": [
+        "build"
+    ],
+    "packageName": "cn.hunkier.cn",
+    "versionName": "1.0.0",
+    "versionCode": 1
+}
