@@ -53,7 +53,7 @@ function toDetail(){
     var titles = new Array();
     id("content_recycler").findOne().children().forEach(child => { 
         var target = child.findOne(id("video_list_entry_title"));
-        if(target && target.text()){
+        if(target && target.text() && target.text().indexOf('尚硅谷_Go核心编程')!=-1){
             titles.push(target.text());
         }
     
@@ -65,7 +65,6 @@ function toDetail(){
             toast(t);
             tt.parent().parent().click();
             toEdit();
-            edit();
         }
     });
 }
@@ -94,6 +93,7 @@ function toPlayListDetail(){
 function toEdit(){
     className("android.widget.TextView").desc("编辑视频 button").waitFor();
     className("android.widget.TextView").desc("编辑视频 button").findOne().click()
+    edit();
 }
 
 function edit(){
@@ -112,6 +112,7 @@ function edit(){
     var b = id("add_to_playlist_button").findOne();
     // if(b && b.text()=='添加到播放列表'){
     if(b && b.text()=='go语言基础'){
+    // if(b && b.text()!='go语言基础'){
         b.parent().click();
         // toSDelay(1);
         id("mde_linear_list_view").waitFor();
@@ -149,14 +150,60 @@ function edit(){
    
 }
 
-initScript();
+function addToPlayList(){
+
+    var i = 1;
+    while (true){
+        log(i);
+        id("content_recycler").findOne().children().forEach(child => { 
+            var target = child.findOne(id("video_list_entry_title"));
+            if(target && target.text() && parseInt(target.text())==i){
+                var t = target.text();
+                log(t);
+                // var tt = text(t).findOnce();
+                target.parent().parent().click();
+                toEdit();
+                i++;
+            }
+        
+        });
+        id("content_recycler").findOne().scrollBackward();
+        sleep(2000);
+    }
+  
+        // toPlayListDetail();
+        // id("content_recycler").findOne().scrollForward();
+        // sleep(200);
+        
+    
+}
+
+function toBottom(){
+    while(true){
+        id("content_recycler").findOne().scrollForward();
+        sleep(200);
+    }
+}
+
+function deletePlayList(){
+    for(var i=0; i<23; i++){
+        toDetail();
+        id("content_recycler").findOne().scrollBackward();
+        id("content_recycler").findOne().scrollBackward();
+        id("content_recycler").findOne().scrollBackward();
+        sleep(200);
+        sleep(200);
+        sleep(5000);
+    }
+}
+
+// initScript();
 // toVideo();
 // edit();
+toBottom();
+// addToPlayList();
 
-for(var i=0; i<20; i++){
-    toPlayListDetail();
-    id("content_recycler").findOne().scrollForward();
-}
+
 
 
 
