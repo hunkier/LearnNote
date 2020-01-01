@@ -1,3 +1,4 @@
+toast('开始执行脚本。。。');
 
 auto.waitFor();//辅助权限授予
 auto.setMode("normal");
@@ -41,31 +42,45 @@ function toVideo(){
     toast(currentActivity());
     
     // toSDelay(3);
-    // for(var i=0; i<23; i++){
-        // toDetail();
-        // id("content_recycler").findOne().scrollForward();
-    // }
+    for(var i=0; i<23; i++){
+        toDetail();
+        id("content_recycler").findOne().scrollForward();
+    }
    
 }
 
-
+toDetail();
 function toDetail(){
     var titles = new Array();
-    id("content_recycler").findOne().children().forEach(child => { 
-        var target = child.findOne(id("video_list_entry_title"));
-        if(target && target.text() && target.text().indexOf('尚硅谷_Go核心编程')!=-1){
-            titles.push(target.text());
+    var i = 1;
+    while(true){
+        log(i);
+        id("content_recycler").findOne().children().forEach(child => { 
+            var target = child.findOne(id("video_list_entry_title"));
+            if(target && target.text() && target.text().indexOf('尚硅谷')!=-1){
+                var text = target.text();
+                if(parseInt(text)==i){
+                    titles.push(text);
+                    i++;
+                }
+                
+            }
+        
+        });
+        if(i>7){
+            break;
         }
-    
-    });
+        toSDelay(3);
+    }
+
     titles.forEach(t=>{
         log(t);
-        var tt = text(t).findOnce();
-        if(tt){
-            toast(t);
-            tt.parent().parent().click();
-            toEdit();
-        }
+        // var tt = text(t).findOnce();
+        // if(tt){
+            // toast(t);
+            // tt.parent().parent().click();
+            // toEdit();
+        // }
     });
 }
 
@@ -85,7 +100,6 @@ function toPlayListDetail(){
             toast(t);
             tt.parent().parent().click();
             toEdit();
-            // edit();
         }
     });
 }
@@ -109,19 +123,25 @@ function edit(){
     //     setText(2,'go,golang');
     // }
     id("add_to_playlist_button").waitFor();
-  
     var b = id("add_to_playlist_button").findOne();
-    var playList = 'go语言基础';
     // if(b && b.text()=='添加到播放列表'){
-    // if(b && b.text()=='go语言基础'){
-    
-    while(b && b.text()!=playList){
-        setPlayList(playList);
-        id("add_to_playlist_button").waitFor();
-        b = id("add_to_playlist_button").findOne();
+    if(b && b.text()=='go语言基础'){
+    // if(b && b.text()!='go语言基础'){
+        b.parent().click();
+        // toSDelay(1);
+        id("mde_linear_list_view").waitFor();
+        id("add_to_playlist_title").waitFor();
+        id("mde_linear_list_view").findOne().children().forEach(child => {
+            var target = child.findOne(id("add_to_playlist_title"));
+            if(target && target.text()=='go语言基础'){
+                child.click();
+            }
+            
+            });
+        // toSDelay(1);
+        desc('返回上一屏幕').click();
+        text("保存").waitFor();
     }
-
-    text("保存").waitFor();
 
     // toSDelay(1);
     
@@ -144,78 +164,25 @@ function edit(){
    
 }
 
-function setPlayList(playList){
-    var b = id("add_to_playlist_button").findOne();
-    // if(b && b.text()=='添加到播放列表'){
-    // if(b && b.text()=='go语言基础'){
-    if(b && b.text()!=playList){
-        b.parent().click();
-        // toSDelay(1);
-        id("mde_linear_list_view").waitFor();
-        id("add_to_playlist_title").waitFor();
-        var obj = undefined;
-        id("mde_linear_list_view").findOne().children().forEach(child => {
-            var target = child.findOne(id("add_to_playlist_title"));
-            if(!obj && target && target.text()=='go语言基础'){
-                obj = child;
-                
-            }
-            
-            });
-        // toSDelay(1);
-        obj.click();
-        toSDelay(1);
-        desc('返回上一屏幕').click();
-    }
-}
-
 function addToPlayList(){
 
-    var num = 75;
+    var i = 1;
     while (true){
-        log(num);
-        var item = undefined;
-        var title = '';
-        id("content_recycler").waitFor();
+        log(i);
         id("content_recycler").findOne().children().forEach(child => { 
-
             var target = child.findOne(id("video_list_entry_title"));
-            if(title =='' && target && target.text() && target.text().startsWith("0"+num) ){
-                title = target.text();
-                // log(parseInt(title));
-                log(parseInt(JSON.stringify(title)),parseInt(title),title);
+            if(target && target.text() && parseInt(target.text())==i){
+                var t = target.text();
+                log(t);
                 // var tt = text(t).findOnce();
-                // target.parent().parent().click();
-                // toEdit();
-                item = child;
-                num++;
-                
+                target.parent().parent().click();
+                toEdit();
+                i++;
             }
         
         });
-        text(title).findOne().parent().parent().click();
-        // item.click();
-        toEdit();
-        id("content_recycler").waitFor();
-        var found = false;
-        while(!found){
-            id("content_recycler").findOne().children().forEach(child => { 
-
-                var target = child.findOne(id("video_list_entry_title"));
-                if(!found && target && target.text() && target.text()==title){
-                    found = true;
-                }
-            });
-            if(!found){
-                id("content_recycler").findOne().scrollForward();
-            }
-        
-            // log(found);
-        }
-        // id("content_recycler").findOne().scrollBackward();
-        // sleep(2000);
-
-        
+        id("content_recycler").findOne().scrollBackward();
+        sleep(2000);
     }
   
         // toPlayListDetail();
@@ -248,9 +215,4 @@ function deletePlayList(){
 // toVideo();
 // edit();
 // toBottom();
-addToPlayList();
-
-
-
-
-
+// addToPlayList();

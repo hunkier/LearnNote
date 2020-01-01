@@ -10,11 +10,15 @@ toast('开始执行脚本。。。');
 // var dir = "/mnt/sdcard/$MuMu共享文件夹/upload/";
 var dir = "/mnt/sdcard/$MuMu共享文件夹/Go语言核心编程/";
 // dir = '/mnt/sdcard/$MuMu共享文件夹/';
+// dir = '/mnt/sdcard/$MuMu共享文件夹/尚硅谷区块链技术之GoWeb/';
+dir = '/mnt/sdcard/$MuMu共享文件夹/尚硅谷-以太坊理论/';
 var jsFiles = files.listDir(dir, function(name){
     // return name.startsWith("09") && !name.startsWith("090") && name.endsWith(".avi") && files.isFile(files.join(dir, name));
     // return name.startsWith("11") && name.endsWith(".avi") && files.isFile(files.join(dir, name));
     // return name.endsWith(".avi") && files.isFile(files.join(dir, name));
-    return name.indexOf('尚硅谷_Go核心编程')!=-1 && files.isFile(files.join(dir, name));
+    return name.indexOf('尚硅谷')!=-1 
+    // && parseInt(name) > 10
+    && files.isFile(files.join(dir, name));
     // return true;
 });
 // var jsFiles = files.listDir(dir);
@@ -42,8 +46,9 @@ function upload(content){
     var file = 'file://' + dir + content;
     // var content = '091_尚硅谷_Go核心编程_for循环语法和执行流程.avi';
     // file += content;
-   
+   log(file);
     var uri = app.getUriForFile(file);
+    log(uri);
     app.startActivity({
         action: "android.intent.action.SEND",
         type: "video/*",
@@ -105,7 +110,9 @@ function upload(content){
         if(msg){
             if(
                 msg.indexOf('视频已就绪')!=-1
-            ||msg.indexOf('正在处理…')!=-1
+            // ||msg.indexOf('正在处理…')!=-1
+            ||msg.indexOf('已处理 9')!=-1
+            ||msg.indexOf('已上传 99')!=-1
             ){
                 break;
             }

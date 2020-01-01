@@ -29,7 +29,9 @@ function deleteVedio(){
         log('删除成功： ' +title);
     });
 }
-var item = id('pending_video_upload_item').findOne();
+
+function test(){
+    var item = id('pending_video_upload_item').findOne();
 // log(item);
 var title = item.findOne(id("title")).text;
         var target = item.findOne(id("contextual_menu_anchor"));
@@ -44,5 +46,6 @@ var title = item.findOne(id("title")).text;
         text('是').findOne().click();
         sleep(1000);
         log('删除成功： ' +title);
+}
 
-// deleteVedio();
+deleteVedio();
