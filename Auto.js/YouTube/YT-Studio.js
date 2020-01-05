@@ -156,11 +156,10 @@ function setPlayList(playList){
         var obj = undefined;
         id("mde_linear_list_view").findOne().children().forEach(child => {
             var target = child.findOne(id("add_to_playlist_title"));
-            if(!obj && target && target.text()=='go语言基础'){
+            if(!obj && target && target.text()==playList){
                 obj = child;
-                
+                return;
             }
-            
             });
         // toSDelay(1);
         obj.click();
@@ -173,56 +172,43 @@ function addToPlayList(){
 
     var num = 75;
     while (true){
-        log(num);
+        // log(num);
         var item = undefined;
         var title = '';
+        var titles = [];
         id("content_recycler").waitFor();
         id("content_recycler").findOne().children().forEach(child => { 
 
             var target = child.findOne(id("video_list_entry_title"));
-            if(title =='' && target && target.text() && target.text().startsWith("0"+num) ){
+            // if(title =='' && target && target.text() && target.text().startsWith("0"+num) ){
+            if(target && target.text() && target.text().indexOf('Go核心编程')!=-1 ){
                 title = target.text();
+                
                 // log(parseInt(title));
                 log(parseInt(JSON.stringify(title)),parseInt(title),title);
                 // var tt = text(t).findOnce();
                 // target.parent().parent().click();
                 // toEdit();
-                item = child;
-                num++;
-                
+                // item = child;
+                // num++;
+                titles.push(title);
             }
         
         });
-        text(title).findOne().parent().parent().click();
-        // item.click();
-        toEdit();
+        titles.sort();
+        // log(titles);
+        titles.forEach(content =>{
+            id("content_recycler").waitFor();
+            text(content).waitFor();
+            // log(content);
+            text(content).findOne().parent().parent().click();
+            toEdit();
+        });
         id("content_recycler").waitFor();
-        var found = false;
-        while(!found){
-            id("content_recycler").findOne().children().forEach(child => { 
-
-                var target = child.findOne(id("video_list_entry_title"));
-                if(!found && target && target.text() && target.text()==title){
-                    found = true;
-                }
-            });
-            if(!found){
-                id("content_recycler").findOne().scrollForward();
-            }
-        
-            // log(found);
-        }
-        // id("content_recycler").findOne().scrollBackward();
-        // sleep(2000);
-
-        
+        id("content_recycler").findOne().scrollBackward();
+        sleep(2000);
     }
-  
-        // toPlayListDetail();
-        // id("content_recycler").findOne().scrollForward();
-        // sleep(200);
-        
-    
+
 }
 
 function toBottom(){

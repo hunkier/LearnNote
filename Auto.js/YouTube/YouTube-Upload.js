@@ -11,12 +11,17 @@ toast('开始执行脚本。。。');
 var dir = "/mnt/sdcard/$MuMu共享文件夹/Go语言核心编程/";
 // dir = '/mnt/sdcard/$MuMu共享文件夹/';
 // dir = '/mnt/sdcard/$MuMu共享文件夹/尚硅谷区块链技术之GoWeb/';
-dir = '/mnt/sdcard/$MuMu共享文件夹/尚硅谷-以太坊理论/';
+// dir = '/mnt/sdcard/$MuMu共享文件夹/尚硅谷-以太坊理论/';
+// dir = '/mnt/sdcard/$MuMu共享文件夹/硅谷拍卖系统/';
+// dir = '/mnt/sdcard/$MuMu共享文件夹/经典Java面试题/';
+// dir = '/mnt/sdcard/$MuMu共享文件夹/互联网大厂高频重点面试题/';
+dir = '/mnt/sdcard/$MuMu共享文件夹/Netty核心技术及源码剖析/';
 var jsFiles = files.listDir(dir, function(name){
     // return name.startsWith("09") && !name.startsWith("090") && name.endsWith(".avi") && files.isFile(files.join(dir, name));
     // return name.startsWith("11") && name.endsWith(".avi") && files.isFile(files.join(dir, name));
     // return name.endsWith(".avi") && files.isFile(files.join(dir, name));
-    return name.indexOf('尚硅谷')!=-1 
+    return name.endsWith(".avi")
+    // name.indexOf('尚硅谷')!=-1 
     // && parseInt(name) > 10
     && files.isFile(files.join(dir, name));
     // return true;
@@ -112,12 +117,31 @@ function upload(content){
                 msg.indexOf('视频已就绪')!=-1
             // ||msg.indexOf('正在处理…')!=-1
             ||msg.indexOf('已处理 9')!=-1
-            ||msg.indexOf('已上传 99')!=-1
+            ||msg.indexOf('无人观看')!=-1
+            ||msg.indexOf('此视频可以观看啦')!=-1
+            // ||msg.indexOf('已上传 99')!=-1
             ){
                 break;
             }
         }
-        msg = text(content).findOne().parent().findOne(className("android.widget.TextView").id("upload_status_message")).text();
+        text(content).waitFor();
+        // id("upload_status_message").waitFor();
+        // msg = text(content).findOne().parent().findOne(className("android.widget.TextView").id("upload_status_message")).text();
+        var parent = text(content).findOne().parent();
+        while(!parent){
+            parent = text(content).findOne().parent();
+        }
+        var statusMessage = parent.findOne(id("upload_status_message"));
+        if(!statusMessage){
+            statusMessage = parent.findOne(id("upload_status_detailed_message"));
+        }
+        if(!statusMessage){
+            statusMessage = parent.findOne(id("details"));
+        }
+        if (statusMessage){
+            msg = statusMessage.text();
+        }
+        
         sleep(1*1000);
         i++;
     }
