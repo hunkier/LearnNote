@@ -6,8 +6,10 @@ auto.setMode("normal");
 
 
 function addToPlayList(paylist){
+    var last = 'last';
 
     while(true){
+        var now = 'now';
         var listView = className("android.support.v7.widget.RecyclerView").id('results').findOne();
         // log(listView);
         var title = '';
@@ -26,7 +28,10 @@ function addToPlayList(paylist){
                 // toEdit();
                 // item = child;
                 // num++;
-                titles.push(title);
+                if(now.indexOf(title)==-1 && last.indexOf(text)==-1){
+                    titles.push(title);
+                    now += title;
+                }
             }
         
         });
@@ -34,8 +39,18 @@ function addToPlayList(paylist){
         // log(titles);
         titles.forEach(content =>{
             // id("content_recycler").waitFor();
-            text(content).waitFor();
-            add(paylist, content);
+            var obj = text(content).findOnce();
+            var i = 0;
+            while(obj==null && i <10){
+                sleep(50);
+                obj = text(content).findOnce();
+                i++ ;
+            }
+            if(obj){
+                text(content).waitFor();
+                add(paylist, content);
+            }
+            
             // log(content);
             // text(content).findOne().parent().parent().click();
             // toEdit();
@@ -45,10 +60,12 @@ function addToPlayList(paylist){
         listView = className("android.support.v7.widget.RecyclerView").id('results').findOne();
         listView.scrollBackward();
         sleep(1000);
+        last = now;
     }
 }
 
 function add(paylist, content){
+
 
     text(content).waitFor();
     // log(text(content).findOne().parent());
@@ -72,7 +89,10 @@ function add(paylist, content){
     log(content);
     sleep(100);
 }
-var paylist= '互联网大厂高频重点Java面试题';
+// text = 003-尚硅谷-Netty核心技术及源码剖析-应用场景和学习资料
+// var paylist= '互联网大厂高频重点Java面试题';
+// var paylist= 'Netty核心技术及源码剖析';
+var paylist= 'H5面试题大全第一季';
 addToPlayList(paylist);
 
 // var item = text(paylist).findOne().parent();

@@ -15,12 +15,15 @@ var dir = "/mnt/sdcard/$MuMu共享文件夹/Go语言核心编程/";
 // dir = '/mnt/sdcard/$MuMu共享文件夹/硅谷拍卖系统/';
 // dir = '/mnt/sdcard/$MuMu共享文件夹/经典Java面试题/';
 // dir = '/mnt/sdcard/$MuMu共享文件夹/互联网大厂高频重点面试题/';
-dir = '/mnt/sdcard/$MuMu共享文件夹/Netty核心技术及源码剖析/';
+// dir = '/mnt/sdcard/$MuMu共享文件夹/Netty核心技术及源码剖析/';
+// dir = '/mnt/sdcard/$MuMu共享文件夹/尚硅谷H5学科_面试题大全_第一季/';
+dir = '/mnt/sdcard/$MuMu共享文件夹/明哥的沟通技巧八堂课/';
 var jsFiles = files.listDir(dir, function(name){
     // return name.startsWith("09") && !name.startsWith("090") && name.endsWith(".avi") && files.isFile(files.join(dir, name));
     // return name.startsWith("11") && name.endsWith(".avi") && files.isFile(files.join(dir, name));
     // return name.endsWith(".avi") && files.isFile(files.join(dir, name));
-    return name.endsWith(".avi")
+    // return name.endsWith(".avi")
+    return name.endsWith(".mp4")
     // name.indexOf('尚硅谷')!=-1 
     // && parseInt(name) > 10
     && files.isFile(files.join(dir, name));
