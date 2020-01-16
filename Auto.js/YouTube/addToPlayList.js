@@ -28,27 +28,36 @@ function addToPlayList(paylist){
                 // toEdit();
                 // item = child;
                 // num++;
-                if(now.indexOf(title)==-1 && last.indexOf(text)==-1){
+                if(
+                    now.indexOf(title)==-1
+                     && last.indexOf(title)==-1
+                    //  && title.indexOf('尚硅谷')!=-1
+                    //  && title.indexOf('尚硅谷')==-1
+                     && title.indexOf('尚硅谷_SpringCloud')!=-1
+                     ){
                     titles.push(title);
-                    now += title;
+        
                 }
             }
         
         });
         titles.sort();
-        // log(titles);
+        log(titles);
         titles.forEach(content =>{
-            // id("content_recycler").waitFor();
+            className("android.support.v7.widget.RecyclerView").id('results').waitFor();
             var obj = text(content).findOnce();
+            // var obj = text(content).findOne();
             var i = 0;
-            while(obj==null && i <10){
+            while(obj==null && i <30){
                 sleep(50);
                 obj = text(content).findOnce();
                 i++ ;
             }
+            // console.log(obj);
             if(obj){
-                text(content).waitFor();
+                // text(content).waitFor();
                 add(paylist, content);
+                now += content;
             }
             
             // log(content);
@@ -59,7 +68,7 @@ function addToPlayList(paylist){
         // id("content_recycler").findOne().scrollBackward();
         listView = className("android.support.v7.widget.RecyclerView").id('results').findOne();
         listView.scrollBackward();
-        sleep(1000);
+        sleep(3000);
         last = now;
     }
 }
@@ -92,7 +101,8 @@ function add(paylist, content){
 // text = 003-尚硅谷-Netty核心技术及源码剖析-应用场景和学习资料
 // var paylist= '互联网大厂高频重点Java面试题';
 // var paylist= 'Netty核心技术及源码剖析';
-var paylist= 'H5面试题大全第一季';
+// var paylist= 'H5面试题大全第一季';
+var paylist= 'SpringCloud';
 addToPlayList(paylist);
 
 // var item = text(paylist).findOne().parent();

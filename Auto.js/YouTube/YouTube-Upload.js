@@ -17,13 +17,17 @@ var dir = "/mnt/sdcard/$MuMu共享文件夹/Go语言核心编程/";
 // dir = '/mnt/sdcard/$MuMu共享文件夹/互联网大厂高频重点面试题/';
 // dir = '/mnt/sdcard/$MuMu共享文件夹/Netty核心技术及源码剖析/';
 // dir = '/mnt/sdcard/$MuMu共享文件夹/尚硅谷H5学科_面试题大全_第一季/';
-dir = '/mnt/sdcard/$MuMu共享文件夹/明哥的沟通技巧八堂课/';
+// dir = '/mnt/sdcard/$MuMu共享文件夹/明哥的沟通技巧八堂课/';
+// dir = '/mnt/sdcard/$MuMu共享文件夹/明哥的职场礼仪七堂课/';
+// dir = '/mnt/sdcard/$MuMu共享文件夹/求职指导视频/';
+// dir = '/mnt/sdcard/$MuMu共享文件夹/数据库中间件Mycat教程/';
+dir = '/mnt/sdcard/$MuMu共享文件夹/SpringCloud/';
 var jsFiles = files.listDir(dir, function(name){
     // return name.startsWith("09") && !name.startsWith("090") && name.endsWith(".avi") && files.isFile(files.join(dir, name));
     // return name.startsWith("11") && name.endsWith(".avi") && files.isFile(files.join(dir, name));
     // return name.endsWith(".avi") && files.isFile(files.join(dir, name));
-    // return name.endsWith(".avi")
-    return name.endsWith(".mp4")
+    return name.endsWith(".avi")
+    // return name.endsWith(".mp4")
     // name.indexOf('尚硅谷')!=-1 
     // && parseInt(name) > 10
     && files.isFile(files.join(dir, name));
@@ -73,6 +77,8 @@ function upload(content){
     
     // sleep(500);
     content = content.replace('.avi','');
+    content = content.replace('.mp4','');
+    content = content.replace('【交流群244930845免费分享】','');
     text('编程视频教程').waitFor();
     // text('标题').click();  
     id("title_edit").findOne().click();
@@ -119,6 +125,8 @@ function upload(content){
             if(
                 msg.indexOf('视频已就绪')!=-1
             // ||msg.indexOf('正在处理…')!=-1
+            ||msg.indexOf('处理')!=-1
+            ||msg.indexOf('已处理')!=-1
             ||msg.indexOf('已处理 9')!=-1
             ||msg.indexOf('无人观看')!=-1
             ||msg.indexOf('此视频可以观看啦')!=-1
