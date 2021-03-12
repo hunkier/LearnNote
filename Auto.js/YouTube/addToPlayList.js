@@ -20,6 +20,7 @@ function addToPlayList(paylist){
             // if(target && target.text() && target.text().indexOf('Go核心编程')!=-1 ){
             if(target && target.text() ){
                 title = target.text();
+                log(title);
                 
                 // log(parseInt(title));
                 // log(parseInt(JSON.stringify(title)),parseInt(title),title);
@@ -33,12 +34,14 @@ function addToPlayList(paylist){
                      && last.indexOf(title)==-1
                     //  && title.indexOf('尚硅谷')!=-1
                     //  && title.indexOf('尚硅谷')==-1
-                     && title.indexOf('尚硅谷_SpringCloud')!=-1
+                    //  && title.indexOf('尚硅谷_SpringCloud')!=-1
                      ){
                     titles.push(title);
         
                 }
             }
+
+            
         
         });
         titles.sort();
@@ -89,6 +92,7 @@ function add(paylist, content){
     var item = text(paylist).findOne().parent();
     var checkbox = item.findOne(id("checkbox"));
     if(checkbox.checked()==false){
+    // if(checkbox.checked()==true){
         // log(checkbox.checked());
         item.click();
     }
@@ -102,7 +106,48 @@ function add(paylist, content){
 // var paylist= '互联网大厂高频重点Java面试题';
 // var paylist= 'Netty核心技术及源码剖析';
 // var paylist= 'H5面试题大全第一季';
-var paylist= 'SpringCloud';
+// var paylist= 'SpringCloud';
+// var paylist= 'JVM从入门到精通';
+// var paylist= 'SpringData';
+// var paylist= 'SVN';
+// var paylist= 'Docker';
+// var paylist= 'Dubbo';
+// var paylist= 'Java设计模式';
+// var paylist= 'IDEA教程';
+// var paylist= 'MySQL高级';
+// var paylist= 'Redis';
+// var paylist= 'nginx';
+// var paylist= 'Shiro';
+// var paylist= 'SpringBoot';
+// var paylist= 'SpringBoot整合篇';
+// var paylist= 'Spring 4';
+// var paylist= 'Git&GitHub';
+// var paylist= 'Hibernate';
+// var paylist= 'maven';
+// var paylist= 'JPA';
+// var paylist= 'Jenkkins';
+// var paylist= 'MyBatis';
+// var paylist= 'MyBatisPlus';
+// var paylist= 'RBAC权限实战';
+// var paylist= 'SpringData';
+// var paylist= 'SpringMVC';
+// var paylist= 'Spring Annotation 注解驱动开发';
+// var paylist= 'Struts2';
+// var paylist= 'Spring4 + Struts2.3 + Hibernate4 整合案例';
+// var paylist= 'Spring + SpringMVC + MyBatis 高级整合';
+// var paylist= 'SpringMVC + Spring + SpringData\JPA 整合案例';
+// var paylist= 'JDBC核心技术(2019新版)';
+// var paylist= 'MySQL核心技术';
+// var paylist= 'Java数据结构和算法';
+// var paylist = 'SpringCloud2020';
+// var paylist = 'Java14新特性';
+// var paylist = 'Java8新特性';
+// var paylist = 'java.util.concurrent';
+// var paylist = 'JUC';
+// var paylist = 'Java9新特性';
+// var paylist = 'Java11新特性';
+// var paylist = '深入解读Java12&13新特性';
+// var paylist = '谷粒商城';
 addToPlayList(paylist);
 
 // var item = text(paylist).findOne().parent();

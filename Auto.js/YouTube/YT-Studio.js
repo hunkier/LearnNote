@@ -104,22 +104,21 @@ function edit(){
     toSDelay(1);
     // id("mde_linear_list_view").findOne().scrollBackward();
     // if(text('添加新标签').exists()){
-    // if(text('添加新标签').exists()){
-    //     text('添加新标签').click();
-    //     setText(2,'go,golang');
-    // }
-    id("add_to_playlist_button").waitFor();
-  
-    var b = id("add_to_playlist_button").findOne();
-    var playList = 'go语言基础';
-    // if(b && b.text()=='添加到播放列表'){
-    // if(b && b.text()=='go语言基础'){
-    
-    while(b && b.text()!=playList){
-        setPlayList(playList);
-        id("add_to_playlist_button").waitFor();
-        b = id("add_to_playlist_button").findOne();
+    if(text('添加新标签').exists()){
+        text('添加新标签').click();
+        setText(2,'java');
     }
+
+    // if(text("草稿").exists()){
+    //     text("草稿").click();
+    //     text("公开").waitFor();
+    //     text("公开").click();
+    // }
+    click(0,886,600,1001);
+    toSDelay(1);
+    click(0,440,600,555);
+
+
 
     text("保存").waitFor();
 
@@ -181,7 +180,9 @@ function addToPlayList(){
 
             var target = child.findOne(id("video_list_entry_title"));
             // if(title =='' && target && target.text() && target.text().startsWith("0"+num) ){
-            if(target && target.text() && target.text().indexOf('Go核心编程')!=-1 ){
+            if(target && target.text() 
+            // && target.text().indexOf('Go核心编程')!=-1
+             ){
                 title = target.text();
                 
                 // log(parseInt(title));
@@ -193,6 +194,7 @@ function addToPlayList(){
                 // num++;
                 titles.push(title);
             }
+            
         
         });
         titles.sort();

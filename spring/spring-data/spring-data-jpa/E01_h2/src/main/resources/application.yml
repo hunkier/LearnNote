@@ -1,0 +1,14 @@
+
+logging:
+  level:
+    cn:
+      hunkier: DEBUG
+
+    org:
+      zalando:
+        problem: DEBUG
+      hibernate: DEBUG
+      springframework:
+        data: DEBUG
+        jdbc: DEBUG
+        security: DEBUG

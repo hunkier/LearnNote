@@ -53,13 +53,13 @@ public class SwitchyOmegaUtil {
     public static void main(String[] args) throws Exception {
 
 
-/*
-    final JSONObject base_JsonObject = getSwitchyOmegaConfigure(null);
+
+    final JSONObject base_JsonObject = getSwitchyOmegaConfigure(null,null);
 //        System.out.println(base_JsonObject.toJSONString());
         final File file = new File("target/backup.json");
 //        System.out.println(file.getAbsolutePath());
         FileUtil.writeString(base_JsonObject.toJSONString(), file, HTTP.UTF_8);
-*/
+
 
 
 /*
