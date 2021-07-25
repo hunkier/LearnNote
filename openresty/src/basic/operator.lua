@@ -6,12 +6,12 @@
 --Lua 的算术运算符如下表所示：
 --
 --算术运算符	说明
---+	加法
----    减法
---*	乘法
---/	除法
---^	指数
---%	取模
+--      +	加法
+--      -    减法
+--      *	乘法
+--      /	除法
+--      ^	指数
+--      %	取模
 
 print("-----------算术运算符-----------")
 print( 1 + 2)
@@ -19,3 +19,157 @@ print(5/10)    ---> 打印 0.5
 print(5.0/10)  ---> 打印 0.5
 --print(10/0)  ---> 注意除数不能为零
 print(2 ^ 10)  ---> 打印 1024。 求 2 的 10 次方
+
+local num = 1357
+print(num % 2)          ---> 打印 1
+print((num % 2) == 1 )  ---> 打印 true。判断 num 是否为奇数
+print((num % 5) == 0)   ---> 打印 false。判断 num 是否能被 5 整除
+
+--关系运算符
+--  关系运算符	说明
+--        <	    小于
+--        >	    大于
+--        <=	小于等于
+--        >=	大于等于
+--        ==	等于
+--        ~=	不等于
+
+print("-----------关系运算符-----------")
+print(1 < 2)        ---> 打印 true
+print(1 == 2)        ---> 打印 false
+print(1 ~= 2)        ---> 打印 true
+local a, b = true, false
+print(a == b)        ---> 打印 false
+
+-- 注意：Lua 语言中“不等于”运算符的写法为：~=
+--
+--在使用“==”做等于判断时，要注意对于 table, userdate 和函数， Lua 是作引用比较的。
+--也就是说，只有当两个变量引用同一个对象时，才认为它们相等。可以看下面的例子：
+
+local a = { x = 1, y = 0}
+local b = { x = 1, y = 0}
+if a == b then
+    print("a==b")
+else
+    print("a~=b")
+end
+
+-- 由于 Lua 字符串总是会被“内化”，即相同内容的字符串只会被保存一份，
+--因此 Lua 字符串之间的相等性比较可以简化为其内部存储地址的比较。这意味着 Lua 字符串的相等性比较总是为 O(1)。
+--而在其他编程语言中，字符串的相等性比较则通常为 O(n)，即需要逐个字节（或按若干个连续字节）进行比较。
+
+--逻辑运算符
+--    逻辑运算符	    说明
+--        and	    逻辑与
+--        or	    逻辑或
+--        not	    逻辑非
+
+--Lua 中的 and 和 or 是不同于 C 语言的。在 C 语言中，and 和 or 只得到两个值 1 和 0，其中 1 表示真，0 表示假。
+--而 Lua 中 and 的执行过程是这样的：
+--
+--a and b:
+--    若 a 为 nil 或 false，b 为任意的真值，则返回 a （即 nil 或 false），与出现顺序无关;
+--    若 a 为 nil，b 为 false，则哪个 先出现 就返回哪个（短路求值）;
+--    若 a，b 均为真值，则返回 后出现 的那个值。
+--a or b:
+--    若 a 为 nil 或 false，b 为任意的真值，则返回 b （即真值），与出现顺序无关;
+--    若 a 为 nil，b 为 false，则返回 后出现 的那个;
+--    若 a，b 均为真值，则返回 先出现 的那个值（短路求值）。
+
+print("------------- 逻辑运算符 -------------")
+local c = nil
+local d = 0
+local e = 100
+local f = false
+
+print("---------- and -------------")
+print(c and d)      ---> nil
+print(d and c)      ---> nil
+
+print(c and e)      ---> nil
+print(e and c)      ---> nil
+
+print(c and f)      ---> nil
+print(f and c)      ---> false
+
+print(d and e)      ---> 100
+print(e and d)      ---> 0
+
+print(d and f)      ---> false
+print(f and d)      ---> false
+
+print("--------------- or -----------------")
+
+print(c or d)       ---> 0
+print(d or c)       ---> 0
+
+print(d or e)       ---> 0
+print(e or d)       ---> 100
+
+print(d or f)       ---> 0
+print(f or d)       ---> 100
+
+print("--------------- not ------------------")
+print(not c)        ---> true
+print(not d)        ---> false
+print(not e)        ---> false
+print(not f)        ---> true
+
+-- 注意：所有逻辑操作符将 false 和 nil 视作假，其他任何值视作真，
+-- 对于 and 和 or，“短路求值”，对于 not，永远只返回 true 或者 false。
+
+-- 字符串连接
+--在 Lua 中连接两个字符串，可以使用操作符“..”（两个点）。
+--如果其中任意一个操作数是数字的话，Lua 会将这个数字转换成字符串。
+--注意，连接操作符只会创建一个新字符串，而不会改变原操作数。
+--也可以使用 string 库函数 string.format 连接字符串。
+
+print("----------- string -----------")
+print("Hello " .. "World")      ---> Hello World
+print(0 .. 1)                   ---> 01
+
+str1 = string.format("%s-%s","hello","world")
+print(str1)                     ---> hello-world
+
+str2 = string.format("%d-%s-%.2f",123,"world",1.23)
+print(str2)                     ---> 123-world-1.21
+
+--由于 Lua 字符串本质上是只读的，因此字符串连接运算符几乎总会创建一个新的（更大的）字符串。
+--这意味着如果有很多这样的连接操作（比如在循环中使用 .. 来拼接最终结果），则性能损耗会非常大。
+--在这种情况下，推荐使用 table 和 table.concat() 来进行很多字符串的拼接，例如：
+local pieces = {}
+local my_list = {1,3,5,7}
+for i, elem in ipairs(my_list) do
+    pieces[i] = string.format("%d-",elem)
+end
+
+local res = table.concat(pieces)
+print(res)
+
+--当然，上面的例子还可以使用 LuaJIT 独有的 table.new 来恰当地初始化 pieces 表的空间，
+--以避免该表的动态生长。这个特性我们在后面还会详细讨论。
+
+--优先级
+--Lua 操作符的优先级如下表所示(从高到低)：
+--
+--序号	操作符	优先级
+--1	    ^	        高
+--2	    not   # -	↓
+--3	    *   /   %	↓
+--4	        +   -	↓
+--5	        ..	    ↓
+--6	< > <=  >=  ==  ~=	↓
+--7	    and	        ↓
+--8	    or	        低
+
+print("------------优先级-------------")
+local m, n = 1, 2
+local x, y = 3, 4
+local i = 10
+local res = 0
+res = m + i < n/2 + 1           ---> 等价于 res = (m + i) < ((n/2) + 1)
+res = 5 + x^2*8                 ---> 等价于 res = 5 + ((x^2) * 8)
+res = m < y and y <= x          ---> 等价于 res = (m < y) and (y <= x)
+---
+---若不确定某些操作符的优先级，就应显式地用括号来指定运算顺序。这样做还可以提高代码的可读性。
+---
