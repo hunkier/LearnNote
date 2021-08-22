@@ -1,0 +1,1 @@
+tiup cluster deploy  tidb-test v5.1.1 ./topo.yaml --user tidb

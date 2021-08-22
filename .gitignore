@@ -18,3 +18,5 @@ old/JavaEE/javaee.iml
 venv
 
 .DS_Store
+/tidb/lightning/nohup.out
+/tidb/lightning/tidb-lightning.log
