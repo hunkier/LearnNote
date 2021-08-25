@@ -18,11 +18,11 @@ data-source-dir = "/tmp/test"
 #filter = ['*.*', '!mysql.*', '!sys.*', '!INFORMATION_SCHEMA.*', '!PERFORMANCE_SCHEMA.*', '!METRICS_SCHEMA.*', '!INSPECTION_SCHEMA.*']
 [tidb]
 # 目标集群的信息
-host = "localhost"
+host = "192.168.33.10"
 port = 4000
 user = "root"
 password = ""
 # 表架构信息在从 TiDB 的“状态端口”获取。
 status-port = 10080
 # 集群 pd 的地址
-pd-addr = "localhost:2379"
+pd-addr = "192.168.33.10:2379"

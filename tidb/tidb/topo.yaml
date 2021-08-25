@@ -24,35 +24,35 @@ server_configs:
    logger.level: "info"
 
 pd_servers:
- - host: localhost
+ - host: 192.168.33.10
 
 tidb_servers:
- - host: localhost
+ - host: 192.168.33.10
 
 tikv_servers:
- - host: localhost
+ - host: 192.168.33.10
    port: 20160
    status_port: 20180
    config:
      server.labels: { host: "logic-host-1" }
 
-#  - host: localhost
+#  - host: 192.168.33.10
 #    port: 20161
 #    status_port: 20181
 #    config:
 #      server.labels: { host: "logic-host-2" }
 #
-#  - host: localhost
+#  - host: 192.168.33.10
 #    port: 20162
 #    status_port: 20182
 #    config:
 #      server.labels: { host: "logic-host-3" }
 
 tiflash_servers:
- - host: localhost
+ - host: 192.168.33.10
 
 monitoring_servers:
- - host: localhost
+ - host: 192.168.33.10
 
 grafana_servers:
- - host: localhost
+ - host: 192.168.33.10

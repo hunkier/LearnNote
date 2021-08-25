@@ -7,21 +7,21 @@ global:
   # arch: "amd64"
 
 master_servers:
-  - host: localhost
+  - host: 192.168.33.10
 
 worker_servers:
-  - host: localhost
+  - host: 192.168.33.10
 
 monitoring_servers:
-  - host: localhost
+  - host: 192.168.33.10
     port: 9091
 
 grafana_servers:
-  - host: localhost
+  - host: 192.168.33.10
     port: 3001
 
 alertmanager_servers:
-  - host: localhost
+  - host: 192.168.33.10
     web_port: 9096
     cluster_port: 9097
   

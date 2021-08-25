@@ -55,10 +55,11 @@ net.ipv4.ip_forward=1
 
 EOF
 
-#修改 root 用户密码
-sudo echo tidb | passwd --stdin root
+#  修改 root账号密码
+echo tidb | passwd --stdin root
 # 添加 tidb 用户
 sudo useradd tidb && echo tidb | passwd --stdin tidb
+# tidb 授予超级管理员权限
 sudo echo "tidb ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 # 允许远程 ssh 登录
 sudo sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
@@ -75,10 +76,10 @@ sudo yum install -y numactl telnet bridge-utils net-tools
 curl --proto '=https' --tlsv1.2 -sSf https://tiup-mirrors.pingcap.com/install.sh | sh
 source /root/.bash_profile
 #source ~/.bash_profile
-tiup install cluster pd tikv tidb tiflash prometheus grafana node_exporter blackbox_exporter dm dmctl tidb-lightning  br cdc dumpling
+tiup install cluster pd tikv tidb tiflash prometheus grafana node_exporter blackbox_exporter dm dmctl tidb-lightning tidb-lightning-ctl  br cdc dumpling
 
 # 免密登录
 #ssh-keygen -t rsa
 #ssh-copy-id -i ~/.ssh/id_rsa.pub tidb@localhost
-chmod a+x /home/vagrant/*.sh
-chmod a+x /home/vagrant/*/*.sh
+chmod a+x /tidb/config/*.sh
+chmod a+x /tidb/config/*/*.sh
