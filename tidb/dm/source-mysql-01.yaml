@@ -1,0 +1,16 @@
+source-id: "mysql-01"    # 数据源 ID，在数据迁移任务配置和 dmctl 命令行中引用该 source-id 可以关联到对应的数据源
+
+# 是否开启 GTID
+enable-gtid: false
+
+# 是否开启 relay log
+enable-relay: false       # 该配置项从 DM v2.0.2 版本起弃用，使用 `start-relay` 命令开启 relay log
+relay-binlog-name: ""     # 拉取上游 binlog 的起始文件名
+relay-binlog-gtid: ""     # 拉取上游 binlog 的起始 GTID
+relay-dir: "./relay_log"  # 存储 relay log 的目录，默认值为 "./relay_log"
+
+from:
+  host: "192.168.33.1"
+  port: 3308
+  user: "root"
+  password: "NbqF8+3CJ8TeAxF2X/uBmED3qwvT7BQ=" # 推荐使用 dmctl 对上游数据源的用户密码加密之后的密码
