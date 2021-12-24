@@ -40,5 +40,8 @@ with open('weapon.txt') as f:
             weapon_dict[weapon_name] = weapon_number
         i += 1
 
-weapon_sorted = sorted(weapon_dict.items(), key=lambda item: item[1], reverse=True)
+weapon_sorted = sorted(
+    weapon_dict.items(),
+    key=lambda item: item[1],
+    reverse=True)
 print(weapon_sorted)

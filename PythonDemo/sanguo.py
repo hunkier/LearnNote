@@ -20,4 +20,5 @@
 def func(filename):
     print(open(filename).read())
 
+
 func('name.txt')
