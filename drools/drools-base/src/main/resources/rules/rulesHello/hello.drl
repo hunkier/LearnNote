@@ -1,0 +1,8 @@
+package rules.rulesHello
+
+    rule "test001"
+        when
+            eval(true)
+        then
+            System.out.println("hello world");
+    end
